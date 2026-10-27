@@ -75,11 +75,15 @@
 
 ## 快速开始
 
-> **npm 尚未发布（v0.1.0 已打包待发布，流程见 [PUBLISHING.md](PUBLISHING.md)）。现在从源码安装。**
+> **npm 尚未发布。v0.1.0 已打进 [GitHub Release](https://github.com/sakikoTGW/dsh-plugin-tailor/releases/tag/v0.1.0)（含 `.tgz`）。二选一：**
 
 ```sh
+# 源码
 git clone https://github.com/sakikoTGW/dsh-plugin-tailor
 dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor
+
+# 或 Release 里的 tarball
+dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.1.0.tgz
 ```
 
 装完重启一次引擎，六个 `repo_*` 工具上线。之后改 `logic/` 下一次调用即生效，改 `host/register.js` 或 `index.js` 需要重启引擎。

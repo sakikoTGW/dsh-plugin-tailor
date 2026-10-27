@@ -72,7 +72,7 @@ CLI（5 次中位数）：`audit` 248 ms、`plan` 254 ms、`readme` 228 ms、`br
 
 - `assets/`：banner / icon / logo / social-preview / pipeline / styles 六个 SVG，`demo.gif`、`audit-resolver.png` 全部由真实输出渲染。
 - `npm pack` 包内容：`index.js`、`host/`、`logic/`、`bin/`、`cordis.patch.yml`、双语 README、docs、assets；`test/`、`bench/`、`.tailor/`、`demo/` 不进包（见 `npm pack --dry-run`）。
-- 包体积：**336.8 kB**（tarball）/ **499.1 kB**（unpacked），**35 个文件**。
+- 包体积：**227.4 kB**（tarball）/ **382.8 kB**（unpacked），**35 个文件**；GitHub Release 附带同一份 `.tgz`。
 
 ## 6. 已知限制（不掩饰）
 

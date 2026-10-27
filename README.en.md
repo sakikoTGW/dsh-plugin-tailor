@@ -75,11 +75,15 @@ What it does: **8 dimensions / 34 checks** for maturity, **7 style presets** for
 
 ## Quickstart
 
-> **Not on npm yet (v0.1.0 is packed and ready; see [PUBLISHING.md](PUBLISHING.md)). Install from source for now.**
+> **Not on npm yet. v0.1.0 ships as a [GitHub Release](https://github.com/sakikoTGW/dsh-plugin-tailor/releases/tag/v0.1.0) with a `.tgz`. Either path works:**
 
 ```sh
+# from source
 git clone https://github.com/sakikoTGW/dsh-plugin-tailor
 dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor
+
+# or the release tarball
+dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.1.0.tgz
 ```
 
 Restart the engine once and the six `repo_*` tools are live. After that, edits under `logic/` apply on the next call; edits to `host/register.js` or `index.js` need an engine restart.
