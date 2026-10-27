@@ -1,0 +1,105 @@
+# Style presets — 七种可选的 README 风格
+
+`repo_readme` 不替用户决定"哪种 README 好看"，而是把七种真实存在的 README 传统拆成 **layout + tone 预设**，让用户按项目类型选。每个预设只决定结构、首屏形态、徽章数量、语气和章节顺序；**内容仍然来自仓库事实**。
+
+## 先看共性：优秀仓库的 12 个特征
+
+看过的样本（[resolver](https://github.com/sakikoTGW/dsh-plugin-resolver)、[dsh-TUI](https://github.com/ccch1mneyyy/dsh-TUI)、[dsh-go](https://github.com/ccch1mneyyy/dsh-go)、[bubbletea](https://github.com/charmbracelet/bubbletea)、[sniffnet](https://github.com/GyulyVGC/sniffnet)、[1Panel](https://github.com/1Panel-dev/1Panel)、[doomemacs](https://github.com/doomemacs/doomemacs)）共同点：
+
+1. **首屏只说一件事**：一句定位 + 一个视觉锚点 + 一条安装命令。
+2. **视觉锚点只有一种**：banner、logo、GIF 或纯排版，四选一，不叠加。
+3. **徽章只放动态信息**：版本、CI、测试数、License；静态口号不放。
+4. **demo 必须是真的**：GIF 来自真实运行，截图带日期/版本，不摆拍。
+5. **安装命令可复制**：`dsh plugin ...` / `npm i -g ...` / `go install ...`，不写"详见文档"。
+6. **结构先于措辞**：先定 section 顺序，再写句子；长文进 docs/。
+7. **数字有口径**：每个 before/after 都指到 BENCHMARK 或测试。
+8. **主动写限制**：Known limitations / 非目标 / 安全边界，反而增加可信度。
+9. **反馈入口明确**：Issues、Discussions、安全报告渠道分开写。
+10. **双语是结构对等**，不是机翻：两页同样章节、同样数字、互相链接。
+11. **重复信息只出现一次**：README 给入口，docs/ 给细节。
+12. **发布物和仓库一致**：tag、CHANGELOG、包清单、市场收录互相对得上。
+
+## 预设矩阵
+
+| id | 来源 | 语言 | hero | demo | 徽章 | 适合 |
+|---|---|---|---|---|---|---|
+| `resolver` | [dsh-plugin-resolver](https://github.com/sakikoTGW/dsh-plugin-resolver) | 双语 | banner | GIF | 6 | 有基准/测试、需要把数字放前面的工程仓库 |
+| `dsh-tui` | [dsh-TUI](https://github.com/ccch1mneyyy/dsh-TUI) | 双语 | 居中 logo | GIF | 5 | 有品牌 logo、愿意维护双语页面的工具 |
+| `dsh-go` | [dsh-go](https://github.com/ccch1mneyyy/dsh-go) | 中文优先 | banner | 截图 | 4 | App / 移动端 / 有社群入口的产品 |
+| `bubbletea` | [bubbletea](https://github.com/charmbracelet/bubbletea) | 英文优先 | logo | GIF | 3 | 开发者工具 / TUI，用 GIF 证明手感 |
+| `sniffnet` | [sniffnet](https://github.com/GyulyVGC/sniffnet) | 英文优先 | 品牌 banner | 截图 | 4 | 面向普通用户、首屏就要下载入口 |
+| `1panel` | [1Panel](https://github.com/1Panel-dev/1Panel) | 双语 | 居中 logo | GIF | 3 | 面板 / 平台类产品，截图多于文字 |
+| `doomemacs` | [doomemacs](https://github.com/doomemacs/doomemacs) | 英文优先 | 无图 | 无 | 2 | 成熟工具 / 框架，靠排版和链接密度 |
+
+## 各预设细节
+
+### `resolver` — 证据优先 · 双语
+
+- **首屏**：banner → 语言切换 → 6 徽章 → H1 → 一句定位 → demo GIF
+- **章节**：目录 → 为什么需要它 → 怎么工作 → 快速开始 → 功能 → 效果与证据 → 结构 → 测试与 CI → 已知限制 → 反馈与安全 → License
+- **语气**：工程口吻，短句、具体、写限制
+- **复制自**：resolver v0.1.3 的 README（本身又被本插件审计过，84/100）
+- **选取条件**：你有基准/测试/明确取舍，且希望数字出现在第一屏
+
+### `dsh-tui` — 居中 Logo · 双语
+
+- **首屏**：语言切换 → 居中 logo（240px）→ 5 flat-square 徽章 → H1 → demo GIF
+- **章节**：目录 → 为什么是它 → 亮点 → 安装 → 截图 → 证据 → 兼容性 → 社区 → License
+- **语气**：产品说明会，先说"像什么、怎么用"
+- **选取条件**：有真正的 logo，愿意维护中英两页
+
+### `dsh-go` — 移动端 · 社群驱动
+
+- **首屏**：语言切换 → hero 图 → 4 徽章 → H1 → 截图组
+- **章节**：截图 → 为什么做它 → 能做什么 → 安装与下载 → 遥控电脑 → FAQ → 社区 → 致谢 → License
+- **语气**：对用户说话，亲切、承认内测与限制
+- **选取条件**：App / 移动端 / 有 QQ 群、论坛等社群入口
+- **注意**：这个预设需要真实截图；没有截图时 `repo_audit` 会给出 style gap
+
+### `bubbletea` — GIF 开场 · 教程感
+
+- **首屏**：logo → 3 徽章 → 全宽 GIF → 直接进教程
+- **章节**：安装 → 特性 → 教程 → 谁在用 → 反馈 → License
+- **语气**：轻松、短句、一点幽默
+- **选取条件**：TUI / 开发者工具，手感比功能列表更重要
+
+### `sniffnet` — 品牌横幅 · 产品页
+
+- **首屏**：深色 banner + 下载按钮 + 功能表 + 截图
+- **章节**：截图 → 功能 → 下载 → 安装方式 → 性能 → 社区 → License
+- **语气**：落地页，一句话一个动作
+- **选取条件**：面向普通用户，首屏目标就是下载
+
+### `1panel` — 居中品牌 · 国际化
+
+- **首屏**：居中 logo + 一句话定位 + 语言切换 + 3 徽章
+- **章节**：功能 → 截图 → 开始使用 → 快速开始 → 社区 → License
+- **语气**：官网简介，定位清楚
+- **选取条件**：面板/平台类产品，截图比文字多
+
+### `doomemacs` — 极简排版 · 无图
+
+- **首屏**：居中标题 + 一行横向导航 + 2 徽章
+- **章节**：安装 → 特性 → 用法 → 文档 → 说明 → License
+- **语气**：手册口吻，陈述句、克制
+- **选取条件**：成熟工具/框架，已有大量文档，不需要视觉锚点
+
+## 风格如何影响生成
+
+| 维度 | 预设字段 | 对生成的影响 |
+|---|---|---|
+| 首屏 | `hero` | 放 banner / logo / 无图；缺素材时写 TODO 并给出 `repo_brand` 任务 |
+| 演示 | `demo` | 放 GIF / 截图 / 不放；缺素材时进 TODO |
+| 徽章 | `badgeSet` | 决定渲染哪些 shields 徽章，只渲染有事实的 |
+| 结构 | `sections` | 决定章节及顺序；`toc` 自动生成锚点 |
+| 文案 | `labels` + `tone` | 章节标题与语气；正文仍来自 facts |
+| 品牌 | `palette` + `mark` | `repo_brand` 的调色板与图标字形 |
+| 语言 | `language` | 双语 / 中文优先 / 英文优先，以及语言切换行 |
+
+## 常见问题
+
+**能改预设吗？** 能。`logic/styles.mjs` 是纯数据；加一个对象、在 `sections` 里组合已有 section id 即可。新增 section 需要在 `logic/readme.mjs` 加一个 renderer。
+
+**能自动选风格吗？** v0.1 不做自动选。`repo_audit` 会报告"当前事实满足哪些预设 / 缺什么"，选择权留给用户。
+
+**生成的内容能直接发吗？** 不能。草稿里的 `TODO(tailor)` 是给你填的；`repo_verify` 会把剩余 TODO 作为 warn 报出来。

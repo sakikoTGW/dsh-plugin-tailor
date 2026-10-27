@@ -1,0 +1,67 @@
+{
+  "name": "dsh-plugin-tailor",
+  "version": "0.1.0",
+  "description": "Tailor a repository to fit: audit it across 8 maturity dimensions, pick one of seven README styles (resolver / dsh-tui / dsh-go / bubbletea / sniffnet / 1panel / doomemacs), draft a bilingual README, generate deterministic brand assets, and verify links before publishing.",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "dsh-repo-tailor": "./bin/tailor.mjs"
+  },
+  "files": [
+    "index.js",
+    "host",
+    "logic",
+    "bin",
+    "cordis.patch.yml",
+    "README.md",
+    "README.en.md",
+    "BENCHMARK.md",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+    "PUBLISHING.md",
+    "docs",
+    "assets"
+  ],
+  "scripts": {
+    "test": "node --test test/tailor.test.mjs",
+    "tailor": "node bin/tailor.mjs"
+  },
+  "engines": {
+    "node": ">=20",
+    "dsh": ">=0.2.0-rc.2 <0.3.0"
+  },
+  "keywords": [
+    "deepseek",
+    "harness",
+    "dsh",
+    "dsh-plugin",
+    "readme",
+    "repository",
+    "maturity",
+    "branding",
+    "audit"
+  ],
+  "author": "sakikoTGW",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sakikoTGW/dsh-plugin-tailor.git"
+  },
+  "homepage": "https://github.com/sakikoTGW/dsh-plugin-tailor#readme",
+  "bugs": {
+    "url": "https://github.com/sakikoTGW/dsh-plugin-tailor/issues"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

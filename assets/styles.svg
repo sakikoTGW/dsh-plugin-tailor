@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" width="1200" height="620" role="img" aria-label="Seven README style presets">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1020"/>
+      <stop offset="0.55" stop-color="#0D1220"/>
+      <stop offset="1" stop-color="#141B33"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#FFFFFF" stroke-opacity="0.035" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="620" fill="url(#bg)"/>
+  <rect width="1200" height="620" fill="url(#grid)"/>
+  <text x="48" y="62" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="28" font-weight="700" fill="#FFFFFF">7 种 README 风格，你选</text>
+  <text x="48" y="94" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="15" fill="#8FA3C8">预设决定 layout + tone；内容仍来自仓库事实。默认 dry-run，先看 diff 再落盘。</text>
+
+  <g font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <g transform="translate(48 130)">
+      <rect width="264" height="196" rx="18" fill="#111A33" stroke="#22305C"/>
+      <rect width="6" height="196" rx="3" fill="#4D6BFE"/>
+      <text x="26" y="42" font-size="18" font-weight="700" fill="#FFFFFF">resolver</text>
+      <text x="26" y="68" font-size="13" fill="#9FB2D4">双语 · banner · GIF</text>
+      <text x="26" y="92" font-size="12.5" fill="#6F86B8">证据优先，数字在首屏</text>
+      <text x="26" y="132" font-size="12" fill="#7E93C0">source</text>
+      <text x="26" y="154" font-size="12.5" fill="#C9D3EA">dsh-plugin-resolver</text>
+      <text x="26" y="176" font-size="12" fill="#2FBF71">6 badges · 17 sections</text>
+    </g>
+    <g transform="translate(336 130)">
+      <rect width="264" height="196" rx="18" fill="#111A33" stroke="#22305C"/>
+      <rect width="6" height="196" rx="3" fill="#4B6FFF"/>
+      <text x="26" y="42" font-size="18" font-weight="700" fill="#FFFFFF">dsh-tui</text>
+      <text x="26" y="68" font-size="13" fill="#9FB2D4">双语 · 居中 logo · GIF</text>
+      <text x="26" y="92" font-size="12.5" fill="#6F86B8">品牌先行，文字更短</text>
+      <text x="26" y="132" font-size="12" fill="#7E93C0">source</text>
+      <text x="26" y="154" font-size="12.5" fill="#C9D3EA">ccch1mneyyy/dsh-TUI</text>
+      <text x="26" y="176" font-size="12" fill="#2FBF71">5 badges · 15 sections</text>
+    </g>
+    <g transform="translate(624 130)">
+      <rect width="264" height="196" rx="18" fill="#111A33" stroke="#22305C"/>
+      <rect width="6" height="196" rx="3" fill="#4B67B4"/>
+      <text x="26" y="42" font-size="18" font-weight="700" fill="#FFFFFF">dsh-go</text>
+      <text x="26" y="68" font-size="13" fill="#9FB2D4">中文优先 · hero · 截图</text>
+      <text x="26" y="92" font-size="12.5" fill="#6F86B8">移动端 / 社群驱动</text>
+      <text x="26" y="132" font-size="12" fill="#7E93C0">source</text>
+      <text x="26" y="154" font-size="12.5" fill="#C9D3EA">ccch1mneyyy/dsh-go</text>
+      <text x="26" y="176" font-size="12" fill="#2FBF71">4 badges · 14 sections</text>
+    </g>
+    <g transform="translate(912 130)">
+      <rect width="264" height="196" rx="18" fill="#111A33" stroke="#22305C"/>
+      <rect width="6" height="196" rx="3" fill="#FF75B7"/>
+      <text x="26" y="42" font-size="18" font-weight="700" fill="#FFFFFF">bubbletea</text>
+      <text x="26" y="68" font-size="13" fill="#9FB2D4">英文优先 · logo · GIF</text>
+      <text x="26" y="92" font-size="12.5" fill="#6F86B8">GIF 开场，教程感</text>
+      <text x="26" y="132" font-size="12" fill="#7E93C0">source</text>
+      <text x="26" y="154" font-size="12.5" fill="#C9D3EA">charmbracelet/bubbletea</text>
+      <text x="26" y="176" font-size="12" fill="#2FBF71">3 badges · 11 sections</text>
+    </g>
+
+    <g transform="translate(48 356)">
+      <rect width="264" height="196" rx="18" fill="#111A33" stroke="#22305C"/>
+      <rect width="6" height="196" rx="3" fill="#2F9BFF"/>
+      <text x="26" y="42" font-size="18" font-weight="700" fill="#FFFFFF">sniffnet</text>
+      <text x="26" y="68" font-size="13" fill="#9FB2D4">英文优先 · 品牌 banner</text>
+      <text x="26" y="92" font-size="12.5" fill="#6F86B8">产品落地页，下载优先</text>
+      <text x="26" y="132" font-size="12" fill="#7E93C0">source</text>
+      <text x="26" y="154" font-size="12.5" fill="#C9D3EA">GyulyVGC/sniffnet</text>
+      <text x="26" y="176" font-size="12" fill="#2FBF71">4 badges · 11 sections</text>
+    </g>
+    <g transform="translate(336 356)">
+      <rect width="264" height="196" rx="18" fill="#111A33" stroke="#22305C"/>
+      <rect width="6" height="196" rx="3" fill="#2B6DE5"/>
+      <text x="26" y="42" font-size="18" font-weight="700" fill="#FFFFFF">1panel</text>
+      <text x="26" y="68" font-size="13" fill="#9FB2D4">双语 · 居中品牌 · GIF</text>
+      <text x="26" y="92" font-size="12.5" fill="#6F86B8">面板 / 平台，截图多</text>
+      <text x="26" y="132" font-size="12" fill="#7E93C0">source</text>
+      <text x="26" y="154" font-size="12.5" fill="#C9D3EA">1Panel-dev/1Panel</text>
+      <text x="26" y="176" font-size="12" fill="#2FBF71">3 badges · 12 sections</text>
+    </g>
+    <g transform="translate(624 356)">
+      <rect width="264" height="196" rx="18" fill="#111A33" stroke="#22305C"/>
+      <rect width="6" height="196" rx="3" fill="#7C5CFF"/>
+      <text x="26" y="42" font-size="18" font-weight="700" fill="#FFFFFF">doomemacs</text>
+      <text x="26" y="68" font-size="13" fill="#9FB2D4">英文优先 · 无图 · 纯排版</text>
+      <text x="26" y="92" font-size="12.5" fill="#6F86B8">成熟工具，靠结构说话</text>
+      <text x="26" y="132" font-size="12" fill="#7E93C0">source</text>
+      <text x="26" y="154" font-size="12.5" fill="#C9D3EA">doomemacs/doomemacs</text>
+      <text x="26" y="176" font-size="12" fill="#2FBF71">2 badges · 9 sections</text>
+    </g>
+    <g transform="translate(912 356)">
+      <rect width="264" height="196" rx="18" fill="#0F1730" stroke="#2A3F6E" stroke-dasharray="6 6"/>
+      <text x="26" y="42" font-size="18" font-weight="700" fill="#C9D3EA">+ 你的预设</text>
+      <text x="26" y="68" font-size="13" fill="#9FB2D4">logic/styles.mjs 纯数据</text>
+      <text x="26" y="92" font-size="12.5" fill="#6F86B8">加一个对象即可扩展</text>
+      <text x="26" y="132" font-size="12" fill="#7E93C0">组合已有 section id</text>
+      <text x="26" y="154" font-size="12.5" fill="#9FB2D4">新 section 需要 renderer</text>
+      <text x="26" y="176" font-size="12" fill="#4D6BFE">repo_readme { style }</text>
+    </g>
+  </g>
+</svg>

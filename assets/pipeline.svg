@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" width="1200" height="320" role="img" aria-label="dsh-plugin-tailor pipeline: audit, plan, brand, readme, verify">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1020"/>
+      <stop offset="0.6" stop-color="#0D1220"/>
+      <stop offset="1" stop-color="#1A2350"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#FFFFFF" stroke-opacity="0.04" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="flow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4D6BFE"/>
+      <stop offset="1" stop-color="#2FBF71"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="320" fill="url(#bg)"/>
+  <rect width="1200" height="320" fill="url(#grid)"/>
+  <text x="48" y="58" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="26" font-weight="700" fill="#FFFFFF">一条流水线把仓库从“能跑”改到“敢发布”</text>
+  <text x="48" y="88" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="15" fill="#8FA3C8">Facts in · 只使用仓库真实事实 · 缺失项变成 TODO · 写操作默认 dry-run</text>
+
+  <g font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <g transform="translate(40 130)">
+      <rect width="190" height="112" rx="16" fill="#111A33" stroke="#22305C"/>
+      <rect width="190" height="4" rx="2" fill="#4D6BFE"/>
+      <text x="20" y="40" font-size="16" font-weight="700" fill="#FFFFFF">repo_audit</text>
+      <text x="20" y="66" font-size="13" fill="#9FB2D4">8 维 · 34 项检查</text>
+      <text x="20" y="88" font-size="13" fill="#6F86B8">打分 + 缺口</text>
+    </g>
+    <g transform="translate(268 130)">
+      <rect width="190" height="112" rx="16" fill="#111A33" stroke="#22305C"/>
+      <rect width="190" height="4" rx="2" fill="#4D6BFE"/>
+      <text x="20" y="40" font-size="16" font-weight="700" fill="#FFFFFF">repo_plan</text>
+      <text x="20" y="66" font-size="13" fill="#9FB2D4">P0 / P1 / P2 任务</text>
+      <text x="20" y="88" font-size="13" fill="#6F86B8">每条带验收与 verify</text>
+    </g>
+    <g transform="translate(496 130)">
+      <rect width="190" height="112" rx="16" fill="#111A33" stroke="#22305C"/>
+      <rect width="190" height="4" rx="2" fill="#2FBF71"/>
+      <text x="20" y="40" font-size="16" font-weight="700" fill="#FFFFFF">repo_brand</text>
+      <text x="20" y="66" font-size="13" fill="#9FB2D4">icon / logo / banner</text>
+      <text x="20" y="88" font-size="13" fill="#6F86B8">确定性 SVG</text>
+    </g>
+    <g transform="translate(724 130)">
+      <rect width="190" height="112" rx="16" fill="#111A33" stroke="#22305C"/>
+      <rect width="190" height="4" rx="2" fill="#2FBF71"/>
+      <text x="20" y="40" font-size="16" font-weight="700" fill="#FFFFFF">repo_readme</text>
+      <text x="20" y="66" font-size="13" fill="#9FB2D4">7 种风格 · 双语</text>
+      <text x="20" y="88" font-size="13" fill="#6F86B8">diff 预览 → apply</text>
+    </g>
+    <g transform="translate(952 130)">
+      <rect width="190" height="112" rx="16" fill="#111A33" stroke="#22305C"/>
+      <rect width="190" height="4" rx="2" fill="#4D6BFE"/>
+      <text x="20" y="40" font-size="16" font-weight="700" fill="#FFFFFF">repo_verify</text>
+      <text x="20" y="66" font-size="13" fill="#9FB2D4">链接 / 锚点 / 图片</text>
+      <text x="20" y="88" font-size="13" fill="#6F86B8">章节 / TODO / 分数差</text>
+    </g>
+  </g>
+
+  <g stroke="url(#flow)" stroke-width="3" stroke-linecap="round">
+    <path d="M236 186 H262" marker-end="url(#arrow)"/>
+    <path d="M464 186 H490"/>
+    <path d="M692 186 H718"/>
+    <path d="M920 186 H946"/>
+  </g>
+  <g fill="#4D6BFE">
+    <path d="M258 180 L268 186 L258 192 Z"/>
+    <path d="M486 180 L496 186 L486 192 Z"/>
+    <path d="M714 180 L724 186 L714 192 Z"/>
+    <path d="M942 180 L952 186 L942 192 Z"/>
+  </g>
+  <text x="48" y="294" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#6F86B8">写操作只在 apply: true 时发生；手写 README / 已有素材默认拒绝覆盖。</text>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640" role="img" aria-label="dsh-plugin-tailor social preview">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1020"/>
+      <stop offset="0.6" stop-color="#0D1220"/>
+      <stop offset="1" stop-color="#2A3FD0"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4D6BFE"/>
+      <stop offset="1" stop-color="#2A3FD0"/>
+    </linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#FFFFFF" stroke-opacity="0.04" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <rect width="1280" height="640" fill="url(#grid)"/>
+  <rect x="88" y="96" width="152" height="152" rx="38" fill="url(#mark)"/>
+  <g transform="translate(88 96) scale(0.296875)"><g fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="150" cy="176" r="18" fill="#FFFFFF" stroke="none" opacity="0.55"/>
+    <circle cx="256" cy="140" r="18" fill="#FFFFFF" stroke="none" opacity="0.8"/>
+    <circle cx="362" cy="176" r="18" fill="#FFFFFF" stroke="none" opacity="0.55"/>
+    <path d="M150 176 L256 140 L362 176" opacity="0.35"/>
+    <path d="M196 290 L244 338 L342 224"/>
+  </g></g>
+  <text x="88" y="332" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="64" font-weight="700" fill="#FFFFFF">dsh-plugin-tailor</text>
+  <text x="90" y="392" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="27" fill="#DCE6FA">Tailor a repository to fit: audit it across</text>
+  <text x="90" y="434" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="27" fill="#9FB2D4">8 maturity dimensions, pick one of seven</text>
+  <text x="90" y="476" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="27" fill="#9FB2D4">README styles , draft a bilingual README</text>
+  <text x="90" y="560" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="22" fill="#4D6BFE">https://github.com/sakikoTGW/dsh-plugin-tailor</text>
+  <rect x="0" y="636" width="1280" height="4" fill="#4D6BFE" opacity="0.8"/>
+  <rect x="0" y="0" width="1280" height="4" fill="#22305C" opacity="0.6"/>
+</svg>

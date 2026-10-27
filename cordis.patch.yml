@@ -1,0 +1,5 @@
+# Bundle layer for dsh-plugin-tailor: one host-only plugin row that adds the
+# repo_* tools. No client half, no background services.
+- insert:
+    - id: plugin-tailor
+      name: 'dsh-plugin-tailor'
