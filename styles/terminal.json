@@ -1,0 +1,91 @@
+{
+  "$schema": "./schema.json",
+  "id": "terminal",
+  "label": {
+    "zh": "居中 Logo · 双语",
+    "en": "Centered logo · bilingual"
+  },
+  "essence": {
+    "zh": "居中 Logo + 语言切换 + 一排 flat-square 徽章；英文为主、中文对等；首屏一支 GIF。",
+    "en": "Centered logo, language switch, one flat-square badge row; English-first with an equal Chinese page; one GIF above the fold."
+  },
+  "language": "bilingual",
+  "tone": {
+    "zh": "产品说明会：先说它像什么、怎么用，再补细节。",
+    "en": "Product briefing: what it feels like and how to use it first, details second."
+  },
+  "hero": "logo",
+  "demo": "gif",
+  "mark": "prompt",
+  "palette": {
+    "brand": "#4B6FFF",
+    "deep": "#2C4BE0",
+    "ink": "#0B1020",
+    "green": "#2FBF71",
+    "bg": "#0D1220",
+    "border": "#22305C"
+  },
+  "badgeSet": [
+    "npm",
+    "license",
+    "dsh",
+    "ci",
+    "checks"
+  ],
+  "sections": [
+    "language",
+    "hero",
+    "badges",
+    "title",
+    "tagline",
+    "demo",
+    "toc",
+    "why",
+    "features",
+    "install",
+    "screenshots",
+    "evidence",
+    "compatibility",
+    "community",
+    "license"
+  ],
+  "labels": {
+    "why": {
+      "zh": "为什么是它",
+      "en": "Why this one"
+    },
+    "features": {
+      "zh": "亮点",
+      "en": "Highlights"
+    },
+    "install": {
+      "zh": "安装",
+      "en": "Install"
+    },
+    "screenshots": {
+      "zh": "截图",
+      "en": "Screenshots"
+    },
+    "evidence": {
+      "zh": "证据",
+      "en": "Proof"
+    },
+    "compatibility": {
+      "zh": "兼容性",
+      "en": "Compatibility"
+    },
+    "community": {
+      "zh": "社区",
+      "en": "Community"
+    }
+  },
+  "notes": {
+    "zh": "适合有品牌 Logo、愿意维护双语页面的项目：视觉锚点在上，文字更短。",
+    "en": "For projects with a real logo and a bilingual audience: visual anchor first, shorter prose."
+  },
+  "requiredFacts": [
+    "readme",
+    "logo",
+    "demo"
+  ]
+}

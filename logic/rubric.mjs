@@ -5,7 +5,7 @@
  * fix and the file it refers to, and `repo_plan` turns those into tasks.
  */
 
-import { STYLES, getStyle } from './styles.mjs'
+import { resolveStyle, styleWarnings } from './styles.mjs'
 
 /**
  * @typedef {{ id: string, label: { zh: string, en: string }, weight: number, checks: Array<{ id: string, pass: (facts: any) => boolean, detail: (facts: any) => string, fix: string }> }} Dimension
@@ -125,8 +125,8 @@ export function dimensionLabel(dimensionId) {
  *   styleWarnings: string[]
  * }}
  */
-export function auditFacts(facts, styleId = 'resolver') {
-  const style = getStyle(styleId)
+export function auditFacts(facts, styleId = 'evidence', registry) {
+  const style = resolveStyle(styleId, registry)
   /** @type {any[]} */
   const dimensions = []
   /** @type {any[]} */
@@ -177,27 +177,6 @@ export function auditFacts(facts, styleId = 'resolver') {
     dimensions,
     gaps,
     style: style.id,
-    styleWarnings: styleWarningsFor(style.id, facts),
-  }
-}
-
-/**
- * @param {string} styleId
- * @param {any} facts
- * @returns {string[]}
- */
-function styleWarningsFor(styleId, facts) {
-  try {
-    const style = STYLES.find((item) => item.id === styleId)
-    if (!style) return []
-    const warnings = []
-    const has = (pattern) => facts.assets.some((asset) => pattern.test(asset.path))
-    if (style.hero !== 'none' && !has(/logo\.(svg|png)$/i) && !has(/banner\.(svg|png)$/i)) warnings.push('style needs a logo or banner; repo_brand can generate one')
-    if (style.demo === 'gif' && !facts.assets.some((asset) => asset.ext === '.gif')) warnings.push('style leads with a GIF; record one from real output')
-    if (style.demo === 'screenshot' && !facts.assets.some((asset) => ['.png', '.webp', '.jpg', '.jpeg'].includes(asset.ext))) warnings.push('style needs screenshots')
-    if (style.language === 'bilingual' && !facts.readmeEn.path) warnings.push('bilingual style needs README.en.md')
-    return warnings
-  } catch {
-    return []
+    styleWarnings: styleWarnings(style, facts),
   }
 }

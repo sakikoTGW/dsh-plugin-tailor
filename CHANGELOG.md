@@ -4,6 +4,25 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); version
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-10-29
+
+Styles are now structured data, and users can author their own.
+
+### Added
+
+- `styles/`: seven built-in style presets as JSON, plus `schema.json` and a field reference.
+- `logic/style-schema.mjs`: allowed sections/badges/concepts, validation and merge rules.
+- Custom styles from `<repo>/.tailor/styles/*.json` and `~/.tailor/styles/*.json` (or `TAILOR_STYLES_DIR`), with `extends` inheritance and per-key merge.
+- `style:init` CLI command to scaffold a custom style; `repo_styles` accepts `path`, shows origin (builtin/global/repo) and reports invalid style files.
+- All tools accept custom style ids; invalid custom files are skipped and reported, built-ins stay validated.
+- Four new tests: built-in JSON validation, custom style flow, invalid-style skip, scaffold + CLI.
+
+### Changed
+
+- `logic/styles.mjs` is now a loader (discovery, extends merge, validation) instead of hard-coded preset data.
+- `repo_styles` output lists origins and custom style directories; docs (README, STYLES, SPEC, styles/README) updated.
+- Package `files` includes `styles/`; `exports` exposes `./styles/*`.
+
 ## [0.3.2] - 2026-10-29
 
 Visual density pass: product screenshots and motion instead of text-only sections.

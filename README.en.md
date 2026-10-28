@@ -9,12 +9,12 @@
 </p>
 
 <p align="center">
-  <img alt="version" src="https://img.shields.io/badge/version-0.3.2-4D6BFE?style=flat-square">
+  <img alt="version" src="https://img.shields.io/badge/version-0.4.0-4D6BFE?style=flat-square">
   <a href="https://github.com/sakikoTGW/dsh-plugin-tailor/releases"><img alt="release" src="https://img.shields.io/github/v/release/sakikoTGW/dsh-plugin-tailor?style=flat-square&color=2FBF71"></a>
   <img alt="license" src="https://img.shields.io/badge/license-MIT-263146?style=flat-square">
   <img alt="DSH" src="https://img.shields.io/badge/DSH-%3E%3D0.2.0--rc.2%20%3C0.3.0-4D6BFE?style=flat-square">
   <img alt="Node" src="https://img.shields.io/badge/node-%3E%3D20-339933?style=flat-square&logo=node.js&logoColor=white">
-  <a href="https://github.com/sakikoTGW/dsh-plugin-tailor/actions/workflows/test.yml"><img alt="test" src="https://img.shields.io/badge/test-11%2F11-2FBF71?style=flat-square"></a>
+  <a href="https://github.com/sakikoTGW/dsh-plugin-tailor/actions/workflows/test.yml"><img alt="test" src="https://img.shields.io/badge/test-15%2F15-2FBF71?style=flat-square"></a>
   <img alt="checks" src="https://img.shields.io/badge/rubric-34%20checks-2FBF71?style=flat-square">
 </p>
 
@@ -22,7 +22,7 @@
 
 > From “it runs” to “ship it”: audit → pick a style → brand assets → bilingual README → pre-release verification.
 
-<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.3.2</sub></p>
+<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.4.0</sub></p>
 
 <p align="center">
   <a href="#quickstart"><b>Install</b></a> · <a href="#seven-styles">Seven styles</a> · <a href="#six-tools">Six tools</a> · <a href="#roadmap">Roadmap</a>
@@ -45,6 +45,7 @@
 - [Quickstart](#quickstart)
 - [Six tools](#six-tools)
 - [Seven styles](#seven-styles)
+- [Custom styles](#custom-styles)
 - [Brand assets](#brand-assets)
 - [Tool output](#tool-output)
 - [Results and evidence](#results-and-evidence)
@@ -91,6 +92,7 @@ What it does: **8 dimensions / 34 checks** for maturity, **7 style presets** for
 
 - **8 dimensions / 34 checks**: identity, first screen, install, docs, evidence, release, community, brand — every gap comes with a concrete fix, not just a score.
 - **7 styles + bilingual drafts**: from evidence-first to minimal typography; dry-run diff first, write second.
+- **Author your own style**: built-ins are seven JSON files; custom styles live in `.tailor/styles/` or `~/.tailor/styles/`, with `extends` inheritance and schema validation.
 - **12 vector concepts × light/dark**: `icon` / `logo` (light+dark) / `banner` (light+dark) / `social` / `brand-sheet` — 8 files, byte-identical on re-run.
 - **Write protection**: hand-written READMEs, existing assets and dirty worktrees are refused unless `force` is explicit.
 - **Pre-release verification**: relative links, images, anchors, badges, required sections and leftover TODOs in one PASS/FAIL command.
@@ -98,7 +100,7 @@ What it does: **8 dimensions / 34 checks** for maturity, **7 style presets** for
 
 ## Quickstart
 
-> **Not on npm yet. v0.3.1 ships as a [GitHub Release](https://github.com/sakikoTGW/dsh-plugin-tailor/releases/tag/v0.3.2) with a `.tgz`. Either path works:**
+> **Not on npm yet. v0.4.0 ships as a [GitHub Release](https://github.com/sakikoTGW/dsh-plugin-tailor/releases/tag/v0.4.0) with a `.tgz`. Either path works:**
 
 ```sh
 # from source
@@ -106,7 +108,7 @@ git clone https://github.com/sakikoTGW/dsh-plugin-tailor
 dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor
 
 # or the release tarball
-dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.3.2.tgz
+dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.4.0.tgz
 ```
 
 Restart the engine once and the six `repo_*` tools are live. After that, edits under `logic/` apply on the next call; edits to `host/register.js` or `index.js` need an engine restart.
@@ -120,6 +122,7 @@ node bin/tailor.mjs plan . --style=terminal    # task list
 node bin/tailor.mjs brand . --style=playful --apply
 node bin/tailor.mjs readme . --style=evidence --lang=both
 node bin/tailor.mjs verify . --style=evidence
+node bin/tailor.mjs style:init . --id=my-style --extends=evidence   # custom style
 ```
 
 <p align="center">
@@ -141,7 +144,7 @@ repo_verify { path: ".", style: "terminal" }
 
 | Tool | R/W | Arguments | Returns |
 |---|---|---|---|
-| `repo_styles` | read | — | id, language, hero, demo, source and essence for the 7 presets |
+| `repo_styles` | read | `path?` | built-in + custom style ids, origin (builtin/global/repo) and validation errors |
 | `repo_audit` | read | `path`, `style?` | 0-100 score, 8-dimension breakdown, impact-sorted gaps, style gaps |
 | `repo_plan` | read | `path`, `style?`, `limit?` | P0/P1/P2 tasks with acceptance criteria and verify command |
 | `repo_readme` | dry-run / write | `path`, `style?`, `lang?`, `apply?`, `force?` | diff, TODO list, style gaps |
@@ -167,6 +170,39 @@ Writes are dry-run by default; hand-written READMEs and existing assets are refu
 | `minimal` | Minimal type | en-first | none | none | `monogram` | mature tools / frameworks |
 
 How to choose, each preset's section order, and the “12 things good repositories share” live in [docs/STYLES.md](docs/STYLES.md).
+
+## Custom styles
+
+The seven built-ins are not code — they are seven **JSON files** (`styles/*.json`). Your own style is JSON too: put it in `<repo>/.tailor/styles/` or `~/.tailor/styles/`; the loader merges, validates and picks it up without touching logic.
+
+```sh
+cp styles/evidence.json .tailor/styles/acme.json
+# change id / copy / palette, then
+node bin/tailor.mjs styles .              # acme shows up with repo origin
+node bin/tailor.mjs readme . --style=acme --lang=both
+```
+
+Or inherit from an existing style and override only what you need:
+
+```sh
+node bin/tailor.mjs style:init . --id=acme --extends=evidence
+```
+
+```json
+{
+  "extends": "evidence",
+  "id": "acme",
+  "label": { "zh": "Acme evidence", "en": "Acme evidence" },
+  "palette": { "brand": "#E4572E", "deep": "#B23A1C" },
+  "labels": { "install": { "zh": "开始使用", "en": "Get started" } }
+}
+```
+
+- Load order: built-in → `~/.tailor/styles` → `<repo>/.tailor/styles`; later wins on the same id.
+- `extends` merges key by key: `label` / `palette` / `labels` merge, `sections` / `badgeSet` arrays replace.
+- Field reference and full schema: [styles/README.md](styles/README.md) and [styles/schema.json](styles/schema.json).
+- Invalid style files are **skipped** and reported by `repo_styles`; other styles keep working.
+- Every tool (`repo_audit` / `repo_plan` / `repo_readme` / `repo_brand` / `repo_verify`) accepts a custom `style` id.
 
 ## Brand assets
 
@@ -246,7 +282,7 @@ Real CLI output, not mockups; each screenshot is rendered from the actual stdout
 </p>
 
 - **Self-audit**: this repository used itself to add docs, brand assets and README — score **37 → 100** (D → A). `dsh-plugin-resolver` audits at **84/100 (B)** and `repo_verify` returns `PASS`.
-- **Tests**: 11 offline tests (`npm test`, pass 11 / fail 0); CI runs on Node 20/22/24.
+- **Tests**: 15 offline tests (`npm test`, pass 15 / fail 0); CI runs on Node 20/22/24.
 - **Pure logic**: `auditFacts` **0.01 ms**, `renderReadme` **0.03 ms**, `verifyFacts` **0.03 ms**; `collectFacts` is **109–794 ms** because it spawns 4 `git` processes (depends on repository size).
 - **CLI end-to-end**: `tailor audit .` median **248 ms**, of which ~200 ms is Node startup.
 - **Method**: environment, procedure and output sizes are in [BENCHMARK.md](BENCHMARK.md); before/after and test output are in [docs/EVIDENCE.md](docs/EVIDENCE.md).
@@ -261,21 +297,23 @@ logic/
   facts.mjs         read-only repository facts
   rubric.mjs        8 dimensions / 34 checks
   plan.mjs          gaps → P0/P1/P2 tasks
-  styles.mjs        seven style presets (pure data)
+  styles.mjs        style loader (JSON + custom + extends + validation)
+  style-schema.mjs  style schema and merge rules
   readme.mjs        bilingual drafts, diff, apply safety
   brand.mjs         12-concept brand engine (light + dark)
   verify.mjs        links / anchors / images / sections / TODOs
   util.mjs          diff, slug, path boundary
+styles/             seven built-in style JSON files + schema.json + docs
 bin/tailor.mjs      CLI (same logic as the tools)
 bench/micro.mjs     pure-logic microbenchmark
 docs/               SPEC / STYLES / ACCEPTANCE / EVIDENCE
-test/tailor.test.mjs 11 offline tests
+test/tailor.test.mjs 15 offline tests
 ```
 
 ## Tests and CI
 
 ```sh
-npm test                # 11 offline tests
+npm test                # 15 offline tests
 node bench/micro.mjs .  # pure-logic microbenchmark
 node bin/tailor.mjs verify . --style=evidence
 ```
@@ -295,6 +333,7 @@ node bin/tailor.mjs verify . --style=evidence
 - **zh / en only**, no auto style selection, no auto commit / push / publish.
 - **No real screenshots or images**: `repo_brand` only generates SVG geometry; the demo GIF must be recorded from a real run.
 - **Brand assets are geometric SVG, not illustration/photography**: illustration-level work still needs a human or an image model; `repo_brand` guarantees concept choice, light/dark pairs, consistency and reproducibility.
+- **Invalid custom styles are skipped**: `repo_styles` lists the file and the reason; the loader does not guess or auto-fix.
 - **`collectFacts` dominates runtime** (git subprocesses + directory walk); the judgement logic itself is effectively free.
 - **SVG text metrics depend on system fonts** (Inter / Segoe UI / Microsoft YaHei), so widths vary slightly across machines.
 - Not on npm yet: install from source; release steps are in [PUBLISHING.md](PUBLISHING.md).
@@ -334,6 +373,7 @@ See the roadmap. For now use the `.tgz` attached to the GitHub Release.
 - [x] **v0.1** 8-dimension audit, P0–P2 planning, bilingual drafts, pre-release verification
 - [x] **v0.2** 12 original vector concepts, light/dark brand kit, brand sheet
 - [x] **v0.3** style-only presets, real CLI screenshots, re-recorded demo
+- [x] **v0.4** structured styles (JSON + schema), custom styles, `extends`, `style:init`
 - [ ] **v0.4** npm publish + `dsh-plugins` hub listing
 - [ ] **v0.4** `--palette` variants (warm / high-contrast / mono / follow brand)
 - [ ] **v0.5** side-by-side style previews from a real repository

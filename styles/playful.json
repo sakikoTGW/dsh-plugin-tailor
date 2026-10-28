@@ -1,0 +1,77 @@
+{
+  "$schema": "./schema.json",
+  "id": "playful",
+  "label": {
+    "zh": "GIF 开场 · 教程感",
+    "en": "GIF-first · tutorial"
+  },
+  "essence": {
+    "zh": "Logo、三枚徽章、一支全宽 GIF，然后直接进教程；语气轻松，有 \"In the wild\"。",
+    "en": "Logo, three badges, one full-width GIF, then straight into the tutorial; playful voice and an \"In the wild\" section."
+  },
+  "language": "en-first",
+  "tone": {
+    "zh": "轻松、短句、带一点幽默，但不牺牲信息。",
+    "en": "Light, short sentences, a little humour, no information sacrificed."
+  },
+  "hero": "logo",
+  "demo": "gif",
+  "mark": "bubble",
+  "palette": {
+    "brand": "#FF75B7",
+    "deep": "#B83D8A",
+    "ink": "#0B1020",
+    "green": "#04B575",
+    "bg": "#120D18",
+    "border": "#3A2440"
+  },
+  "badgeSet": [
+    "version",
+    "license",
+    "stars"
+  ],
+  "sections": [
+    "hero",
+    "badges",
+    "title",
+    "tagline",
+    "demo",
+    "install",
+    "features",
+    "tutorial",
+    "in-the-wild",
+    "feedback",
+    "license"
+  ],
+  "labels": {
+    "install": {
+      "zh": "安装",
+      "en": "Install"
+    },
+    "features": {
+      "zh": "特性",
+      "en": "Features"
+    },
+    "tutorial": {
+      "zh": "教程",
+      "en": "Tutorial"
+    },
+    "in-the-wild": {
+      "zh": "谁在用",
+      "en": "In the wild"
+    },
+    "feedback": {
+      "zh": "反馈",
+      "en": "Feedback"
+    }
+  },
+  "notes": {
+    "zh": "适合开发者工具 / TUI：用 GIF 证明手感，用教程降低第一步门槛。",
+    "en": "For developer tools and TUIs: prove the feel with a GIF, lower the first step with a tutorial."
+  },
+  "requiredFacts": [
+    "readme",
+    "logo",
+    "demo"
+  ]
+}

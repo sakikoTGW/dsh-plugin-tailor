@@ -1,0 +1,101 @@
+{
+  "$schema": "./schema.json",
+  "id": "evidence",
+  "label": {
+    "zh": "证据优先 · 双语",
+    "en": "Evidence-first · bilingual"
+  },
+  "essence": {
+    "zh": "先给结论和数字，再给机制；中英双份对等；每个数字都能指到基准或测试。",
+    "en": "Lead with the result and the number, then the mechanism; equal Chinese/English pages; every number points at a benchmark or a test."
+  },
+  "language": "bilingual",
+  "tone": {
+    "zh": "工程口吻：短句、具体、写限制，不写形容词。",
+    "en": "Engineering voice: short sentences, concrete claims, explicit limits, no adjectives."
+  },
+  "hero": "banner",
+  "demo": "gif",
+  "mark": "arcs",
+  "palette": {
+    "brand": "#4D6BFE",
+    "deep": "#2A3FD0",
+    "ink": "#0B1020",
+    "green": "#2FBF71",
+    "bg": "#0D1220",
+    "border": "#22305C"
+  },
+  "badgeSet": [
+    "npm",
+    "license",
+    "dsh",
+    "node",
+    "ci",
+    "checks"
+  ],
+  "sections": [
+    "hero",
+    "language",
+    "badges",
+    "title",
+    "tagline",
+    "demo",
+    "toc",
+    "why",
+    "how",
+    "install",
+    "features",
+    "evidence",
+    "structure",
+    "tests",
+    "limitations",
+    "feedback",
+    "license"
+  ],
+  "labels": {
+    "why": {
+      "zh": "为什么需要它",
+      "en": "Why it exists"
+    },
+    "how": {
+      "zh": "怎么工作",
+      "en": "How it works"
+    },
+    "install": {
+      "zh": "快速开始",
+      "en": "Quickstart"
+    },
+    "features": {
+      "zh": "功能",
+      "en": "What you get"
+    },
+    "evidence": {
+      "zh": "效果与证据",
+      "en": "Results and evidence"
+    },
+    "structure": {
+      "zh": "结构",
+      "en": "Layout"
+    },
+    "tests": {
+      "zh": "测试与 CI",
+      "en": "Tests and CI"
+    },
+    "limitations": {
+      "zh": "已知限制",
+      "en": "Known limitations"
+    },
+    "feedback": {
+      "zh": "反馈与安全",
+      "en": "Feedback and security"
+    }
+  },
+  "notes": {
+    "zh": "适合有基准、有测试、有明确取舍的工程型仓库：数字放前面，限制写清楚。",
+    "en": "For engineering repos with benchmarks, tests and explicit trade-offs: numbers first, limits stated."
+  },
+  "requiredFacts": [
+    "readme",
+    "demo"
+  ]
+}

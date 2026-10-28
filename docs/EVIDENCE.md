@@ -1,4 +1,4 @@
-# EVIDENCE — dsh-plugin-tailor v0.3.2
+# EVIDENCE — dsh-plugin-tailor v0.4.0
 
 > 结案证据。命令、输出、环境都在这里；结论只引用本文件里出现过的数字。
 
@@ -8,12 +8,14 @@
 
 ```text
 $ npm test
-ℹ tests 11
-ℹ pass 11
+ℹ tests 15
+ℹ pass 15
 ℹ fail 0
 ```
 
-覆盖：风格注册、facts、audit 排序、plan、README 渲染/落盘安全、品牌确定性、坏链/坏图/坏锚点、宿主注册、CLI。
+覆盖：风格注册与 JSON schema、自定义风格加载/extends/错误跳过/脚手架、facts、audit 排序、plan、README 渲染/落盘安全、品牌确定性、坏链/坏图/坏锚点、宿主注册、CLI。
+
+结构化风格：`styles/` 下 7 个内置 JSON + `schema.json` + `README.md`；自定义风格从 `.tailor/styles/` 或 `~/.tailor/styles/` 加载，`extends` 合并后校验，无效文件跳过并在 `repo_styles` 中报告。
 
 ## 2. 自举审计（同一个 rubric）
 
@@ -72,8 +74,9 @@ CLI（5 次中位数）：`audit` 248 ms、`plan` 254 ms、`readme` 228 ms、`br
 
 - `assets/`：品牌引擎生成 8 个文件（icon、明暗 logo、明暗 banner、social、brand-sheet、README），另加手写的 pipeline / styles / stats / features / before-after 图；`demo.gif`、`concepts.gif`、`actions.png`、`tools-*.png`、`audit-resolver.png` 由真实运行/截图渲染。
 - 品牌概念 12 个：`needle`、`stitch`、`quill`、`arcs`、`orbit`、`prompt`、`bubble`、`radar`、`hexstack`、`monogram`、`spark`、`layers`；本仓库默认 `needle`，`assets/brand-sheet.svg` 是 12 概念对照，`concepts.gif` 是逐个展示。
-- `npm pack` 包内容：`index.js`、`host/`、`logic/`、`bin/`、`cordis.patch.yml`、双语 README、docs、assets；`test/`、`bench/`、`.tailor/`、`demo/` 不进包（见 `npm pack --dry-run`）。
-- 包体积：**774.7 kB**（tarball）/ **1.0 MB**（unpacked），**47 个文件**；GitHub Release 附带同一份 `.tgz`。
+- `styles/`：7 个内置风格 JSON + `schema.json` + 字段说明；自定义风格从 `.tailor/styles/`（仓库）或 `~/.tailor/styles/`（本机）加载，`extends` 合并后校验。
+- `npm pack` 包内容：`index.js`、`host/`、`logic/`、`bin/`、`styles/`、`cordis.patch.yml`、双语 README、docs、assets；`test/`、`bench/`、`.tailor/`、`demo/` 不进包（见 `npm pack --dry-run`）。
+- 包体积：**789.9 kB**（tarball）/ **1.1 MB**（unpacked），**57 个文件**；GitHub Release 附带同一份 `.tgz`。
 
 ## 6. 已知限制（不掩饰）
 

@@ -1,0 +1,92 @@
+{
+  "$schema": "./schema.json",
+  "id": "mobile",
+  "label": {
+    "zh": "移动端 · 社群驱动",
+    "en": "Mobile · community-driven"
+  },
+  "essence": {
+    "zh": "Hero 图 + 中文优先 + 社群入口（群/论坛/二维码）+ 小宠物 GIF 组；最后才是安装和 FAQ。",
+    "en": "Hero image, Chinese-first voice, community entry points (groups/forum/QR), pet-GIF gallery, then install and FAQ."
+  },
+  "language": "zh-first",
+  "tone": {
+    "zh": "对用户说话：亲切、具体、承认内测与限制。",
+    "en": "Talking to users: warm, concrete, honest about beta status and limits."
+  },
+  "hero": "banner",
+  "demo": "screenshot",
+  "mark": "orbit",
+  "palette": {
+    "brand": "#4B67B4",
+    "deep": "#2B3245",
+    "ink": "#10131C",
+    "green": "#3FBF7F",
+    "bg": "#0E1118",
+    "border": "#2B3245"
+  },
+  "badgeSet": [
+    "version",
+    "platform",
+    "license",
+    "forum"
+  ],
+  "sections": [
+    "language",
+    "hero",
+    "badges",
+    "title",
+    "tagline",
+    "screenshots",
+    "why",
+    "features",
+    "install",
+    "remote",
+    "faq",
+    "community",
+    "credits",
+    "license"
+  ],
+  "labels": {
+    "why": {
+      "zh": "为什么做它",
+      "en": "Why it exists"
+    },
+    "features": {
+      "zh": "能做什么",
+      "en": "What it does"
+    },
+    "install": {
+      "zh": "安装与下载",
+      "en": "Install and download"
+    },
+    "screenshots": {
+      "zh": "截图",
+      "en": "Screenshots"
+    },
+    "remote": {
+      "zh": "遥控电脑",
+      "en": "Remote control"
+    },
+    "faq": {
+      "zh": "常见问题",
+      "en": "FAQ"
+    },
+    "community": {
+      "zh": "社区",
+      "en": "Community"
+    },
+    "credits": {
+      "zh": "致谢",
+      "en": "Credits"
+    }
+  },
+  "notes": {
+    "zh": "适合 App / 移动端 / 有社群的项目：先让人看到它长什么样、怎么进群，再谈安装。",
+    "en": "For apps, mobile builds and community products: show what it looks like and how to join first, install second."
+  },
+  "requiredFacts": [
+    "readme",
+    "screenshots"
+  ]
+}

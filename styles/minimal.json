@@ -1,0 +1,72 @@
+{
+  "$schema": "./schema.json",
+  "id": "minimal",
+  "label": {
+    "zh": "极简排版 · 无图",
+    "en": "Minimal type · no images"
+  },
+  "essence": {
+    "zh": "居中标题 + 一行横向导航 + 极少量徽章 + 水平线分节；不靠图，靠排版和链接密度。",
+    "en": "Centered title, one inline nav row, very few badges, horizontal rules between sections; no images, typography and link density carry it."
+  },
+  "language": "en-first",
+  "tone": {
+    "zh": "手册口吻：陈述句、短、克制，不推销。",
+    "en": "Manual voice: declarative, short, restrained, never selling."
+  },
+  "hero": "none",
+  "demo": "none",
+  "mark": "monogram",
+  "palette": {
+    "brand": "#7C5CFF",
+    "deep": "#4B3AA8",
+    "ink": "#0B1020",
+    "green": "#2FBF71",
+    "bg": "#0D0F17",
+    "border": "#262B3D"
+  },
+  "badgeSet": [
+    "version",
+    "license"
+  ],
+  "sections": [
+    "title",
+    "nav",
+    "tagline",
+    "install",
+    "features",
+    "usage",
+    "docs",
+    "limitations",
+    "license"
+  ],
+  "labels": {
+    "install": {
+      "zh": "安装",
+      "en": "Install"
+    },
+    "features": {
+      "zh": "特性",
+      "en": "Features"
+    },
+    "usage": {
+      "zh": "用法",
+      "en": "Usage"
+    },
+    "docs": {
+      "zh": "文档",
+      "en": "Documentation"
+    },
+    "limitations": {
+      "zh": "说明",
+      "en": "Notes"
+    }
+  },
+  "notes": {
+    "zh": "适合成熟工具 / 框架：不靠视觉，靠结构和文风；很适合已有大量文档的仓库。",
+    "en": "For mature tools and frameworks: structure and voice instead of visuals; ideal when documentation already exists."
+  },
+  "requiredFacts": [
+    "readme"
+  ]
+}

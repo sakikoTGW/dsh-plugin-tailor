@@ -9,12 +9,12 @@
 </p>
 
 <p align="center">
-  <img alt="version" src="https://img.shields.io/badge/version-0.3.2-4D6BFE?style=flat-square">
+  <img alt="version" src="https://img.shields.io/badge/version-0.4.0-4D6BFE?style=flat-square">
   <a href="https://github.com/sakikoTGW/dsh-plugin-tailor/releases"><img alt="release" src="https://img.shields.io/github/v/release/sakikoTGW/dsh-plugin-tailor?style=flat-square&color=2FBF71"></a>
   <img alt="license" src="https://img.shields.io/badge/license-MIT-263146?style=flat-square">
   <img alt="DSH" src="https://img.shields.io/badge/DSH-%3E%3D0.2.0--rc.2%20%3C0.3.0-4D6BFE?style=flat-square">
   <img alt="Node" src="https://img.shields.io/badge/node-%3E%3D20-339933?style=flat-square&logo=node.js&logoColor=white">
-  <a href="https://github.com/sakikoTGW/dsh-plugin-tailor/actions/workflows/test.yml"><img alt="test" src="https://img.shields.io/badge/test-11%2F11-2FBF71?style=flat-square"></a>
+  <a href="https://github.com/sakikoTGW/dsh-plugin-tailor/actions/workflows/test.yml"><img alt="test" src="https://img.shields.io/badge/test-15%2F15-2FBF71?style=flat-square"></a>
   <img alt="checks" src="https://img.shields.io/badge/rubric-34%20checks-2FBF71?style=flat-square">
 </p>
 
@@ -22,7 +22,7 @@
 
 > 把仓库从「能跑」改到「敢发布」：审计 → 选风格 → 品牌素材 → 双语 README → 发布前校验。
 
-<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.3.2</sub></p>
+<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.4.0</sub></p>
 
 <p align="center">
   <a href="#快速开始"><b>安装</b></a> · <a href="#七种风格">七种风格</a> · <a href="#六个工具">六个工具</a> · <a href="#路线图">路线图</a>
@@ -45,6 +45,7 @@
 - [快速开始](#快速开始)
 - [六个工具](#六个工具)
 - [七种风格](#七种风格)
+- [自定义风格](#自定义风格)
 - [品牌素材](#品牌素材)
 - [工具输出](#工具输出)
 - [效果与证据](#效果与证据)
@@ -91,6 +92,7 @@
 
 - **8 维 34 项审计**：身份、首屏、安装、文档、证据、发布、社区、品牌；每条缺口都带具体修法，不只是打分。
 - **7 种风格 + 双语草稿**：从证据优先到极简排版，先看 diff 再落盘。
+- **风格可自创**：内置风格是 7 份 JSON；自定义放在 `.tailor/styles/` 或 `~/.tailor/styles/`，支持 `extends` 继承与 schema 校验。
 - **12 个原创图形概念 × 明暗双版**：`icon` / `logo`（明暗）/ `banner`（明暗）/ `social` / `brand-sheet` 共 8 个文件；同一仓库重复生成字节一致。
 - **写保护**：手写 README、已有素材、脏 worktree 默认拒绝，必须显式 `force`。
 - **发布前校验**：相对链接、图片、锚点、徽章、必需章节、剩余 TODO，一条命令给出 PASS/FAIL。
@@ -98,7 +100,7 @@
 
 ## 快速开始
 
-> **npm 尚未发布。v0.3.1 已打进 [GitHub Release](https://github.com/sakikoTGW/dsh-plugin-tailor/releases/tag/v0.3.2)（含 `.tgz`）。二选一：**
+> **npm 尚未发布。v0.4.0 已打进 [GitHub Release](https://github.com/sakikoTGW/dsh-plugin-tailor/releases/tag/v0.4.0)（含 `.tgz`）。二选一：**
 
 ```sh
 # 源码
@@ -106,7 +108,7 @@ git clone https://github.com/sakikoTGW/dsh-plugin-tailor
 dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor
 
 # 或 Release 里的 tarball
-dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.3.2.tgz
+dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.4.0.tgz
 ```
 
 装完重启一次引擎，六个 `repo_*` 工具上线。之后改 `logic/` 下一次调用即生效，改 `host/register.js` 或 `index.js` 需要重启引擎。
@@ -120,6 +122,7 @@ node bin/tailor.mjs plan . --style=terminal    # 任务清单
 node bin/tailor.mjs brand . --style=playful --apply
 node bin/tailor.mjs readme . --style=evidence --lang=both
 node bin/tailor.mjs verify . --style=evidence
+node bin/tailor.mjs style:init . --id=my-style --extends=evidence   # 自创风格
 ```
 
 <p align="center">
@@ -141,7 +144,7 @@ repo_verify { path: ".", style: "terminal" }
 
 | 工具 | 读写 | 主要参数 | 返回 |
 |---|---|---|---|
-| `repo_styles` | 读 | — | 7 个风格的 id、语言、hero、demo、来源、essence |
+| `repo_styles` | 读 | `path?` | 内置 + 自定义风格的 id、来源（builtin/global/repo）、校验错误 |
 | `repo_audit` | 读 | `path`, `style?` | 0-100 分、8 维明细、按影响排序的 gaps、风格缺口 |
 | `repo_plan` | 读 | `path`, `style?`, `limit?` | P0/P1/P2 任务，每条带 acceptance 与 verify |
 | `repo_readme` | dry-run / 写 | `path`, `style?`, `lang?`, `apply?`, `force?` | diff、TODO 清单、风格缺口 |
@@ -167,6 +170,39 @@ repo_verify { path: ".", style: "terminal" }
 | `minimal` | 极简排版 | 英文优先 | 无图 | 无 | `monogram` | 成熟工具 / 框架 |
 
 选择建议、每个预设的章节顺序、以及“优秀仓库的 12 个共性”写在 [docs/STYLES.md](docs/STYLES.md)。
+
+## 自定义风格
+
+7 个内置风格不是代码，是 7 份 **JSON 数据**（`styles/*.json`）。你自己的风格也是 JSON：放在仓库的 `.tailor/styles/` 或本机的 `~/.tailor/styles/`，加载时自动合并、校验，无需改逻辑。
+
+```sh
+cp styles/evidence.json .tailor/styles/acme.json
+# 改成自己的 id / 文案 / 调色板，然后
+node bin/tailor.mjs styles .              # 看到 acme（repo 来源）
+node bin/tailor.mjs readme . --style=acme --lang=both
+```
+
+也可以从现有风格继承，只覆盖要改的字段：
+
+```sh
+node bin/tailor.mjs style:init . --id=acme --extends=evidence
+```
+
+```json
+{
+  "extends": "evidence",
+  "id": "acme",
+  "label": { "zh": "Acme 证据风", "en": "Acme evidence" },
+  "palette": { "brand": "#E4572E", "deep": "#B23A1C" },
+  "labels": { "install": { "zh": "开始使用", "en": "Get started" } }
+}
+```
+
+- 加载顺序：内置 → `~/.tailor/styles` → `<repo>/.tailor/styles`；同 id 后者覆盖前者。
+- `extends` 逐键合并：`label` / `palette` / `labels` 等对象合并，`sections` / `badgeSet` 数组替换。
+- 每个字段的含义、允许值、完整 schema 见 [styles/README.md](styles/README.md) 与 [styles/schema.json](styles/schema.json)。
+- 写坏的风格文件会被**跳过**并在 `repo_styles` 里列出文件与原因，其他风格照常可用。
+- 所有工具（`repo_audit` / `repo_plan` / `repo_readme` / `repo_brand` / `repo_verify`）都接受自定义 `style` id。
 
 ## 品牌素材
 
@@ -246,7 +282,7 @@ node bin/tailor.mjs brand . --style=evidence --concept=needle \
 </p>
 
 - **自举**：本仓库用自己补文档/品牌/README，审计分 **37 → 100**（D → A）；`dsh-plugin-resolver` 审计 **84/100（B）**，`repo_verify` 返回 `PASS`。
-- **测试**：11 项离线测试（`npm test`，pass 11 / fail 0），CI 在 Node 20/22/24 上跑。
+- **测试**：15 项离线测试（`npm test`，pass 15 / fail 0），CI 在 Node 20/22/24 上跑。
 - **纯逻辑耗时**：`auditFacts` **0.01 ms**、`renderReadme` **0.03 ms**、`verifyFacts` **0.03 ms**；`collectFacts` 因为要起 4 个 `git` 子进程约 **109–794 ms**（视仓库大小）。
 - **CLI 端到端**：`tailor audit .` 中位数 **248 ms**，其中约 200 ms 是 Node 启动。
 - **口径**：环境、方法、输出体积都写在 [BENCHMARK.md](BENCHMARK.md)；自举前后与测试输出在 [docs/EVIDENCE.md](docs/EVIDENCE.md)。
@@ -261,26 +297,28 @@ logic/
   facts.mjs         只读仓库事实
   rubric.mjs        8 维 34 项检查
   plan.mjs          gaps → P0/P1/P2 任务
-  styles.mjs        7 个风格预设（纯数据）
+  styles.mjs        风格加载器（JSON + 自定义 + extends + 校验）
+  style-schema.mjs  风格 schema 与合并规则
   readme.mjs        双语草稿、diff、apply 安全
   brand.mjs         12 概念品牌引擎（明暗双版）
   verify.mjs        链接/锚点/图片/章节/TODO
   util.mjs          diff、slug、路径边界
+styles/             7 个内置风格 JSON + schema.json + 说明
 bin/tailor.mjs      CLI（和工具共用逻辑）
 bench/micro.mjs     纯逻辑基准
 docs/               SPEC / STYLES / ACCEPTANCE / EVIDENCE
-test/tailor.test.mjs 11 项离线测试
+test/tailor.test.mjs 15 项离线测试
 ```
 
 ## 测试与 CI
 
 ```sh
-npm test                # 11 项离线测试
+npm test                # 15 项离线测试
 node bench/micro.mjs .  # 纯逻辑微基准
 node bin/tailor.mjs verify . --style=evidence
 ```
 
-- 测试覆盖：风格注册、facts、audit 排序、plan、README 渲染/落盘安全、品牌确定性、坏链/坏图/坏锚点、宿主注册、CLI。
+- 测试覆盖：风格注册与 JSON schema、自定义风格加载/extends/错误跳过、facts、audit 排序、plan、README 渲染/落盘安全、品牌确定性、坏链/坏图/坏锚点、宿主注册、CLI。
 - CI：`.github/workflows/test.yml`，Node 20/22/24 矩阵，跑 `npm test`、CLI smoke、`npm pack --dry-run`。
 
 <p align="center">
@@ -295,6 +333,7 @@ node bin/tailor.mjs verify . --style=evidence
 - **只做 zh / en**，不做其他语言；不自动选风格；不自动 commit / push / 发布。
 - **不生成真实截图或图片**：`repo_brand` 只生成 SVG 几何，demo GIF 需要用真实运行日志另外录。
 - **品牌素材是几何 SVG，不是插画/摄影**：需要插画级视觉时仍要人或模型来画；`repo_brand` 保证的是概念选择、明暗两套、一致性和可重复生成。
+- **自定义风格写坏会被跳过**：`repo_styles` 会列出文件和原因；加载器不猜测、不自动修复。
 - **`collectFacts` 是主要耗时项**（git 子进程 + 文件遍历），纯判断逻辑可以忽略不计。
 - **SVG 字宽依赖系统字体**：Inter / Segoe UI / 微软雅黑，不同机器上文字宽度略有差异。
 - npm 尚未发布：现在只能从源码安装，发布流程在 [PUBLISHING.md](PUBLISHING.md)。
@@ -334,6 +373,7 @@ node bin/tailor.mjs verify . --style=evidence
 - [x] **v0.1** 8 维审计、P0–P2 规划、双语草稿、发布前校验
 - [x] **v0.2** 12 个原创图形概念、明暗两套品牌套件、brand-sheet
 - [x] **v0.3** 风格去仓库名、真实 CLI 截图、demo 重录
+- [x] **v0.4** 风格结构化（JSON + schema）、自定义风格、`extends`、`style:init`
 - [ ] **v0.4** npm 发布 + `dsh-plugins` hub 收录
 - [ ] **v0.4** `--palette` 配色（暖色 / 高对比 / 单色 / 跟随品牌主色）
 - [ ] **v0.5** 同一仓库多风格并排预览（截图，不靠自引用）

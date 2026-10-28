@@ -1,12 +1,13 @@
 {
   "name": "dsh-plugin-tailor",
-  "version": "0.3.2",
-  "description": "Tailor a repository to fit: audit it across 8 maturity dimensions, pick one of seven README styles (resolver / dsh-tui / dsh-go / bubbletea / sniffnet / 1panel / doomemacs), draft a bilingual README, generate deterministic brand assets, and verify links before publishing.",
+  "version": "0.4.0",
+  "description": "Tailor a repository to fit: audit it across 8 maturity dimensions, pick or author a structured README style, draft a bilingual README, generate deterministic brand assets, and verify links before publishing.",
   "type": "module",
   "main": "index.js",
   "exports": {
     ".": "./index.js",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./styles/*": "./styles/*"
   },
   "bin": {
     "dsh-repo-tailor": "./bin/tailor.mjs"
@@ -16,6 +17,7 @@
     "host",
     "logic",
     "bin",
+    "styles",
     "cordis.patch.yml",
     "README.md",
     "README.en.md",

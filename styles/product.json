@@ -1,0 +1,82 @@
+{
+  "$schema": "./schema.json",
+  "id": "product",
+  "label": {
+    "zh": "品牌横幅 · 产品页",
+    "en": "Brand banner · product page"
+  },
+  "essence": {
+    "zh": "深色横幅 + 下载按钮 + 功能表格 + 截图；像产品落地页，先给下载入口。",
+    "en": "Dark banner, download buttons, feature table, screenshots; a product landing page whose first job is download."
+  },
+  "language": "en-first",
+  "tone": {
+    "zh": "产品页口吻：利益点、平台、下载，一句话一个动作。",
+    "en": "Landing-page voice: benefit, platform, download — one action per sentence."
+  },
+  "hero": "banner",
+  "demo": "screenshot",
+  "mark": "radar",
+  "palette": {
+    "brand": "#2F9BFF",
+    "deep": "#1565C0",
+    "ink": "#071018",
+    "green": "#21C77A",
+    "bg": "#08111C",
+    "border": "#17324D"
+  },
+  "badgeSet": [
+    "version",
+    "license",
+    "platform",
+    "stars"
+  ],
+  "sections": [
+    "hero",
+    "badges",
+    "title",
+    "tagline",
+    "screenshots",
+    "features",
+    "install",
+    "download",
+    "evidence",
+    "community",
+    "license"
+  ],
+  "labels": {
+    "features": {
+      "zh": "功能",
+      "en": "Features"
+    },
+    "screenshots": {
+      "zh": "界面",
+      "en": "Gallery"
+    },
+    "install": {
+      "zh": "下载",
+      "en": "Download"
+    },
+    "download": {
+      "zh": "安装方式",
+      "en": "Install options"
+    },
+    "evidence": {
+      "zh": "性能",
+      "en": "Performance"
+    },
+    "community": {
+      "zh": "社区",
+      "en": "Community"
+    }
+  },
+  "notes": {
+    "zh": "适合面向普通用户的产品：首屏给下载入口，功能用表格扫读。",
+    "en": "For end-user products: download above the fold, features scannable as a table."
+  },
+  "requiredFacts": [
+    "readme",
+    "banner",
+    "screenshots"
+  ]
+}

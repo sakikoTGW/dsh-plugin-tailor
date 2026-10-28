@@ -8,26 +8,50 @@ import { collectFacts } from './facts.mjs'
 import { formatPlan, planWork } from './plan.mjs'
 import { applyReadme, previewReadme, renderBoth } from './readme.mjs'
 import { auditFacts } from './rubric.mjs'
-import { getStyle, STYLES, styleIds, styleWarnings } from './styles.mjs'
+import { loadStyles, resolveStyle, styleWarnings } from './styles.mjs'
 import { formatVerify, verifyRepo } from './verify.mjs'
+
+const DEFAULT_STYLE = 'evidence'
+
+/**
+ * Style file origin as a short label.
+ *
+ * @param {any} style
+ * @returns {string}
+ */
+function originOf(style) {
+  return style?._origin ?? 'builtin'
+}
+
+/**
+ * @param {any} style
+ * @returns {string}
+ */
+function sourceOf(style) {
+  return style?._origin === 'builtin' ? 'builtin' : `${style?._origin}:${style?._file ?? ''}`
+}
 
 /**
  * @param {any} ctx
  * @param {any} manager
  * @param {{ defaultStyle?: string }} options
- * @param {{ path?: string, style?: string }} args
+ * @param {{ path?: string }} args
  */
 export async function repoStyles(ctx, manager, options, args) {
+  const path = args?.path ?? '.'
+  const registry = loadStyles(path)
+  const builtinCount = registry.styles.filter((style) => (style._origin ?? 'builtin') === 'builtin').length
+  const custom = registry.styles.filter((style) => (style._origin ?? 'builtin') !== 'builtin')
   const lines = []
-  lines.push(`repo_styles · ${STYLES.length} presets`)
+  lines.push(`repo_styles · ${registry.styles.length} presets (${builtinCount} built-in${custom.length > 0 ? ` + ${custom.length} custom` : ''})`)
   lines.push('')
-  lines.push('id          language   hero      demo        first screen')
-  lines.push('----------  ---------  --------  ----------  ------------------------------------------')
-  for (const style of STYLES) {
-    lines.push(`${style.id.padEnd(10)}  ${style.language.padEnd(9)}  ${style.hero.padEnd(8)}  ${style.demo.padEnd(10)}  ${style.notes.zh}`)
+  lines.push('id          language   hero      demo        origin      first screen')
+  lines.push('----------  ---------  --------  ----------  ----------  ------------------------------------------')
+  for (const style of registry.styles) {
+    lines.push(`${style.id.padEnd(10)}  ${style.language.padEnd(9)}  ${style.hero.padEnd(8)}  ${style.demo.padEnd(10)}  ${originOf(style).padEnd(10)}  ${style.notes.zh}`)
   }
   lines.push('')
-  for (const style of STYLES) {
+  for (const style of registry.styles) {
     lines.push(`## ${style.id} — ${style.label.zh} / ${style.label.en}`)
     lines.push(`essence: ${style.essence.zh}`)
     lines.push(`tone: ${style.tone.zh}`)
@@ -35,6 +59,20 @@ export async function repoStyles(ctx, manager, options, args) {
     lines.push(`notes: ${style.notes.zh}`)
     lines.push('')
   }
+  if (custom.length > 0) {
+    lines.push('自定义风格（按仓库 → 全局覆盖内置）：')
+    for (const style of custom) lines.push(`- ${style.id}  ${sourceOf(style)}`)
+    lines.push('')
+  }
+  const errors = registry.errors.filter((entry) => entry.errors?.length > 0)
+  if (errors.length > 0) {
+    lines.push('无效的风格文件（已跳过）：')
+    for (const entry of errors) lines.push(`- ${entry.file}: ${entry.errors.join('; ')}`)
+    lines.push('')
+  }
+  lines.push(`仓库风格目录: ${registry.dirs.repo}（不存在时可用 style:init 创建）`)
+  lines.push(`全局风格目录: ${registry.dirs.global}`)
+  lines.push('新建自定义风格：node bin/tailor.mjs style:init --path=. --id=my-style --extends=evidence')
   lines.push('用法：repo_audit { path, style } → repo_plan → repo_readme --apply → repo_verify。')
   return { text: lines.join('\n').trimEnd() }
 }
@@ -47,10 +85,11 @@ export async function repoStyles(ctx, manager, options, args) {
  */
 export async function repoAudit(ctx, manager, options, args) {
   const path = args?.path ?? '.'
-  const styleId = args?.style ?? options.defaultStyle ?? 'resolver'
+  const styleId = args?.style ?? options.defaultStyle ?? DEFAULT_STYLE
   const facts = collectFacts(path)
-  const style = getStyle(styleId)
-  const audit = auditFacts(facts, styleId)
+  const registry = loadStyles(facts.root)
+  const style = resolveStyle(styleId, registry)
+  const audit = auditFacts(facts, styleId, registry)
   const lines = []
   lines.push(`repo_audit · ${facts.name}${facts.version ? ` v${facts.version}` : ''} · style=${style.id} (${style.label.zh})`)
   lines.push(`path=${facts.root}`)
@@ -89,18 +128,16 @@ export async function repoAudit(ctx, manager, options, args) {
  */
 export async function repoPlan(ctx, manager, options, args) {
   const path = args?.path ?? '.'
-  const styleId = args?.style ?? options.defaultStyle ?? 'resolver'
+  const styleId = args?.style ?? options.defaultStyle ?? DEFAULT_STYLE
   const facts = collectFacts(path)
-  const plan = planWork(facts, styleId)
-  const limit = Number.isFinite(args?.limit) ? Math.max(1, Math.min(50, Number(args.limit))) : 20
-  const lines = [formatPlan(facts, styleId)]
-  lines.push('')
-  lines.push('---')
-  lines.push('完整步骤：')
-  for (const task of plan.tasks.slice(0, limit)) {
+  const registry = loadStyles(facts.root)
+  const style = resolveStyle(styleId, registry)
+  const result = planWork(facts, style.id, registry)
+  const lines = [formatPlan(facts, style.id, registry)]
+  if (result.styleWarnings.length > 0) {
     lines.push('')
-    lines.push(`[${task.priority}] ${task.title.zh}`)
-    for (const step of task.steps) lines.push(`  - ${step}`)
+    lines.push('风格缺口：')
+    for (const warning of result.styleWarnings) lines.push(`- ${warning}`)
   }
   return { text: lines.join('\n') }
 }
@@ -109,54 +146,44 @@ export async function repoPlan(ctx, manager, options, args) {
  * @param {any} ctx
  * @param {any} manager
  * @param {{ defaultStyle?: string }} options
- * @param {{ path?: string, style?: string, lang?: string, apply?: boolean, force?: boolean }} args
+ * @param {{ path?: string, style?: string, lang?: 'zh'|'en'|'both', apply?: boolean, force?: boolean }} args
  */
 export async function repoReadme(ctx, manager, options, args) {
   const path = args?.path ?? '.'
-  const styleId = args?.style ?? options.defaultStyle ?? 'resolver'
-  const lang = args?.lang === 'en' || args?.lang === 'both' ? args.lang : 'zh'
-  const apply = args?.apply === true
-  const force = args?.force === true
-  const style = getStyle(styleId)
-
-  if (apply) {
-    const result = applyReadme(path, styleId, lang, { force })
-    const lines = []
-    lines.push(`repo_readme · ${style.id} · lang=${lang} · applied`)
-    lines.push(result.written.length > 0 ? `written: ${result.written.join(', ')}` : 'written: (none, already up to date)')
-    if (result.skipped.length > 0) lines.push(`unchanged: ${result.skipped.join(', ')}`)
-    if (result.warnings.length > 0) {
-      lines.push('style gaps:')
-      for (const warning of result.warnings) lines.push(`- ${warning}`)
+  const styleId = args?.style ?? options.defaultStyle ?? DEFAULT_STYLE
+  const lang = args?.lang ?? 'both'
+  const facts = collectFacts(path)
+  const registry = loadStyles(facts.root)
+  const style = resolveStyle(styleId, registry)
+  const lines = []
+  if (args?.apply === true) {
+    const result = applyReadme(facts.root, style.id, lang, { force: args?.force === true })
+    lines.push(`repo_readme · ${facts.name} · style=${style.id} · apply=true`)
+    lines.push(`written: ${result.written.length > 0 ? result.written.join(', ') : '(none)'}`)
+    lines.push(`skipped: ${result.skipped.length > 0 ? result.skipped.join(', ') : '(none)'}`)
+    lines.push(`todos: ${result.todos.length}`)
+    if (result.diff) {
+      lines.push('')
+      lines.push(result.diff)
     }
-    if (result.todos.length > 0) {
-      lines.push(`TODO markers: ${result.todos.length} (see the comment block at the end of the README)`)
+    return { text: lines.join('\n').trimEnd() }
+  }
+  const langLines = lang === 'both' ? ['zh', 'en'] : [lang]
+  for (const current of langLines) {
+    const preview = previewReadme(facts.root, style.id, current)
+    lines.push(`repo_readme · ${facts.name} · style=${style.id} · lang=${current} · dry-run`)
+    lines.push('')
+    lines.push(preview.diff)
+    if (preview.todos.length > 0) {
+      lines.push('')
+      lines.push(`TODO(tailor) 有 ${preview.todos.length} 处，缺的事实不会被编造：`)
+      for (const todo of preview.todos.slice(0, 10)) lines.push(`- ${todo}`)
     }
     lines.push('')
-    lines.push(`next: node bin/tailor.mjs verify . --style=${style.id}`)
-    return { text: lines.join('\n') }
   }
-
-  const preview = previewReadme(path, styleId, lang)
-  const lines = []
-  lines.push(`repo_readme · ${style.id} · lang=${lang} · dry-run (nothing written)`)
-  lines.push(`target: ${lang === 'zh' ? 'README.md' : 'README.en.md'} · existing=${preview.existing}`)
-  if (preview.warnings.length > 0) {
-    lines.push('style gaps:')
-    for (const warning of preview.warnings) lines.push(`- ${warning}`)
-  }
-  lines.push('')
-  lines.push('--- diff ---')
-  lines.push(preview.diff.split('\n').slice(0, 160).join('\n'))
-  if (preview.diff.split('\n').length > 160) lines.push('… (diff truncated)')
-  lines.push('')
-  if (preview.todos.length > 0) {
-    lines.push('TODO markers:')
-    for (const todo of preview.todos) lines.push(`- ${todo}`)
-  }
-  lines.push('')
-  lines.push(`apply: node bin/tailor.mjs readme . --style=${style.id} --lang=${lang} --apply`)
-  return { text: lines.join('\n') }
+  if (facts.git.present) lines.push(`git: branch=${facts.git.branch ?? '?'} clean=${facts.git.clean ?? '?'}`)
+  lines.push('确认 diff 后加 apply: true 落盘（手写 README 默认拒绝，需 force: true）。')
+  return { text: lines.join('\n').trimEnd() }
 }
 
 /**
@@ -167,44 +194,33 @@ export async function repoReadme(ctx, manager, options, args) {
  */
 export async function repoBrand(ctx, manager, options, args) {
   const path = args?.path ?? '.'
-  const styleId = args?.style ?? options.defaultStyle ?? 'resolver'
-  const style = getStyle(styleId)
+  const styleId = args?.style ?? options.defaultStyle ?? DEFAULT_STYLE
   const facts = collectFacts(path)
-  const concept = args?.concept
-  const tagline = typeof args?.tagline === 'string' && args.tagline.trim() !== '' ? args.tagline.trim() : undefined
-
+  const registry = loadStyles(facts.root)
+  const style = resolveStyle(styleId, registry)
+  const conceptId = args?.concept ?? style.mark
+  const concept = CONCEPTS.find((item) => item.id === conceptId)
+  if (!concept) throw new Error(`unknown concept "${conceptId}" (available: ${CONCEPTS.map((item) => item.id).join(', ')})`)
+  const lines = []
   if (args?.apply === true) {
-    const result = applyBrand(path, styleId, { force: args?.force === true, concept, tagline })
-    const lines = []
-    lines.push(`repo_brand · ${facts.name} · style=${style.id} · concept=${result.concept} · applied`)
-    lines.push(result.written.length > 0 ? `written: ${result.written.join(', ')}` : 'written: (none)')
-    if (result.skipped.length > 0) lines.push(`skipped (already exists, use --force to overwrite): ${result.skipped.join(', ')}`)
+    const result = applyBrand(facts.root, style.id, { force: args?.force === true, concept: concept.id, tagline: args?.tagline })
+    lines.push(`repo_brand · ${facts.name} · style=${style.id} · concept=${concept.id} · apply=true`)
+    lines.push(`written: ${result.written.length > 0 ? result.written.join(', ') : '(none)'}`)
+    lines.push(`skipped: ${result.skipped.length > 0 ? result.skipped.join(', ') : '(none)'}`)
     return { text: lines.join('\n') }
   }
-
-  const files = buildBrand(facts, style, concept, { tagline })
-  const warnings = styleWarnings(style, facts)
-  const lines = []
+  const files = buildBrand(facts, style, concept.id, { tagline: args?.tagline })
   lines.push(`repo_brand · ${facts.name} · style=${style.id} · dry-run (nothing written)`)
   lines.push(`palette: ${style.palette.brand} / ${style.palette.deep} / ${style.palette.ink}`)
-  lines.push(`concept: ${concept ?? style.mark} (default for this style)`)
+  lines.push(`concept: ${concept.id} (${concept.en} · ${concept.zh})${args?.concept ? ' — explicit' : ` — default for ${style.id}`}`)
   lines.push('')
-  lines.push('files (8):')
-  for (const [relPath, content] of Object.entries(files)) {
-    lines.push(`- ${relPath} (${content.length} chars)`)
-  }
+  lines.push(`files (${Object.keys(files).length}):`)
+  for (const [file, content] of Object.entries(files)) lines.push(`- ${file} (${content.length} chars)`)
   lines.push('')
   lines.push('concepts:')
-  for (const item of CONCEPTS) {
-    lines.push(`- ${item.id} — ${item.label.zh} / ${item.label.en} · ${item.fit}`)
-  }
+  for (const item of CONCEPTS) lines.push(`- ${item.id.padEnd(9)} ${item.zh} · ${item.en} · ${item.fit}`)
   lines.push('')
-  lines.push(`apply: node bin/tailor.mjs brand . --style=${style.id} --concept=<id> --apply`)
-  if (warnings.length > 0) {
-    lines.push('')
-    lines.push('style gaps:')
-    for (const warning of warnings) lines.push(`- ${warning}`)
-  }
+  lines.push('apply: node bin/tailor.mjs brand . --style=' + style.id + ' --concept=<id> --apply')
   return { text: lines.join('\n') }
 }
 
@@ -216,7 +232,7 @@ export async function repoBrand(ctx, manager, options, args) {
  */
 export async function repoVerify(ctx, manager, options, args) {
   const path = args?.path ?? '.'
-  const styleId = args?.style ?? options.defaultStyle ?? 'resolver'
+  const styleId = args?.style ?? options.defaultStyle ?? DEFAULT_STYLE
   const result = verifyRepo(path, styleId)
   return { text: formatVerify(result) }
 }
@@ -229,7 +245,8 @@ export async function repoVerify(ctx, manager, options, args) {
  */
 export function renderPreviews(path, styleId) {
   const facts = collectFacts(path)
-  const style = getStyle(styleId)
-  const both = renderBoth(facts, style.id)
+  const registry = loadStyles(facts.root)
+  const style = resolveStyle(styleId, registry)
+  const both = renderBoth(facts, style.id, registry)
   return { facts, style, ...both }
 }

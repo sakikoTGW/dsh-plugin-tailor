@@ -1,6 +1,6 @@
 # SPEC — dsh-plugin-tailor
 
-> 状态：v0.1.0 实现中。验收见 [ACCEPTANCE.md](ACCEPTANCE.md)，风格说明见 [STYLES.md](STYLES.md)，证据见 [EVIDENCE.md](EVIDENCE.md)。
+> 状态：v0.4.0 实现中。验收见 [ACCEPTANCE.md](ACCEPTANCE.md)，风格说明见 [STYLES.md](STYLES.md)，风格数据格式见 [styles/README.md](../styles/README.md)，证据见 [EVIDENCE.md](EVIDENCE.md)。
 
 ## 目标
 
@@ -18,7 +18,7 @@ repo_audit → repo_plan → repo_brand → repo_readme → repo_verify
 
 | 工具 | 读写 | 输入 | 输出 | 失败语义 |
 |---|---|---|---|---|
-| `repo_styles` | 读 | — | 7 个预设的 id、语言、hero、demo、来源、essence | 不会失败 |
+| `repo_styles` | 读 | `path?` | 内置 + 自定义风格的 id、语言、hero、demo、来源（builtin/global/repo）、校验错误 | 不会失败；无效自定义文件只报告并跳过 |
 | `repo_audit` | 读 | `path`, `style?` | 0-100 分、8 维明细、按影响排序的 gaps、风格缺口 | 路径不存在 / 非目录 → 明确错误 |
 | `repo_plan` | 读 | `path`, `style?`, `limit?` | P0/P1/P2 任务，含 acceptance 与 verify 命令 | 同上 |
 | `repo_readme` | dry-run / 写 | `path`, `style?`, `lang?`, `apply?`, `force?` | diff、TODO 清单、风格缺口；apply 时写入 README(.en).md | 手写 README 且未 `force` → 拒绝；worktree 脏且未 `force` → 拒绝 |
@@ -50,12 +50,28 @@ repo_audit → repo_plan → repo_brand → repo_readme → repo_verify
 品牌概念共 12 个：`needle`、`stitch`、`quill`、`arcs`、`orbit`、`prompt`、`bubble`、`radar`、`hexstack`、`monogram`、`spark`、`layers`；`repo_brand` 支持 `concept` 覆盖，并生成明暗两套 lockup/banner 与一张 12 概念对照图。
 详见 [STYLES.md](STYLES.md)。
 
+## 风格存储与自定义
+
+风格是结构化 JSON，不是逻辑代码：
+
+| 位置 | 作用 | 覆盖顺序 |
+|---|---|---|
+| `styles/*.json`（随包） | 7 个内置风格 | 1 |
+| `~/.tailor/styles/*.json`（或 `TAILOR_STYLES_DIR`） | 本机自定义 | 2 |
+| `<repo>/.tailor/styles/*.json` | 单仓库自定义，可提交 | 3 |
+
+- 加载：`logic/styles.mjs` 读目录 → `extends` 合并（对象逐键、数组替换）→ `style-schema.mjs` 校验。
+- 内置风格校验失败直接报错；自定义风格失败**跳过该文件**并在 `repo_styles` 中报告文件与原因。
+- 合法字段与允许值由 `styles/schema.json` 固定；新增 section 才需要改 `logic/readme.mjs`。
+- `style:init`（CLI）是唯一会写 `.tailor/styles/` 的入口；六个 host 工具不写风格文件。
+- 所有工具接受自定义 `style` id；旧版风格 id 作为静默别名保留。
+
 ## 非目标
 
 - 不生成虚假的基准、用户、star 数或截图；
 - 不自动 push、不自动发布 npm、不创建 GitHub Release；
 - 不替代人工判断定位、取舍和限制——它只负责结构、证据和检查；
-- v0.1 不做：图片模型生成、多语言 >2、跨仓库批量模式、GUI 半。
+- 当前不做：图片模型生成、多语言 >2、跨仓库批量模式、GUI。
 
 ## 安全边界
 

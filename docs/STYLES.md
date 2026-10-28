@@ -2,6 +2,8 @@
 
 `repo_readme` 不替用户决定"哪种 README 好看"，而是把七种成熟的 README 传统拆成 **layout + tone 预设**，让用户按项目类型选。每个预设只决定结构、首屏形态、徽章数量、语气和章节顺序；**内容仍然来自仓库事实**。
 
+预设本身是**结构化 JSON 数据**（`styles/*.json`），不是代码；加载、合并、校验由 `logic/styles.mjs` 负责。用户可以在仓库或本机加自己的风格，详见下文「结构化存储与自定义风格」。
+
 ## 先看共性：优秀仓库的 12 个特征
 
 从一批成熟仓库的 README 里归纳出的共同点（只提炼做法，不引用具体仓库）：
@@ -30,6 +32,41 @@
 | `product` | 品牌产品页 | 英文优先 | 品牌 banner | 截图 | 面向普通用户、首屏就要下载入口 |
 | `platform` | 面板平台 | 双语 | 居中 logo | GIF | 面板 / 平台，截图多于文字 |
 | `minimal` | 极简排版 | 英文优先 | 无图 | 无 | 成熟工具 / 框架，靠排版和链接密度 |
+
+## 结构化存储与自定义风格
+
+风格文件是纯 JSON，按下面的顺序加载（同 id 后者覆盖前者）：
+
+| 位置 | 作用 |
+|---|---|
+| `styles/*.json`（随包发布） | 7 个内置风格 |
+| `~/.tailor/styles/*.json`（或 `TAILOR_STYLES_DIR`） | 本机自定义 |
+| `<repo>/.tailor/styles/*.json` | 单仓库自定义，可提交进仓库 |
+
+自定义风格可以只写差异：
+
+```json
+{
+  "extends": "evidence",
+  "id": "acme",
+  "label": { "zh": "Acme 证据风", "en": "Acme evidence" },
+  "palette": { "brand": "#E4572E" },
+  "labels": { "install": { "zh": "开始使用", "en": "Get started" } }
+}
+```
+
+```sh
+node bin/tailor.mjs style:init . --id=acme --extends=evidence
+node bin/tailor.mjs styles .                 # 看到 acme（repo 来源）
+node bin/tailor.mjs readme . --style=acme --lang=both
+```
+
+- `extends` 逐键合并：`label` / `essence` / `tone` / `notes` / `palette` 合并，`labels` 合并，`sections` / `badgeSet` / `requiredFacts` 数组替换。
+- 不写 `extends` 时必须提供完整必填字段（schema 见 `styles/schema.json`）。
+- 内置风格加载时强制校验，失败直接报错；自定义风格校验失败会**跳过该文件**，`repo_styles` 输出文件路径与原因，其他风格不受影响。
+- 所有工具接受自定义 `style` id；`repo_styles` 的 `origin` 列显示 builtin / global / repo。
+
+字段清单、错误语义和完整示例见 [`styles/README.md`](../styles/README.md)。
 
 ## 各预设细节
 
@@ -94,6 +131,7 @@
 | 文案 | `labels` + `tone` | 章节标题与语气；正文仍来自 facts |
 | 品牌 | `palette` + `mark` | `repo_brand` 的调色板与默认概念；可用 `concept` 覆盖 |
 | 语言 | `language` | 双语 / 中文优先 / 英文优先，以及语言切换行 |
+| 继承 | `extends` | 自定义风格从父风格继承，只覆盖需要的字段 |
 
 每个预设的默认图形概念（都可在 `repo_brand` 里换）：
 
@@ -108,9 +146,11 @@
 
 ## 常见问题
 
-**能改预设吗？** 能。`logic/styles.mjs` 是纯数据；加一个对象、在 `sections` 里组合已有 section id 即可。新增 section 需要在 `logic/readme.mjs` 加一个 renderer。
+**能改预设吗？** 能，有两种方式：把 `styles/<id>.json` 复制到 `.tailor/styles/` 后改字段；或者用 `style:init --extends=<id>` 只写差异。新增 section 才需要改 `logic/readme.mjs` 加 renderer。
 
-**能自动选风格吗？** v0.2 不做自动选。`repo_audit` 会报告"当前事实满足哪些预设 / 缺什么"，选择权留给用户。
+**能自动选风格吗？** 当前不做自动选。`repo_audit` 会报告"当前事实满足哪些预设 / 缺什么"，选择权留给用户。
+
+**自定义风格写坏了会怎样？** 该文件被跳过，`repo_styles` 列出路径和校验错误；内置风格和其余自定义风格照常可用。
 
 **旧命令里的风格 id 还能用吗？** 能。早期 id 作为别名保留，命令不用改；但显示与文档只使用上表的风格 id。
 

@@ -10,7 +10,7 @@ import { statSync } from 'node:fs'
 
 const LOGIC_DIR = new URL('../logic/', import.meta.url)
 
-const LOGIC_FILES = ['api.js', 'facts.mjs', 'rubric.mjs', 'plan.mjs', 'styles.mjs', 'readme.mjs', 'brand.mjs', 'verify.mjs', 'util.mjs']
+const LOGIC_FILES = ['api.js', 'facts.mjs', 'rubric.mjs', 'plan.mjs', 'styles.mjs', 'style-schema.mjs', 'readme.mjs', 'brand.mjs', 'verify.mjs', 'util.mjs']
 
 const TOOL_TIMEOUT_MS = 60_000
 
@@ -77,11 +77,13 @@ export function registerTools(ctx, options) {
   add({
     name: 'repo_styles',
     description:
-      'List the README style presets repo_readme can render: evidence (evidence-first bilingual), terminal (centered logo bilingual), mobile (mobile/community), playful (GIF-first tutorial), product (product page), platform (centered brand i18n) and minimal (minimal type). Read-only.',
+      'List the structured README style presets repo_readme can render: 7 built-ins (evidence, terminal, mobile, playful, product, platform, minimal) plus custom JSON styles from <repo>/.tailor/styles and ~/.tailor/styles. Shows where each style was loaded from and any invalid style files. Read-only.',
     parameters: {
       type: 'object',
       additionalProperties: false,
-      properties: {},
+      properties: {
+        path: { type: 'string', description: 'Repository path used to discover .tailor/styles. Defaults to the working directory.' },
+      },
     },
     timeoutMs: TOOL_TIMEOUT_MS,
     execute: (args) => run('repoStyles', args ?? {}),

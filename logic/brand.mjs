@@ -13,7 +13,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
 import { dirname } from 'node:path'
 
 import { collectFacts } from './facts.mjs'
-import { getStyle } from './styles.mjs'
+import { loadStyles, resolveStyle } from './styles.mjs'
 import { resolveInside } from './util.mjs'
 
 const FONT = `Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif`
@@ -593,9 +593,9 @@ function escapeXml(value) {
  * @param {{ force?: boolean, concept?: string, tagline?: string }} [options]
  * @returns {{ written: string[], skipped: string[], files: Record<string, string>, concept: string }}
  */
-export function applyBrand(root, styleId = 'resolver', options = {}) {
+export function applyBrand(root, styleId = 'evidence', options = {}) {
   const facts = collectFacts(root)
-  const style = getStyle(styleId)
+  const style = resolveStyle(styleId, loadStyles(facts.root))
   const concept = options.concept ? getConcept(options.concept).id : style.mark
   const files = buildBrand(facts, style, concept, { tagline: options.tagline })
   const force = options.force === true

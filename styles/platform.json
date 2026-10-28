@@ -1,0 +1,78 @@
+{
+  "$schema": "./schema.json",
+  "id": "platform",
+  "label": {
+    "zh": "居中品牌 · 国际化",
+    "en": "Centered brand · i18n"
+  },
+  "essence": {
+    "zh": "居中 Logo + 一句话定位 + 语言切换 + 少量徽章；截图和功能并排，中文优先但英文对等。",
+    "en": "Centered logo, one-line positioning, language switch, few badges; screenshots next to features, Chinese-first with an equal English page."
+  },
+  "language": "bilingual",
+  "tone": {
+    "zh": "官网简介口吻：定位清楚、句子短、不堆术语。",
+    "en": "Homepage intro voice: clear positioning, short sentences, no jargon pile-up."
+  },
+  "hero": "logo",
+  "demo": "gif",
+  "mark": "hexstack",
+  "palette": {
+    "brand": "#2B6DE5",
+    "deep": "#1748A8",
+    "ink": "#0A1220",
+    "green": "#23B26D",
+    "bg": "#0D1522",
+    "border": "#213451"
+  },
+  "badgeSet": [
+    "version",
+    "license",
+    "stars"
+  ],
+  "sections": [
+    "language",
+    "hero",
+    "badges",
+    "title",
+    "tagline",
+    "demo",
+    "features",
+    "screenshots",
+    "install",
+    "quickstart",
+    "community",
+    "license"
+  ],
+  "labels": {
+    "features": {
+      "zh": "功能",
+      "en": "Features"
+    },
+    "screenshots": {
+      "zh": "界面",
+      "en": "Screenshots"
+    },
+    "install": {
+      "zh": "开始使用",
+      "en": "Get started"
+    },
+    "quickstart": {
+      "zh": "快速开始",
+      "en": "Quickstart"
+    },
+    "community": {
+      "zh": "社区",
+      "en": "Community"
+    }
+  },
+  "notes": {
+    "zh": "适合面板 / 平台类产品：品牌居中，定位一句话，截图比文字多。",
+    "en": "For panels and platforms: brand centered, one-line positioning, screenshots over prose."
+  },
+  "requiredFacts": [
+    "readme",
+    "logo",
+    "screenshots"
+  ]
+}

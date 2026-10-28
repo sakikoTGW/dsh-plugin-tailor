@@ -11,7 +11,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 
 import { collectFacts } from './facts.mjs'
-import { getStyle, styleWarnings } from './styles.mjs'
+import { loadStyles, resolveStyle, styleWarnings } from './styles.mjs'
 import { extractSection, makeSlugger, oneLine, resolveInside, truncate, unifiedDiff } from './util.mjs'
 
 const MARKER_PREFIX = '<!-- generated-by: dsh-plugin-tailor'
@@ -914,10 +914,11 @@ function escapeHtml(value) {
  *
  * @param {import('./facts.mjs').RepoFacts} facts
  * @param {string} styleId
+ * @param {{ byId: Map<string, any> }} [registry]
  * @returns {{ zh: { text: string, todos: string[] }, en: { text: string, todos: string[] }, style: string, warnings: string[] }}
  */
-export function renderBoth(facts, styleId) {
-  const style = getStyle(styleId)
+export function renderBoth(facts, styleId, registry) {
+  const style = resolveStyle(styleId, registry)
   const zh = renderReadme(facts, style, 'zh')
   const en = renderReadme(facts, style, 'en')
   return { zh, en, style: style.id, warnings: styleWarnings(style, facts) }
@@ -931,9 +932,9 @@ export function renderBoth(facts, styleId) {
  * @param {'zh'|'en'} lang
  * @returns {{ text: string, diff: string, todos: string[], warnings: string[], existing: boolean }}
  */
-export function previewReadme(root, styleId = 'resolver', lang = 'zh') {
+export function previewReadme(root, styleId = 'evidence', lang = 'zh') {
   const facts = collectFacts(root)
-  const style = getStyle(styleId)
+  const style = resolveStyle(styleId, loadStyles(facts.root))
   const draft = renderReadme(facts, style, lang)
   const target = lang === 'zh' ? 'README.md' : 'README.en.md'
   const existingPath = join(facts.root, target)
@@ -962,9 +963,9 @@ export function previewReadme(root, styleId = 'resolver', lang = 'zh') {
  * @param {{ force?: boolean }} [options]
  * @returns {{ written: string[], skipped: string[], todos: string[], diff: string, warnings: string[] }}
  */
-export function applyReadme(root, styleId = 'resolver', lang = 'both', options = {}) {
+export function applyReadme(root, styleId = 'evidence', lang = 'both', options = {}) {
   const facts = collectFacts(root)
-  const style = getStyle(styleId)
+  const style = resolveStyle(styleId, loadStyles(facts.root))
   const force = options.force === true
 
   if (facts.git.present && facts.git.clean === false && !force) {

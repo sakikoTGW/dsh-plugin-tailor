@@ -6,17 +6,19 @@
 
 import assert from 'node:assert/strict'
 import { spawnSync } from 'node:child_process'
-import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync, existsSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import test from 'node:test'
 
-import { applyBrand, buildBrand } from '../logic/brand.mjs'
+import { applyBrand, buildBrand, CONCEPTS } from '../logic/brand.mjs'
 import { collectFacts } from '../logic/facts.mjs'
 import { planWork } from '../logic/plan.mjs'
 import { applyReadme, previewReadme, renderReadme, renderBoth } from '../logic/readme.mjs'
 import { auditFacts } from '../logic/rubric.mjs'
-import { getStyle, STYLES, styleIds } from '../logic/styles.mjs'
+import { loadStyles, getStyle, STYLES, styleIds, scaffoldStyle } from '../logic/styles.mjs'
+import { MARK_IDS } from '../logic/style-schema.mjs'
+import { repoStyles } from '../logic/api.js'
 import { verifyRepo } from '../logic/verify.mjs'
 import { registerTools } from '../host/register.js'
 
@@ -385,4 +387,95 @@ test('cli: styles command prints all presets', () => {
   assert.match(result.stdout, /7 presets/)
   assert.match(result.stdout, /minimal/)
   assert.match(result.stdout, /product/)
+})
+
+test('styles: built-in JSON files validate and load from disk', () => {
+  const dir = makeRepo('good')
+  try {
+    assert.equal(STYLES.length, 7)
+    assert.deepEqual([...MARK_IDS].sort(), CONCEPTS.map((concept) => concept.id).sort())
+    const registry = loadStyles(dir)
+    const hardErrors = registry.errors.filter((entry) => entry.errors.length > 0)
+    assert.deepEqual(hardErrors, [])
+    assert.equal(registry.byId.get('evidence')._origin, 'builtin')
+  } finally {
+    rmSync(dir, { recursive: true, force: true })
+  }
+})
+
+test('styles: custom style extends a built-in and flows through tools', async () => {
+  const dir = makeRepo('good')
+  try {
+    writeJson(join(dir, '.tailor', 'styles', 'acme.json'), {
+      $schema: '../../../../styles/schema.json',
+      extends: 'evidence',
+      id: 'acme',
+      label: { zh: 'Acme 证据风', en: 'Acme evidence' },
+      palette: { brand: '#E4572E' },
+      labels: { install: { zh: '开始使用', en: 'Get started' } },
+      sections: ['hero', 'language', 'badges', 'title', 'tagline', 'demo', 'install', 'features', 'limitations', 'license'],
+    })
+    const registry = loadStyles(dir)
+    const acme = registry.byId.get('acme')
+    assert.equal(acme.label.zh, 'Acme 证据风')
+    assert.equal(acme.palette.brand, '#E4572E')
+    assert.equal(acme.palette.deep, getStyle('evidence').palette.deep)
+    assert.equal(acme._origin, 'repo')
+
+    const facts = collectFacts(dir)
+    const audit = auditFacts(facts, 'acme', registry)
+    assert.equal(audit.style, 'acme')
+    const draft = previewReadme(dir, 'acme', 'zh')
+    assert.match(draft.text, /开始使用/)
+    const verify = verifyRepo(dir, 'acme')
+    assert.equal(verify.style, 'acme')
+    const listed = (await repoStyles(null, null, {}, { path: dir })).text
+    assert.match(listed, /1 custom/)
+    assert.match(listed, /acme/)
+    assert.match(listed, /repo:/)
+  } finally {
+    rmSync(dir, { recursive: true, force: true })
+  }
+})
+
+test('styles: invalid custom files are skipped and reported', async () => {
+  const dir = makeRepo('good')
+  try {
+    writeJson(join(dir, '.tailor', 'styles', 'bad.json'), {
+      extends: 'evidence',
+      id: 'bad',
+      language: 'klingon',
+    })
+    const registry = loadStyles(dir)
+    const bad = registry.errors.find((entry) => entry.file.endsWith('bad.json'))
+    assert.ok(bad, 'bad.json should be reported')
+    assert.match(bad.errors.join(';'), /language/)
+    assert.equal(registry.byId.has('bad'), false)
+    const listed = (await repoStyles(null, null, {}, { path: dir })).text
+    assert.match(listed, /无效的风格文件/)
+    assert.match(listed, /bad\.json/)
+  } finally {
+    rmSync(dir, { recursive: true, force: true })
+  }
+})
+
+test('styles: scaffold and CLI style:init create loadable custom styles', () => {
+  const dir = makeRepo('good')
+  try {
+    const created = scaffoldStyle(dir, { id: 'niwa', extends: 'evidence' })
+    assert.ok(existsSync(created.path))
+    const registry = loadStyles(dir)
+    assert.match(registry.byId.get('niwa').label.zh, /自定义/)
+    assert.throws(() => scaffoldStyle(dir, { id: 'niwa' }), /already exists/)
+    assert.equal(scaffoldStyle(dir, { id: 'niwa', force: true }).id, 'niwa')
+
+    const cli = spawnSync(process.execPath, [join(ROOT, 'bin', 'tailor.mjs'), 'style:init', dir, '--id=cli-style', '--extends=terminal'], { encoding: 'utf8', timeout: 30_000 })
+    assert.equal(cli.status, 0, cli.stderr)
+    assert.match(cli.stdout, /created/)
+    assert.ok(existsSync(join(dir, '.tailor', 'styles', 'cli-style.json')))
+    const reloaded = loadStyles(dir)
+    assert.equal(reloaded.byId.get('cli-style').mark, getStyle('terminal').mark)
+  } finally {
+    rmSync(dir, { recursive: true, force: true })
+  }
 })

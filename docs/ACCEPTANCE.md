@@ -1,4 +1,4 @@
-# ACCEPTANCE — dsh-plugin-tailor v0.3.2
+# ACCEPTANCE — dsh-plugin-tailor v0.4.0
 
 > 依据 `vibe-playbook/templates/ACCEPTANCE.md`。结案时逐项附证据。
 
@@ -20,8 +20,9 @@
 | 6 | verify 能抓坏链、坏图、坏锚点 | `verify: catches broken links, images and anchors` 用例 |
 | 7 | 宿主注册 6 个工具并可执行 | `host: registers six tools and runs repo_audit` 用例 |
 | 8 | CLI 可用 | `cli: styles command prints all presets` 用例 |
-| 9 | 离线全绿 | `npm test` 输出 pass 11 / fail 0 |
+| 9 | 离线全绿 | `npm test` 输出 pass 15 / fail 0 |
 | 10 | 自举：用插件审计并改造自身仓库 | `docs/EVIDENCE.md` 的 before/after 审计输出 |
+| 11 | 风格是结构化数据，可自定义、可继承、坏文件被跳过 | `styles/*.json` + `styles/schema.json`；测试 `styles: built-in JSON files...`、`styles: custom style extends...`、`styles: invalid custom files...`、`styles: scaffold and CLI style:init...` |
 
 ## 非目标
 
@@ -42,7 +43,7 @@
 
 ## 证据清单（结案时附上）
 
-- [ ] `npm test` 全绿输出（11/11）
+- [ ] `npm test` 全绿输出（15/15）
 - [ ] `node bin/tailor.mjs audit ../dsh-plugin-resolver` 输出（84/100, B）
 - [ ] 自举前后分数对比（[EVIDENCE.md](EVIDENCE.md)）
 - [ ] BENCHMARK.md 的实测耗时（中位数、环境）

@@ -43,5 +43,5 @@
     <path d="M600 40 V128"/>
     <path d="M900 40 V128"/>
   </g>
-  <text x="1168" y="152" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11" fill="#4E638C" text-anchor="end">v0.3.2 · MIT · DSH &gt;=0.2.0-rc.2</text>
+  <text x="1168" y="152" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11" fill="#4E638C" text-anchor="end">v0.4.0 · MIT · DSH &gt;=0.2.0-rc.2</text>
 </svg>

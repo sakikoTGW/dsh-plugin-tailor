@@ -13,7 +13,7 @@ import { join } from 'node:path'
 
 import { collectFacts } from './facts.mjs'
 import { auditFacts } from './rubric.mjs'
-import { getStyle } from './styles.mjs'
+import { loadStyles, resolveStyle } from './styles.mjs'
 import { makeSlugger, readText, toPosix } from './util.mjs'
 
 /**
@@ -23,11 +23,12 @@ import { makeSlugger, readText, toPosix } from './util.mjs'
 /**
  * @param {import('./facts.mjs').RepoFacts} facts
  * @param {string} styleId
+ * @param {{ byId: Map<string, any> }} [registry]
  * @returns {{ pass: boolean, checks: VerifyCheck[], score: number, grade: string, style: string, todos: number, delta: number | null }}
  */
-export function verifyFacts(facts, styleId = 'resolver') {
-  const style = getStyle(styleId)
-  const audit = auditFacts(facts, styleId)
+export function verifyFacts(facts, styleId = 'evidence', registry) {
+  const style = resolveStyle(styleId, registry)
+  const audit = auditFacts(facts, styleId, registry)
   /** @type {VerifyCheck[]} */
   const checks = []
 
@@ -216,9 +217,10 @@ function decodeURIComponentSafe(value) {
  * @param {string} styleId
  * @returns {ReturnType<typeof verifyFacts> & { name: string }}
  */
-export function verifyRepo(root, styleId = 'resolver') {
+export function verifyRepo(root, styleId = 'evidence') {
   const facts = collectFacts(root)
-  return { ...verifyFacts(facts, styleId), name: facts.name }
+  const registry = loadStyles(facts.root)
+  return { ...verifyFacts(facts, styleId, registry), name: facts.name }
 }
 
 /**

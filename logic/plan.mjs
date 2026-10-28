@@ -7,7 +7,7 @@
  */
 
 import { auditFacts, dimensionLabel } from './rubric.mjs'
-import { getStyle } from './styles.mjs'
+import { resolveStyle } from './styles.mjs'
 
 const PRIORITY_BY_DIMENSION = {
   identity: 'P0',
@@ -29,11 +29,12 @@ const VERIFY_COMMAND = (styleId) => `node bin/tailor.mjs verify . --style=${styl
 /**
  * @param {import('./facts.mjs').RepoFacts} facts
  * @param {string} styleId
+ * @param {{ byId: Map<string, any> }} [registry]
  * @returns {{ style: string, tasks: Task[], styleWarnings: string[], audit: ReturnType<typeof auditFacts> }}
  */
-export function planWork(facts, styleId = 'resolver') {
-  const style = getStyle(styleId)
-  const audit = auditFacts(facts, styleId)
+export function planWork(facts, styleId = 'evidence', registry) {
+  const style = resolveStyle(styleId, registry)
+  const audit = auditFacts(facts, styleId, registry)
   /** @type {Task[]} */
   const tasks = []
 
@@ -132,10 +133,11 @@ export function planWork(facts, styleId = 'resolver') {
  *
  * @param {import('./facts.mjs').RepoFacts} facts
  * @param {string} styleId
+ * @param {{ byId: Map<string, any> }} [registry]
  * @returns {string}
  */
-export function formatPlan(facts, styleId = 'resolver') {
-  const { tasks, audit } = planWork(facts, styleId)
+export function formatPlan(facts, styleId = 'evidence', registry) {
+  const { tasks, audit } = planWork(facts, styleId, registry)
   const lines = []
   lines.push(`repo_plan · ${facts.name} · style=${styleId} · score=${audit.score} (${audit.grade})`)
   lines.push(`gaps=${audit.gaps.length} · tasks=${tasks.length}`)
