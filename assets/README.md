@@ -13,7 +13,6 @@ Re-running with the same inputs is byte-identical.
 | `banner-light.svg` | 1280×400 light banner | light docs / slides |
 | `social-preview.svg` | 1280×640 social card | GitHub Settings → Social preview |
 | `brand-sheet.svg` | all 12 concepts side by side | choose a concept |
-| `assets/README.md` | this index | docs |
 
 Concept: `needle` — 针线 / Needle & thread. 裁缝 / 定制 / 精修.
 Palette: brand `#4D6BFE` · deep `#2A3FD0` · ink `#0B1020`.
@@ -26,6 +25,7 @@ node bin/tailor.mjs brand . --style=evidence --concept=needle --apply --force
 
 Available concepts: `needle`, `stitch`, `quill`, `arcs`, `orbit`, `prompt`, `bubble`, `radar`, `hexstack`, `monogram`, `spark`, `layers`.
 
+
 ## 其他资产（真实输出 / 手写）
 
 | File | 说明 |
@@ -37,6 +37,7 @@ Available concepts: `needle`, `stitch`, `quill`, `arcs`, `orbit`, `prompt`, `bub
 | `demo.gif` | 真实 audit + verify 演示（7 帧，80 KB） |
 | `pipeline.svg` | 五阶段流水线（手写） |
 | `styles.svg` | 7 种 README 风格矩阵（手写） |
+| `stats.svg` | 首屏数字条：8 维 / 34 项 / 7 风格 / 12 概念 |
+| `features.svg` | 六个能力卡片（Features 网格） |
 
 `tools-*.png`、`audit-resolver.png` 与 `demo.gif` 全部由实际 stdout 渲染，命令写在终端卡里；不含手写假数据。
-

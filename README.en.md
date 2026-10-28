@@ -9,7 +9,8 @@
 </p>
 
 <p align="center">
-  <img alt="version" src="https://img.shields.io/badge/version-0.3.0-4D6BFE?style=flat-square">
+  <img alt="version" src="https://img.shields.io/badge/version-0.3.1-4D6BFE?style=flat-square">
+  <a href="https://github.com/sakikoTGW/dsh-plugin-tailor/releases"><img alt="release" src="https://img.shields.io/github/v/release/sakikoTGW/dsh-plugin-tailor?style=flat-square&color=2FBF71"></a>
   <img alt="license" src="https://img.shields.io/badge/license-MIT-263146?style=flat-square">
   <img alt="DSH" src="https://img.shields.io/badge/DSH-%3E%3D0.2.0--rc.2%20%3C0.3.0-4D6BFE?style=flat-square">
   <img alt="Node" src="https://img.shields.io/badge/node-%3E%3D20-339933?style=flat-square&logo=node.js&logoColor=white">
@@ -21,7 +22,15 @@
 
 > From “it runs” to “ship it”: audit → pick a style → brand assets → bilingual README → pre-release verification.
 
-<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.3.0</sub></p>
+<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.3.1</sub></p>
+
+<p align="center">
+  <a href="#quickstart"><b>Install</b></a> · <a href="#seven-styles">Seven styles</a> · <a href="#six-tools">Six tools</a> · <a href="#roadmap">Roadmap</a>
+</p>
+
+<p align="center">
+  <img src="assets/stats.svg" alt="8 audit dimensions, 34 checks, 7 styles, 12 original vector concepts" width="100%">
+</p>
 
 <p align="center">
   <img src="assets/demo.gif" alt="Real terminal: repo_audit scores dsh-plugin-resolver 84/100, repo_verify returns PASS" width="760">
@@ -42,6 +51,10 @@
 - [Layout](#layout)
 - [Tests and CI](#tests-and-ci)
 - [Known limitations](#known-limitations)
+- [Security boundaries](#security-boundaries)
+- [FAQ](#faq)
+- [Roadmap](#roadmap)
+- [Ecosystem and listings](#ecosystem-and-listings)
 - [Feedback and security](#feedback-and-security)
 - [License](#license)
 
@@ -68,6 +81,10 @@ What it does: **8 dimensions / 34 checks** for maturity, **7 style presets** for
 
 ## Features
 
+<p align="center">
+  <img src="assets/features.svg" alt="Six capabilities: repo_audit, repo_readme, repo_brand, bilingual parity, write protection, repo_verify" width="100%">
+</p>
+
 - **8 dimensions / 34 checks**: identity, first screen, install, docs, evidence, release, community, brand — every gap comes with a concrete fix, not just a score.
 - **7 styles + bilingual drafts**: from evidence-first to minimal typography; dry-run diff first, write second.
 - **12 vector concepts × light/dark**: `icon` / `logo` (light+dark) / `banner` (light+dark) / `social` / `brand-sheet` — 8 files, byte-identical on re-run.
@@ -77,7 +94,7 @@ What it does: **8 dimensions / 34 checks** for maturity, **7 style presets** for
 
 ## Quickstart
 
-> **Not on npm yet. v0.2.0 ships as a [GitHub Release](https://github.com/sakikoTGW/dsh-plugin-tailor/releases/tag/v0.3.0) with a `.tgz`. Either path works:**
+> **Not on npm yet. v0.3.1 ships as a [GitHub Release](https://github.com/sakikoTGW/dsh-plugin-tailor/releases/tag/v0.3.1) with a `.tgz`. Either path works:**
 
 ```sh
 # from source
@@ -85,7 +102,7 @@ git clone https://github.com/sakikoTGW/dsh-plugin-tailor
 dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor
 
 # or the release tarball
-dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.3.0.tgz
+dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.3.1.tgz
 ```
 
 Restart the engine once and the six `repo_*` tools are live. After that, edits under `logic/` apply on the next call; edits to `host/register.js` or `index.js` need an engine restart.
@@ -251,6 +268,53 @@ node bin/tailor.mjs verify . --style=evidence
 - **SVG text metrics depend on system fonts** (Inter / Segoe UI / Microsoft YaHei), so widths vary slightly across machines.
 - Not on npm yet: install from source; release steps are in [PUBLISHING.md](PUBLISHING.md).
 
+## Security boundaries
+
+| Action | Boundary |
+|---|---|
+| Read | repository files only, plus `git status/log/tag`; the plugin makes no network requests |
+| Write (only with `apply: true`) | `README.md` / `README.en.md` / `assets/*.svg` / `assets/README.md` / `.tailor/baseline.json` |
+| Refuse | path traversal (`../`), hand-written README without `force`, existing assets without `force`, dirty worktree without `force` |
+| Never | execute repository scripts, run `npm install`, commit / push / publish, call an image model |
+| Dependencies | Node standard library only; zero runtime dependencies |
+
+## FAQ
+
+**How is this different from a README template?**
+A template gives structure; this gives an 8-dimension audit, style-based generation, write protection and pre-release verification. Facts come from the repository; missing ones become TODOs, never invented numbers.
+
+**Will it overwrite my hand-written README?**
+No by default. Only files with a `generated-by` marker may be regenerated; otherwise `force` is required.
+
+**Does it need network access?**
+No. Badge images are loaded by GitHub from shields.io at render time; the plugin itself makes no requests.
+
+**Which languages and styles are supported?**
+`zh` / `en` pages; seven styles: `evidence`, `terminal`, `mobile`, `playful`, `product`, `platform`, `minimal`. Legacy ids still work.
+
+**Why review the README after a 100 score?**
+The score measures structure, evidence and brand presence — not prose quality or factual correctness. A human still reads it before publishing.
+
+**When will it be on npm?**
+See the roadmap. For now use the `.tgz` attached to the GitHub Release.
+
+## Roadmap
+
+- [x] **v0.1** 8-dimension audit, P0–P2 planning, bilingual drafts, pre-release verification
+- [x] **v0.2** 12 original vector concepts, light/dark brand kit, brand sheet
+- [x] **v0.3** style-only presets, real CLI screenshots, re-recorded demo
+- [ ] **v0.4** npm publish + `dsh-plugins` hub listing
+- [ ] **v0.4** `--palette` variants (warm / high-contrast / mono / follow brand)
+- [ ] **v0.5** side-by-side style previews from a real repository
+- [ ] **v0.5** optional image-model illustration mode (PNG, SVG geometry stays the default)
+
+## Ecosystem and listings
+
+- Install helper: [`dsh-plugin-resolver`](https://github.com/sakikoTGW/dsh-plugin-resolver) (installs the right version in one tool call)
+- Index: [`dsh-plugins`](https://github.com/sakikoTGW/dsh-plugins) (`catalog.json` is the source of truth)
+- Mobile adaptation: [`dsh-plugin-resolver-dshgo`](https://github.com/sakikoTGW/dsh-plugin-resolver-dshgo)
+- Listing status: GitHub Release ✅ · npm ⏳ · hub catalog ⏳
+
 ## Feedback and security
 
 - Issues and ideas: <https://github.com/sakikoTGW/dsh-plugin-tailor/issues>
@@ -260,3 +324,10 @@ node bin/tailor.mjs verify . --style=evidence
 ## License
 
 [MIT](LICENSE)
+
+<p align="center">
+  <sub>Built for <a href="https://github.com/deepseek-ai/deepseek-harness">DeepSeek Harness</a> · part of <a href="https://github.com/sakikoTGW/dsh-plugins">dsh-plugins</a> · <a href="#dsh-plugin-tailor">back to top ↑</a></sub>
+</p>
+<p align="center">
+  <sub>If it saved you time, a ⭐ helps others find it.</sub>
+</p>

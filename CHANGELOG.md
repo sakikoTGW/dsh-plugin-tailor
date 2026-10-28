@@ -4,6 +4,22 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); version
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-10-29
+
+README and repo presentation pass, based on patterns from mature READMEs.
+
+### Added
+
+- Hero CTA row (install / styles / tools / roadmap) and a numbers strip (`assets/stats.svg`).
+- `assets/features.svg`: six capability cards for the Features section.
+- New sections: Security boundaries, FAQ, Roadmap, Ecosystem and listings.
+- Footer with "part of dsh-plugins" and a star CTA; GitHub release badge.
+- Fixed commit authorship: all commits are now authored by `sakikoTGW` (history rewritten).
+
+### Changed
+
+- Quickstart release links point at v0.3.1.
+
 ## [0.3.0] - 2026-10-29
 
 Style presets now speak only in styles, not in repository names. Plus real CLI screenshots.

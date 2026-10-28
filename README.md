@@ -9,7 +9,8 @@
 </p>
 
 <p align="center">
-  <img alt="version" src="https://img.shields.io/badge/version-0.3.0-4D6BFE?style=flat-square">
+  <img alt="version" src="https://img.shields.io/badge/version-0.3.1-4D6BFE?style=flat-square">
+  <a href="https://github.com/sakikoTGW/dsh-plugin-tailor/releases"><img alt="release" src="https://img.shields.io/github/v/release/sakikoTGW/dsh-plugin-tailor?style=flat-square&color=2FBF71"></a>
   <img alt="license" src="https://img.shields.io/badge/license-MIT-263146?style=flat-square">
   <img alt="DSH" src="https://img.shields.io/badge/DSH-%3E%3D0.2.0--rc.2%20%3C0.3.0-4D6BFE?style=flat-square">
   <img alt="Node" src="https://img.shields.io/badge/node-%3E%3D20-339933?style=flat-square&logo=node.js&logoColor=white">
@@ -21,7 +22,15 @@
 
 > 把仓库从「能跑」改到「敢发布」：审计 → 选风格 → 品牌素材 → 双语 README → 发布前校验。
 
-<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.3.0</sub></p>
+<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.3.1</sub></p>
+
+<p align="center">
+  <a href="#快速开始"><b>安装</b></a> · <a href="#七种风格">七种风格</a> · <a href="#六个工具">六个工具</a> · <a href="#路线图">路线图</a>
+</p>
+
+<p align="center">
+  <img src="assets/stats.svg" alt="8 维审计、34 项检查、7 种风格、12 个原创图形概念" width="100%">
+</p>
 
 <p align="center">
   <img src="assets/demo.gif" alt="真实终端：repo_audit 给 dsh-plugin-resolver 打 84 分，repo_verify 返回 PASS" width="760">
@@ -42,6 +51,10 @@
 - [结构](#结构)
 - [测试与 CI](#测试与-ci)
 - [已知限制](#已知限制)
+- [权限与安全边界](#权限与安全边界)
+- [FAQ](#faq)
+- [路线图](#路线图)
+- [生态与收录](#生态与收录)
 - [反馈与安全](#反馈与安全)
 - [License](#license)
 
@@ -68,6 +81,10 @@
 
 ## 功能
 
+<p align="center">
+  <img src="assets/features.svg" alt="六个能力：repo_audit、repo_readme、repo_brand、双语对等、写保护、repo_verify" width="100%">
+</p>
+
 - **8 维 34 项审计**：身份、首屏、安装、文档、证据、发布、社区、品牌；每条缺口都带具体修法，不只是打分。
 - **7 种风格 + 双语草稿**：从证据优先到极简排版，先看 diff 再落盘。
 - **12 个原创图形概念 × 明暗双版**：`icon` / `logo`（明暗）/ `banner`（明暗）/ `social` / `brand-sheet` 共 8 个文件；同一仓库重复生成字节一致。
@@ -77,7 +94,7 @@
 
 ## 快速开始
 
-> **npm 尚未发布。v0.2.0 已打进 [GitHub Release](https://github.com/sakikoTGW/dsh-plugin-tailor/releases/tag/v0.3.0)（含 `.tgz`）。二选一：**
+> **npm 尚未发布。v0.3.1 已打进 [GitHub Release](https://github.com/sakikoTGW/dsh-plugin-tailor/releases/tag/v0.3.1)（含 `.tgz`）。二选一：**
 
 ```sh
 # 源码
@@ -85,7 +102,7 @@ git clone https://github.com/sakikoTGW/dsh-plugin-tailor
 dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor
 
 # 或 Release 里的 tarball
-dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.3.0.tgz
+dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.3.1.tgz
 ```
 
 装完重启一次引擎，六个 `repo_*` 工具上线。之后改 `logic/` 下一次调用即生效，改 `host/register.js` 或 `index.js` 需要重启引擎。
@@ -251,6 +268,53 @@ node bin/tailor.mjs verify . --style=evidence
 - **SVG 字宽依赖系统字体**：Inter / Segoe UI / 微软雅黑，不同机器上文字宽度略有差异。
 - npm 尚未发布：现在只能从源码安装，发布流程在 [PUBLISHING.md](PUBLISHING.md)。
 
+## 权限与安全边界
+
+| 动作 | 边界 |
+|---|---|
+| 读取 | 只读仓库内文件 + `git status/log/tag`；插件自身不联网 |
+| 写入（仅 `apply: true`） | `README.md` / `README.en.md` / `assets/*.svg` / `assets/README.md` / `.tailor/baseline.json` |
+| 拒绝 | 路径逃逸（`../`）、手写 README 未 `force`、已有素材未 `force`、worktree 脏且未 `force` |
+| 不做 | 不执行仓库脚本、不 `npm install`、不 commit / push / 发布、不调用图片模型 |
+| 依赖 | 只用 Node 标准库；无运行时依赖 |
+
+## FAQ
+
+**和“README 模板”有什么区别？**
+模板给结构；这里给 8 维审计、按风格生成、写保护、发布前校验。事实来自仓库，缺失就写 TODO，不编数字。
+
+**会覆盖我手写的 README 吗？**
+默认拒绝。只有带 `generated-by` 标记的文件才允许再生成；否则必须显式 `force`。
+
+**需要联网吗？**
+不需要。徽章图片是 GitHub 渲染时去 shields.io 加载的；插件本身不发请求。
+
+**支持哪些语言和风格？**
+`zh` / `en` 两种页面；7 种风格：`evidence`、`terminal`、`mobile`、`playful`、`product`、`platform`、`minimal`。旧命令里的 id 仍可用。
+
+**为什么 100 分还要人工看？**
+分数只衡量结构、证据、品牌是否存在，不衡量文笔和事实正确性；发布前仍要人读一遍。
+
+**npm 什么时候发？**
+见路线图。现在用 GitHub Release 里的 `.tgz`。
+
+## 路线图
+
+- [x] **v0.1** 8 维审计、P0–P2 规划、双语草稿、发布前校验
+- [x] **v0.2** 12 个原创图形概念、明暗两套品牌套件、brand-sheet
+- [x] **v0.3** 风格去仓库名、真实 CLI 截图、demo 重录
+- [ ] **v0.4** npm 发布 + `dsh-plugins` hub 收录
+- [ ] **v0.4** `--palette` 配色（暖色 / 高对比 / 单色 / 跟随品牌主色）
+- [ ] **v0.5** 同一仓库多风格并排预览（截图，不靠自引用）
+- [ ] **v0.5** 可选图像模型插画模式（PNG，不替代 SVG 几何）
+
+## 生态与收录
+
+- 装插件：[`dsh-plugin-resolver`](https://github.com/sakikoTGW/dsh-plugin-resolver)（用一条工具调用装对版本）
+- 索引：[`dsh-plugins`](https://github.com/sakikoTGW/dsh-plugins)（`catalog.json` 是唯一事实源）
+- 移动端适配：[`dsh-plugin-resolver-dshgo`](https://github.com/sakikoTGW/dsh-plugin-resolver-dshgo)
+- 收录状态：GitHub Release ✅ · npm ⏳ · hub catalog ⏳
+
 ## 反馈与安全
 
 - 问题与建议：<https://github.com/sakikoTGW/dsh-plugin-tailor/issues>
@@ -260,3 +324,10 @@ node bin/tailor.mjs verify . --style=evidence
 ## License
 
 [MIT](LICENSE)
+
+<p align="center">
+  <sub>Built for <a href="https://github.com/deepseek-ai/deepseek-harness">DeepSeek Harness</a> · 属于 <a href="https://github.com/sakikoTGW/dsh-plugins">dsh-plugins</a> 插件集 · <a href="#dsh-plugin-tailor">回到顶部 ↑</a></sub>
+</p>
+<p align="center">
+  <sub>如果它帮你省了时间，点个 ⭐ 让更多人看到。</sub>
+</p>

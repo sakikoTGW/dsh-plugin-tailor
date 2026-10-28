@@ -1,4 +1,4 @@
-# ACCEPTANCE — dsh-plugin-tailor v0.3.0
+# ACCEPTANCE — dsh-plugin-tailor v0.3.1
 
 > 依据 `vibe-playbook/templates/ACCEPTANCE.md`。结案时逐项附证据。
 
