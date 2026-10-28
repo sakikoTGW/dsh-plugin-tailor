@@ -145,13 +145,15 @@ export function registerTools(ctx, options) {
   add({
     name: 'repo_brand',
     description:
-      'Generate deterministic brand assets for the chosen style: icon, logo, banner and social preview as SVG, plus assets/README.md. Dry-run by default; apply skips existing files unless force=true.',
+      'Generate a real brand kit from 12 hand-built vector concepts: icon, light/dark logo lockups, light/dark 1280×400 banners, a 1280×640 social card, a concept contact sheet and assets/README.md. Deterministic SVG, no image model. Dry-run lists the 12 concepts; apply writes files and skips existing ones unless force=true.',
     parameters: {
       type: 'object',
       additionalProperties: false,
       properties: {
         path: { type: 'string', description: 'Repository path.' },
-        style: { type: 'string', description: 'Style preset (palette and mark come from it).' },
+        style: { type: 'string', description: 'Style preset (palette and default concept come from it).' },
+        concept: { type: 'string', description: 'Concept id: needle, stitch, quill, arcs, orbit, prompt, bubble, radar, hexstack, monogram, spark, layers.' },
+        tagline: { type: 'string', description: 'Short hook for banner/social; defaults to the package description.' },
         apply: { type: 'boolean', description: 'Write the assets. Defaults to false (dry-run).' },
         force: { type: 'boolean', description: 'Overwrite existing asset files.' },
       },

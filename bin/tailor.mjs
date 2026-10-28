@@ -10,7 +10,7 @@
  *   node bin/tailor.mjs audit  [path] [--style=id]
  *   node bin/tailor.mjs plan   [path] [--style=id] [--limit=20]
  *   node bin/tailor.mjs readme [path] [--style=id] [--lang=zh|en|both] [--apply] [--force]
- *   node bin/tailor.mjs brand  [path] [--style=id] [--apply] [--force]
+ *   node bin/tailor.mjs brand  [path] [--style=id] [--concept=id] [--apply] [--force]
  *   node bin/tailor.mjs verify [path] [--style=id]
  */
 
@@ -59,6 +59,8 @@ async function main() {
     path,
     style,
     lang,
+    concept: typeof options.concept === 'string' ? options.concept : undefined,
+    tagline: typeof options.tagline === 'string' ? options.tagline : undefined,
     apply: options.apply === true,
     force: options.force === true,
     limit: Number.isFinite(options.limit) ? options.limit : undefined,
@@ -85,13 +87,14 @@ function printHelp() {
   audit  [path] [--style=]  score a repository and list gaps
   plan   [path] [--style=]  ordered tasks with acceptance criteria
   readme [path] [--style=] [--lang=zh|en|both] [--apply] [--force]
-  brand  [path] [--style=] [--apply] [--force]
+  brand  [path] [--style=] [--concept=needle|stitch|quill|arcs|orbit|prompt|bubble|radar|hexstack|monogram|spark|layers] [--apply] [--force]
   verify [path] [--style=]  audit + link/anchor/image checks
 
 Examples:
   node bin/tailor.mjs audit .
   node bin/tailor.mjs readme . --style=dsh-tui --lang=both
   node bin/tailor.mjs brand . --style=bubbletea --apply
+  node bin/tailor.mjs brand . --style=resolver --concept=needle --apply --force
   node bin/tailor.mjs verify . --style=sniffnet
 `)
 }

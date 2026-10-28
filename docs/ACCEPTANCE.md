@@ -1,4 +1,4 @@
-# ACCEPTANCE — dsh-plugin-tailor v0.1.0
+# ACCEPTANCE — dsh-plugin-tailor v0.2.0
 
 > 依据 `vibe-playbook/templates/ACCEPTANCE.md`。结案时逐项附证据。
 
@@ -16,7 +16,7 @@
 | 2 | 审计对同一 fixture 可复现打分，good > bare | `npm test` 的 `audit: good fixture scores higher than a bare one` |
 | 3 | 草稿只使用仓库真实事实；缺失项变成 TODO | `readme: renders ... without invented numbers` 用例；人工看 `TODO(tailor)` |
 | 4 | dry-run 不写盘；apply 需显式；手写 README 未 force 拒绝 | `readme apply: refuses hand-written files...` 用例 |
-| 5 | 品牌素材确定性生成、默认不覆盖 | `brand: deterministic SVG assets...` 用例 |
+| 5 | 品牌素材：12 概念可选、每次生成 8 个文件、确定性、默认不覆盖 | `brand: 12 concepts...` 用例；`node bin/tailor.mjs brand . --concept=needle` |
 | 6 | verify 能抓坏链、坏图、坏锚点 | `verify: catches broken links, images and anchors` 用例 |
 | 7 | 宿主注册 6 个工具并可执行 | `host: registers six tools and runs repo_audit` 用例 |
 | 8 | CLI 可用 | `cli: styles command prints all presets` 用例 |

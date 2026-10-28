@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <img alt="version" src="https://img.shields.io/badge/version-0.1.0-4D6BFE?style=flat-square">
+  <img alt="version" src="https://img.shields.io/badge/version-0.2.0-4D6BFE?style=flat-square">
   <img alt="license" src="https://img.shields.io/badge/license-MIT-263146?style=flat-square">
   <img alt="DSH" src="https://img.shields.io/badge/DSH-%3E%3D0.2.0--rc.2%20%3C0.3.0-4D6BFE?style=flat-square">
   <img alt="Node" src="https://img.shields.io/badge/node-%3E%3D20-339933?style=flat-square&logo=node.js&logoColor=white">
@@ -21,7 +21,7 @@
 
 > 把仓库从「能跑」改到「敢发布」：审计 → 选风格 → 品牌素材 → 双语 README → 发布前校验。
 
-<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.1.0</sub></p>
+<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.2.0</sub></p>
 
 <p align="center">
   <img src="assets/demo.gif" alt="真实终端：repo_audit 给 dsh-plugin-resolver 打 84 分，repo_verify 返回 PASS" width="760">
@@ -36,6 +36,7 @@
 - [快速开始](#快速开始)
 - [六个工具](#六个工具)
 - [七种风格](#七种风格)
+- [品牌素材](#品牌素材)
 - [效果与证据](#效果与证据)
 - [结构](#结构)
 - [测试与 CI](#测试与-ci)
@@ -68,14 +69,14 @@
 
 - **8 维 34 项审计**：身份、首屏、安装、文档、证据、发布、社区、品牌；每条缺口都带具体修法，不只是打分。
 - **7 种风格 + 双语草稿**：从 resolver 的证据流到 doomemacs 的纯排版，先看 diff 再落盘。
-- **确定性品牌素材**：icon / logo / banner / social preview 四个 SVG，同一仓库重复生成字节一致。
+- **12 个原创图形概念 × 明暗双版**：`icon` / `logo`（明暗）/ `banner`（明暗）/ `social` / `brand-sheet` 共 8 个文件；同一仓库重复生成字节一致。
 - **写保护**：手写 README、已有素材、脏 worktree 默认拒绝，必须显式 `force`。
 - **发布前校验**：相对链接、图片、锚点、徽章、必需章节、剩余 TODO，一条命令给出 PASS/FAIL。
 - **CLI 与 DSH 工具同源**：`bin/tailor.mjs` 和六个工具调用同一套 logic，终端里能复现。
 
 ## 快速开始
 
-> **npm 尚未发布。v0.1.0 已打进 [GitHub Release](https://github.com/sakikoTGW/dsh-plugin-tailor/releases/tag/v0.1.0)（含 `.tgz`）。二选一：**
+> **npm 尚未发布。v0.2.0 已打进 [GitHub Release](https://github.com/sakikoTGW/dsh-plugin-tailor/releases/tag/v0.2.0)（含 `.tgz`）。二选一：**
 
 ```sh
 # 源码
@@ -83,7 +84,7 @@ git clone https://github.com/sakikoTGW/dsh-plugin-tailor
 dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor
 
 # 或 Release 里的 tarball
-dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.1.0.tgz
+dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.2.0.tgz
 ```
 
 装完重启一次引擎，六个 `repo_*` 工具上线。之后改 `logic/` 下一次调用即生效，改 `host/register.js` 或 `index.js` 需要重启引擎。
@@ -117,7 +118,7 @@ repo_verify { path: ".", style: "dsh-tui" }
 | `repo_audit` | 读 | `path`, `style?` | 0-100 分、8 维明细、按影响排序的 gaps、风格缺口 |
 | `repo_plan` | 读 | `path`, `style?`, `limit?` | P0/P1/P2 任务，每条带 acceptance 与 verify |
 | `repo_readme` | dry-run / 写 | `path`, `style?`, `lang?`, `apply?`, `force?` | diff、TODO 清单、风格缺口 |
-| `repo_brand` | dry-run / 写 | `path`, `style?`, `apply?`, `force?` | 4 个 SVG + `assets/README.md` |
+| `repo_brand` | dry-run / 写 | `path`, `style?`, `concept?`, `tagline?`, `apply?`, `force?` | 8 个文件（12 概念可选） |
 | `repo_verify` | 读 | `path`, `style?` | PASS/FAIL、逐项检查、剩余 TODO、分数差 |
 
 写操作默认 dry-run；手写 README 或已有素材默认拒绝/跳过，必须显式 `force` 才覆盖；worktree 脏且未 `force` 时直接拒绝。
@@ -128,17 +129,52 @@ repo_verify { path: ".", style: "dsh-tui" }
   <img src="assets/styles.svg" alt="7 种 README 风格预设：resolver、dsh-tui、dsh-go、bubbletea、sniffnet、1panel、doomemacs" width="100%">
 </p>
 
-| id | 来源 | 语言 | 首屏 | demo | 适合 |
-|---|---|---|---|---|---|
-| `resolver` | [dsh-plugin-resolver](https://github.com/sakikoTGW/dsh-plugin-resolver) | 双语 | banner | GIF | 有基准/测试的工程仓库 |
-| `dsh-tui` | [dsh-TUI](https://github.com/ccch1mneyyy/dsh-TUI) | 双语 | 居中 logo | GIF | 有品牌 logo 的工具 |
-| `dsh-go` | [dsh-go](https://github.com/ccch1mneyyy/dsh-go) | 中文优先 | banner | 截图 | App / 移动端 / 社群产品 |
-| `bubbletea` | [bubbletea](https://github.com/charmbracelet/bubbletea) | 英文优先 | logo | GIF | TUI / 开发者工具 |
-| `sniffnet` | [sniffnet](https://github.com/GyulyVGC/sniffnet) | 英文优先 | 品牌 banner | 截图 | 面向普通用户的产品 |
-| `1panel` | [1Panel](https://github.com/1Panel-dev/1Panel) | 双语 | 居中 logo | GIF | 面板 / 平台 |
-| `doomemacs` | [doomemacs](https://github.com/doomemacs/doomemacs) | 英文优先 | 无图 | 无 | 成熟工具 / 框架 |
+| id | 来源 | 语言 | 首屏 | demo | 默认图形 | 适合 |
+|---|---|---|---|---|---|---|
+| `resolver` | [dsh-plugin-resolver](https://github.com/sakikoTGW/dsh-plugin-resolver) | 双语 | banner | GIF | `arcs` | 有基准/测试的工程仓库 |
+| `dsh-tui` | [dsh-TUI](https://github.com/ccch1mneyyy/dsh-TUI) | 双语 | 居中 logo | GIF | `prompt` | 有品牌 logo 的工具 |
+| `dsh-go` | [dsh-go](https://github.com/ccch1mneyyy/dsh-go) | 中文优先 | banner | 截图 | `orbit` | App / 移动端 / 社群产品 |
+| `bubbletea` | [bubbletea](https://github.com/charmbracelet/bubbletea) | 英文优先 | logo | GIF | `bubble` | TUI / 开发者工具 |
+| `sniffnet` | [sniffnet](https://github.com/GyulyVGC/sniffnet) | 英文优先 | 品牌 banner | 截图 | `radar` | 面向普通用户的产品 |
+| `1panel` | [1Panel](https://github.com/1Panel-dev/1Panel) | 双语 | 居中 logo | GIF | `hexstack` | 面板 / 平台 |
+| `doomemacs` | [doomemacs](https://github.com/doomemacs/doomemacs) | 英文优先 | 无图 | 无 | `monogram` | 成熟工具 / 框架 |
 
 选择建议、每个预设的章节顺序、以及“优秀仓库的 12 个共性”写在 [docs/STYLES.md](docs/STYLES.md)。
+
+## 品牌素材
+
+<p align="center">
+  <img src="assets/brand-sheet.svg" alt="12 个原创图形概念：needle、stitch、quill、arcs、orbit、prompt、bubble、radar、hexstack、monogram、spark、layers" width="100%">
+</p>
+
+`repo_brand` 不是换一张模板图，而是从 12 个手写几何概念里选，配上风格调色板和明暗两套版式：
+
+| 概念 | 适合 | 概念 | 适合 |
+|---|---|---|---|
+| `needle` 针线 | 裁缝 / 定制 / 精修 | `stitch` 缝线勾 | 完成 / 校验 / 交付 |
+| `quill` 羽毛笔 | 写作 / 文档 / 叙事 | `arcs` 上升弧 | 增长 / 指标 / 证据 |
+| `orbit` 轨道 | 网络 / 远端 / 连接 | `prompt` 提示符 | CLI / 终端 / 工具 |
+| `bubble` 对话泡 | 产品 / 交互 / 轻松 | `radar` 雷达 | 监控 / 扫描 / 安全 |
+| `hexstack` 面板栈 | 平台 / 面板 / 分层 | `monogram` 字母环 | 成熟工具 / 极简 |
+| `spark` 四角星 | 通用 / 品牌 / 高光 | `layers` 叠层 | 架构 / 模块 / 复用 |
+
+一次生成 8 个文件：
+
+| 文件 | 用途 |
+|---|---|
+| `icon.svg` | 512×512 图标 / 头像 |
+| `logo.svg` / `logo-dark.svg` | 浅色 / 深色 lockup |
+| `banner.svg` / `banner-light.svg` | 1280×400 深 / 浅横幅 |
+| `social-preview.svg` | 1280×640 社交卡 |
+| `brand-sheet.svg` | 12 概念对照，默认高亮 |
+| `assets/README.md` | 素材索引与切换命令 |
+
+```sh
+node bin/tailor.mjs brand . --style=resolver --concept=needle \
+  --tagline="From it runs to ship it." --apply --force
+```
+
+默认 dry-run 只列文件和概念；`apply` 才写盘，已有文件默认跳过。
 
 ## 效果与证据
 
@@ -164,7 +200,7 @@ logic/
   plan.mjs          gaps → P0/P1/P2 任务
   styles.mjs        7 个风格预设（纯数据）
   readme.mjs        双语草稿、diff、apply 安全
-  brand.mjs         确定性 SVG
+  brand.mjs         12 概念品牌引擎（明暗双版）
   verify.mjs        链接/锚点/图片/章节/TODO
   util.mjs          diff、slug、路径边界
 bin/tailor.mjs      CLI（和工具共用逻辑）
@@ -190,6 +226,7 @@ node bin/tailor.mjs verify . --style=resolver
 - **草稿必须人工校对**：`TODO(tailor)` 是给你填的；`repo_verify` 会把剩余 TODO 作为 warn 报出来。
 - **只做 zh / en**，不做其他语言；不自动选风格；不自动 commit / push / 发布。
 - **不生成真实截图或图片**：`repo_brand` 只生成 SVG 几何，demo GIF 需要用真实运行日志另外录。
+- **品牌素材是几何 SVG，不是插画/摄影**：需要插画级视觉时仍要人或模型来画；`repo_brand` 保证的是概念选择、明暗两套、一致性和可重复生成。
 - **`collectFacts` 是主要耗时项**（git 子进程 + 文件遍历），纯判断逻辑可以忽略不计。
 - **SVG 字宽依赖系统字体**：Inter / Segoe UI / 微软雅黑，不同机器上文字宽度略有差异。
 - npm 尚未发布：现在只能从源码安装，发布流程在 [PUBLISHING.md](PUBLISHING.md)。

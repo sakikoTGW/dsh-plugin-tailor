@@ -93,13 +93,24 @@
 | 徽章 | `badgeSet` | 决定渲染哪些 shields 徽章，只渲染有事实的 |
 | 结构 | `sections` | 决定章节及顺序；`toc` 自动生成锚点 |
 | 文案 | `labels` + `tone` | 章节标题与语气；正文仍来自 facts |
-| 品牌 | `palette` + `mark` | `repo_brand` 的调色板与图标字形 |
+| 品牌 | `palette` + `mark` | `repo_brand` 的调色板与默认概念；可用 `concept` 覆盖 |
 | 语言 | `language` | 双语 / 中文优先 / 英文优先，以及语言切换行 |
+
+每个预设的默认图形概念（都可在 `repo_brand` 里换）：
+
+| 预设 | 默认概念 | 预设 | 默认概念 |
+|---|---|---|---|
+| `resolver` | `arcs` 上升弧 | `dsh-tui` | `prompt` 提示符 |
+| `dsh-go` | `orbit` 轨道 | `bubbletea` | `bubble` 对话泡 |
+| `sniffnet` | `radar` 雷达 | `1panel` | `hexstack` 面板栈 |
+| `doomemacs` | `monogram` 字母环 | 任意 | 另外还有 `needle`、`stitch`、`quill`、`spark`、`layers` |
+
+12 个概念的对照图见仓库 [`assets/brand-sheet.svg`](../assets/brand-sheet.svg)；`repo_brand` 会一次生成 icon、明暗两套 logo、明暗两套 banner、social 和这张对照图。
 
 ## 常见问题
 
 **能改预设吗？** 能。`logic/styles.mjs` 是纯数据；加一个对象、在 `sections` 里组合已有 section id 即可。新增 section 需要在 `logic/readme.mjs` 加一个 renderer。
 
-**能自动选风格吗？** v0.1 不做自动选。`repo_audit` 会报告"当前事实满足哪些预设 / 缺什么"，选择权留给用户。
+**能自动选风格吗？** v0.2 不做自动选。`repo_audit` 会报告"当前事实满足哪些预设 / 缺什么"，选择权留给用户。
 
 **生成的内容能直接发吗？** 不能。草稿里的 `TODO(tailor)` 是给你填的；`repo_verify` 会把剩余 TODO 作为 warn 报出来。

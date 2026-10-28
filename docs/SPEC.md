@@ -22,7 +22,7 @@ repo_audit → repo_plan → repo_brand → repo_readme → repo_verify
 | `repo_audit` | 读 | `path`, `style?` | 0-100 分、8 维明细、按影响排序的 gaps、风格缺口 | 路径不存在 / 非目录 → 明确错误 |
 | `repo_plan` | 读 | `path`, `style?`, `limit?` | P0/P1/P2 任务，含 acceptance 与 verify 命令 | 同上 |
 | `repo_readme` | dry-run / 写 | `path`, `style?`, `lang?`, `apply?`, `force?` | diff、TODO 清单、风格缺口；apply 时写入 README(.en).md | 手写 README 且未 `force` → 拒绝；worktree 脏且未 `force` → 拒绝 |
-| `repo_brand` | dry-run / 写 | `path`, `style?`, `apply?`, `force?` | 5 个 SVG/Markdown 文件清单；apply 时写入 assets/ | 已存在且未 `force` → 跳过（不覆盖） |
+| `repo_brand` | dry-run / 写 | `path`, `style?`, `concept?`, `tagline?`, `apply?`, `force?` | 8 个文件（icon、明暗 logo、明暗 banner、social、brand-sheet、README）；12 个概念可选 | 未知 concept → 列出可用 id；已存在且未 `force` → 跳过（不覆盖） |
 | `repo_verify` | 读 | `path`, `style?` | PASS/FAIL、链接/图片/锚点/徽章/章节/TODO 检查、baseline 分数差 | 同上 |
 
 ## 错误语义
@@ -46,7 +46,8 @@ repo_audit → repo_plan → repo_brand → repo_readme → repo_verify
 | `1panel` | 1Panel-dev/1Panel | 居中 Logo | 双语 | GIF |
 | `doomemacs` | doomemacs/doomemacs | 无图纯排版 | 英文优先 | 无 |
 
-每个预设定义：`hero`、`demo`、`badgeSet`、`sections` 顺序、章节标题、语气、调色板、图标字形（mark）、必需事实。
+每个预设定义：`hero`、`demo`、`badgeSet`、`sections` 顺序、章节标题、语气、调色板、默认图形概念（mark）、必需事实。
+品牌概念共 12 个：`needle`、`stitch`、`quill`、`arcs`、`orbit`、`prompt`、`bubble`、`radar`、`hexstack`、`monogram`、`spark`、`layers`；`repo_brand` 支持 `concept` 覆盖，并生成明暗两套 lockup/banner 与一张 12 概念对照图。
 详见 [STYLES.md](STYLES.md)。
 
 ## 非目标

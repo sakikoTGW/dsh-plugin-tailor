@@ -1,0 +1,411 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 942" width="1280" height="942" role="img" aria-label="Brand concept sheet">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1020"/>
+      <stop offset="1" stop-color="#121A33"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#FFFFFF" stroke-opacity="0.035" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1280" height="942" fill="url(#bg)"/>
+  <rect width="1280" height="942" fill="url(#grid)"/>
+  <text x="48" y="64" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="30" font-weight="800" fill="#FFFFFF">12 个原创图形概念</text>
+  <text x="48" y="96" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="15" fill="#8FA3C8">为 dsh-plugin-tailor 的 证据优先 · 双语 风格生成。默认：needle。切换：<tspan font-family="Consolas, monospace" fill="#A9BBDA">repo_brand { concept }</tspan></text>
+  <text x="48" y="124" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5F739E">同一仓库、同一概念重复生成字节一致；全部为手写 SVG 几何，无图片模型。</text>
+  <g transform="translate(48 158)">
+      <rect width="268" height="214" rx="20" fill="#111A33" stroke="#4D6BFE" stroke-width="2"/>
+      <g transform="translate(92 22) scale(0.164)"><g>
+    <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4D6BFE"/>
+      <stop offset="1" stop-color="#2A3FD0"/>
+    </linearGradient>
+    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
+      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+  </defs>
+    <rect width="512" height="512" rx="112" fill="url(#tile)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGrid)"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M158 358 L348 162" stroke-width="15"/>
+    <ellipse cx="326" cy="184" rx="12" ry="21" transform="rotate(-43 326 184)" stroke-width="8"/>
+    <path d="M318 202 C276 244 232 240 224 292 C217 338 262 358 296 336" stroke-width="9" opacity="0.86"/>
+    <circle cx="296" cy="336" r="6" fill="#8CE3B8" stroke="none"/>
+  </g>
+  </g></g>
+      <text x="134" y="132" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="17" font-weight="700" fill="#FFFFFF">needle</text>
+      <text x="134" y="156" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#8FA3C8">针线</text>
+      <text x="134" y="180" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12" fill="#5F739E">裁缝 / 定制 / 精修</text>
+      <g transform="translate(210 10)"><rect width="48" height="20" rx="10" fill="#4D6BFE"/><text x="24" y="14" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11" fill="#FFFFFF">默认</text></g>
+    </g>
+<g transform="translate(340 158)">
+      <rect width="268" height="214" rx="20" fill="#111A33" stroke="#22305C" stroke-width="1"/>
+      <g transform="translate(92 22) scale(0.164)"><g>
+    <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4D6BFE"/>
+      <stop offset="1" stop-color="#2A3FD0"/>
+    </linearGradient>
+    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
+      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+  </defs>
+    <rect width="512" height="512" rx="112" fill="url(#tile)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGrid)"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M128 268 L218 358 L392 148" stroke-width="32" stroke-dasharray="56 30"/>
+    <circle cx="392" cy="148" r="10" fill="#8CE3B8" stroke="none"/>
+  </g>
+  </g></g>
+      <text x="134" y="132" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="17" font-weight="700" fill="#DCE6FA">stitch</text>
+      <text x="134" y="156" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#8FA3C8">缝线勾</text>
+      <text x="134" y="180" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12" fill="#5F739E">完成 / 校验 / 交付</text>
+      
+    </g>
+<g transform="translate(632 158)">
+      <rect width="268" height="214" rx="20" fill="#111A33" stroke="#22305C" stroke-width="1"/>
+      <g transform="translate(92 22) scale(0.164)"><g>
+    <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4D6BFE"/>
+      <stop offset="1" stop-color="#2A3FD0"/>
+    </linearGradient>
+    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
+      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+  </defs>
+    <rect width="512" height="512" rx="112" fill="url(#tile)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGrid)"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M372 120 C280 150 206 232 178 348" stroke-width="12"/>
+    <path d="M372 120 C376 216 316 300 244 352 C180 338 158 278 166 226 C236 252 322 214 372 120 Z" fill="#FFFFFF" fill-opacity="0.16" stroke-width="7"/>
+    <path d="M244 320 L306 250 M214 288 L272 218 M198 348 L240 306" stroke-width="7" opacity="0.75"/>
+    <circle cx="178" cy="348" r="9" fill="#8CE3B8" stroke="none"/>
+  </g>
+  </g></g>
+      <text x="134" y="132" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="17" font-weight="700" fill="#DCE6FA">quill</text>
+      <text x="134" y="156" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#8FA3C8">羽毛笔</text>
+      <text x="134" y="180" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12" fill="#5F739E">写作 / 文档 / 叙事</text>
+      
+    </g>
+<g transform="translate(924 158)">
+      <rect width="268" height="214" rx="20" fill="#111A33" stroke="#22305C" stroke-width="1"/>
+      <g transform="translate(92 22) scale(0.164)"><g>
+    <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4D6BFE"/>
+      <stop offset="1" stop-color="#2A3FD0"/>
+    </linearGradient>
+    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
+      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+  </defs>
+    <rect width="512" height="512" rx="112" fill="url(#tile)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGrid)"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <g fill="none" stroke="#FFFFFF" stroke-linecap="round">
+    <path d="M120 380 A 240 240 0 0 1 360 140" stroke-width="26"/>
+    <path d="M168 400 A 190 190 0 0 1 358 210" stroke-width="20" opacity="0.6"/>
+    <path d="M216 416 A 140 140 0 0 1 356 276" stroke-width="16" opacity="0.34"/>
+    <circle cx="392" cy="128" r="24" fill="#8CE3B8" stroke="none"/>
+  </g>
+  </g></g>
+      <text x="134" y="132" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="17" font-weight="700" fill="#DCE6FA">arcs</text>
+      <text x="134" y="156" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#8FA3C8">上升弧</text>
+      <text x="134" y="180" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12" fill="#5F739E">增长 / 指标 / 证据</text>
+      
+    </g>
+<g transform="translate(48 396)">
+      <rect width="268" height="214" rx="20" fill="#111A33" stroke="#22305C" stroke-width="1"/>
+      <g transform="translate(92 22) scale(0.164)"><g>
+    <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4D6BFE"/>
+      <stop offset="1" stop-color="#2A3FD0"/>
+    </linearGradient>
+    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
+      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+  </defs>
+    <rect width="512" height="512" rx="112" fill="url(#tile)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGrid)"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <g fill="none" stroke="#FFFFFF" stroke-linecap="round">
+    <circle cx="256" cy="256" r="104" stroke-width="22"/>
+    <ellipse cx="256" cy="256" rx="190" ry="62" transform="rotate(-28 256 256)" stroke-width="9" opacity="0.65"/>
+    <ellipse cx="256" cy="256" rx="150" ry="150" stroke-width="4" opacity="0.18" stroke-dasharray="2 14"/>
+    <circle cx="378" cy="176" r="17" fill="#8CE3B8" stroke="none"/>
+  </g>
+  </g></g>
+      <text x="134" y="132" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="17" font-weight="700" fill="#DCE6FA">orbit</text>
+      <text x="134" y="156" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#8FA3C8">轨道</text>
+      <text x="134" y="180" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12" fill="#5F739E">网络 / 远端 / 连接</text>
+      
+    </g>
+<g transform="translate(340 396)">
+      <rect width="268" height="214" rx="20" fill="#111A33" stroke="#22305C" stroke-width="1"/>
+      <g transform="translate(92 22) scale(0.164)"><g>
+    <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4D6BFE"/>
+      <stop offset="1" stop-color="#2A3FD0"/>
+    </linearGradient>
+    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
+      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+  </defs>
+    <rect width="512" height="512" rx="112" fill="url(#tile)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGrid)"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M196 156 L118 256 L196 356" stroke-width="27"/>
+    <path d="M306 156 L384 256 L306 356" stroke-width="27" opacity="0.5"/>
+    <rect x="286" y="300" width="52" height="28" rx="10" fill="#8CE3B8" stroke="none"/>
+  </g>
+  </g></g>
+      <text x="134" y="132" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="17" font-weight="700" fill="#DCE6FA">prompt</text>
+      <text x="134" y="156" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#8FA3C8">提示符</text>
+      <text x="134" y="180" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12" fill="#5F739E">CLI / 终端 / 工具</text>
+      
+    </g>
+<g transform="translate(632 396)">
+      <rect width="268" height="214" rx="20" fill="#111A33" stroke="#22305C" stroke-width="1"/>
+      <g transform="translate(92 22) scale(0.164)"><g>
+    <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4D6BFE"/>
+      <stop offset="1" stop-color="#2A3FD0"/>
+    </linearGradient>
+    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
+      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+  </defs>
+    <rect width="512" height="512" rx="112" fill="url(#tile)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGrid)"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M120 184 Q120 128 184 128 H328 Q392 128 392 192 V284 Q392 348 328 348 H248 L188 404 V348 H184 Q120 348 120 284 Z" stroke-width="21"/>
+    <circle cx="200" cy="238" r="13" fill="#FFFFFF" stroke="none"/>
+    <circle cx="256" cy="238" r="13" fill="#FFFFFF" stroke="none" opacity="0.78"/>
+    <circle cx="312" cy="238" r="13" fill="#8CE3B8" stroke="none"/>
+  </g>
+  </g></g>
+      <text x="134" y="132" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="17" font-weight="700" fill="#DCE6FA">bubble</text>
+      <text x="134" y="156" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#8FA3C8">对话泡</text>
+      <text x="134" y="180" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12" fill="#5F739E">产品 / 交互 / 轻松</text>
+      
+    </g>
+<g transform="translate(924 396)">
+      <rect width="268" height="214" rx="20" fill="#111A33" stroke="#22305C" stroke-width="1"/>
+      <g transform="translate(92 22) scale(0.164)"><g>
+    <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4D6BFE"/>
+      <stop offset="1" stop-color="#2A3FD0"/>
+    </linearGradient>
+    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
+      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+  </defs>
+    <rect width="512" height="512" rx="112" fill="url(#tile)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGrid)"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <g fill="none" stroke="#FFFFFF" stroke-linecap="round">
+    <circle cx="256" cy="256" r="58" stroke-width="16"/>
+    <circle cx="256" cy="256" r="126" stroke-width="8" opacity="0.55"/>
+    <circle cx="256" cy="256" r="194" stroke-width="6" opacity="0.26"/>
+    <path d="M256 256 L386 164" stroke-width="9" opacity="0.9"/>
+    <circle cx="386" cy="164" r="10" fill="#8CE3B8" stroke="none"/>
+    <circle cx="196" cy="316" r="7" fill="#FFFFFF" stroke="none" opacity="0.5"/>
+  </g>
+  </g></g>
+      <text x="134" y="132" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="17" font-weight="700" fill="#DCE6FA">radar</text>
+      <text x="134" y="156" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#8FA3C8">雷达</text>
+      <text x="134" y="180" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12" fill="#5F739E">监控 / 扫描 / 安全</text>
+      
+    </g>
+<g transform="translate(48 634)">
+      <rect width="268" height="214" rx="20" fill="#111A33" stroke="#22305C" stroke-width="1"/>
+      <g transform="translate(92 22) scale(0.164)"><g>
+    <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4D6BFE"/>
+      <stop offset="1" stop-color="#2A3FD0"/>
+    </linearGradient>
+    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
+      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+  </defs>
+    <rect width="512" height="512" rx="112" fill="url(#tile)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGrid)"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M256 112 L382 188 V324 L256 400 L130 324 V188 Z" stroke-width="18"/>
+    <path d="M188 228 H324" stroke-width="22"/>
+    <path d="M188 284 H292" stroke-width="16" opacity="0.7"/>
+    <path d="M188 340 H244" stroke-width="16" opacity="0.45"/>
+  </g>
+  </g></g>
+      <text x="134" y="132" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="17" font-weight="700" fill="#DCE6FA">hexstack</text>
+      <text x="134" y="156" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#8FA3C8">面板栈</text>
+      <text x="134" y="180" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12" fill="#5F739E">平台 / 面板 / 分层</text>
+      
+    </g>
+<g transform="translate(340 634)">
+      <rect width="268" height="214" rx="20" fill="#111A33" stroke="#22305C" stroke-width="1"/>
+      <g transform="translate(92 22) scale(0.164)"><g>
+    <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4D6BFE"/>
+      <stop offset="1" stop-color="#2A3FD0"/>
+    </linearGradient>
+    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
+      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+  </defs>
+    <rect width="512" height="512" rx="112" fill="url(#tile)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGrid)"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <g fill="none" stroke="#FFFFFF">
+    <circle cx="256" cy="256" r="148" stroke-width="13" opacity="0.9"/>
+    <circle cx="256" cy="256" r="168" stroke-width="3" opacity="0.28" stroke-dasharray="2 12"/>
+    <text x="256" y="330" text-anchor="middle" font-family="Georgia, 'Times New Roman', 'Songti SC', serif" font-size="228" font-weight="700" fill="#FFFFFF" stroke="none">D</text>
+    <circle cx="392" cy="120" r="12" fill="#8CE3B8" stroke="none"/>
+  </g>
+  </g></g>
+      <text x="134" y="132" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="17" font-weight="700" fill="#DCE6FA">monogram</text>
+      <text x="134" y="156" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#8FA3C8">字母环</text>
+      <text x="134" y="180" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12" fill="#5F739E">成熟工具 / 极简</text>
+      
+    </g>
+<g transform="translate(632 634)">
+      <rect width="268" height="214" rx="20" fill="#111A33" stroke="#22305C" stroke-width="1"/>
+      <g transform="translate(92 22) scale(0.164)"><g>
+    <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4D6BFE"/>
+      <stop offset="1" stop-color="#2A3FD0"/>
+    </linearGradient>
+    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
+      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+  </defs>
+    <rect width="512" height="512" rx="112" fill="url(#tile)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGrid)"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <g fill="none" stroke="#FFFFFF" stroke-linecap="round">
+    <path d="M256 100 C270 208 300 238 408 256 C300 274 270 304 256 412 C242 304 212 274 104 256 C212 238 242 208 256 100 Z" fill="#FFFFFF" stroke="none"/>
+    <ellipse cx="256" cy="256" rx="178" ry="64" transform="rotate(-24 256 256)" stroke-width="7" opacity="0.32"/>
+    <circle cx="360" cy="170" r="12" fill="#8CE3B8" stroke="none"/>
+  </g>
+  </g></g>
+      <text x="134" y="132" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="17" font-weight="700" fill="#DCE6FA">spark</text>
+      <text x="134" y="156" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#8FA3C8">四角星</text>
+      <text x="134" y="180" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12" fill="#5F739E">通用 / 品牌 / 高光</text>
+      
+    </g>
+<g transform="translate(924 634)">
+      <rect width="268" height="214" rx="20" fill="#111A33" stroke="#22305C" stroke-width="1"/>
+      <g transform="translate(92 22) scale(0.164)"><g>
+    <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4D6BFE"/>
+      <stop offset="1" stop-color="#2A3FD0"/>
+    </linearGradient>
+    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
+      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+  </defs>
+    <rect width="512" height="512" rx="112" fill="url(#tile)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGrid)"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <g fill="none" stroke="#FFFFFF" stroke-linecap="round">
+    <rect x="130" y="196" width="236" height="236" rx="52" stroke-width="15" opacity="0.32"/>
+    <rect x="158" y="166" width="236" height="236" rx="52" stroke-width="15" opacity="0.62"/>
+    <rect x="186" y="136" width="236" height="236" rx="52" stroke-width="15"/>
+    <circle cx="392" cy="120" r="11" fill="#8CE3B8" stroke="none"/>
+  </g>
+  </g></g>
+      <text x="134" y="132" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="17" font-weight="700" fill="#DCE6FA">layers</text>
+      <text x="134" y="156" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#8FA3C8">叠层</text>
+      <text x="134" y="180" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12" fill="#5F739E">架构 / 模块 / 复用</text>
+      
+    </g>
+  <text x="48" y="914" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5F739E">dsh-plugin-tailor · style=resolver · concept=needle · 明暗两套 lockup + banner + social</text>
+</svg>

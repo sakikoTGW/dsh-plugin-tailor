@@ -3,7 +3,7 @@
  * host shell only needs to render a string.
  */
 
-import { buildBrand, applyBrand } from './brand.mjs'
+import { buildBrand, applyBrand, CONCEPTS } from './brand.mjs'
 import { collectFacts } from './facts.mjs'
 import { formatPlan, planWork } from './plan.mjs'
 import { applyReadme, previewReadme, renderBoth } from './readme.mjs'
@@ -164,44 +164,48 @@ export async function repoReadme(ctx, manager, options, args) {
  * @param {any} ctx
  * @param {any} manager
  * @param {{ defaultStyle?: string }} options
- * @param {{ path?: string, style?: string, apply?: boolean, force?: boolean }} args
+ * @param {{ path?: string, style?: string, concept?: string, tagline?: string, apply?: boolean, force?: boolean }} args
  */
 export async function repoBrand(ctx, manager, options, args) {
   const path = args?.path ?? '.'
   const styleId = args?.style ?? options.defaultStyle ?? 'resolver'
   const style = getStyle(styleId)
   const facts = collectFacts(path)
+  const concept = args?.concept
+  const tagline = typeof args?.tagline === 'string' && args.tagline.trim() !== '' ? args.tagline.trim() : undefined
 
   if (args?.apply === true) {
-    const result = applyBrand(path, styleId, { force: args?.force === true })
+    const result = applyBrand(path, styleId, { force: args?.force === true, concept, tagline })
     const lines = []
-    lines.push(`repo_brand · ${facts.name} · style=${style.id} · applied`)
+    lines.push(`repo_brand · ${facts.name} · style=${style.id} · concept=${result.concept} · applied`)
     lines.push(result.written.length > 0 ? `written: ${result.written.join(', ')}` : 'written: (none)')
     if (result.skipped.length > 0) lines.push(`skipped (already exists, use --force to overwrite): ${result.skipped.join(', ')}`)
     return { text: lines.join('\n') }
   }
 
-  const files = buildBrand(facts, style)
+  const files = buildBrand(facts, style, concept, { tagline })
   const warnings = styleWarnings(style, facts)
   const lines = []
   lines.push(`repo_brand · ${facts.name} · style=${style.id} · dry-run (nothing written)`)
   lines.push(`palette: ${style.palette.brand} / ${style.palette.deep} / ${style.palette.ink}`)
-  lines.push(`mark: ${style.mark}`)
+  lines.push(`concept: ${concept ?? style.mark} (default for this style)`)
   lines.push('')
-  lines.push('files:')
+  lines.push('files (8):')
   for (const [relPath, content] of Object.entries(files)) {
     lines.push(`- ${relPath} (${content.length} chars)`)
   }
   lines.push('')
-  lines.push('preview (logo.svg):')
-  lines.push(files['assets/logo.svg'].split('\n').slice(0, 12).join('\n'))
+  lines.push('concepts:')
+  for (const item of CONCEPTS) {
+    lines.push(`- ${item.id} — ${item.label.zh} / ${item.label.en} · ${item.fit}`)
+  }
+  lines.push('')
+  lines.push(`apply: node bin/tailor.mjs brand . --style=${style.id} --concept=<id> --apply`)
   if (warnings.length > 0) {
     lines.push('')
     lines.push('style gaps:')
     for (const warning of warnings) lines.push(`- ${warning}`)
   }
-  lines.push('')
-  lines.push(`apply: node bin/tailor.mjs brand . --style=${style.id} --apply`)
   return { text: lines.join('\n') }
 }
 

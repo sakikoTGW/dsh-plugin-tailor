@@ -281,13 +281,22 @@ test('readme apply: refuses hand-written files, then writes and is idempotent', 
   }
 })
 
-test('brand: deterministic SVG assets, apply skips existing unless forced', () => {
+test('brand: 12 concepts, deterministic SVG kit, apply skips unless forced', () => {
   const dir = makeRepo('bare')
   try {
     const facts = collectFacts(dir)
     const style = getStyle('sniffnet')
     const files = buildBrand(facts, style)
-    assert.deepEqual(Object.keys(files).sort(), ['assets/README.md', 'assets/banner.svg', 'assets/icon.svg', 'assets/logo.svg', 'assets/social-preview.svg'])
+    assert.deepEqual(Object.keys(files).sort(), [
+      'assets/README.md',
+      'assets/banner-light.svg',
+      'assets/banner.svg',
+      'assets/brand-sheet.svg',
+      'assets/icon.svg',
+      'assets/logo-dark.svg',
+      'assets/logo.svg',
+      'assets/social-preview.svg',
+    ])
     for (const [path, content] of Object.entries(files)) {
       if (path.endsWith('.svg')) {
         assert.match(content, /<svg /)
@@ -296,13 +305,20 @@ test('brand: deterministic SVG assets, apply skips existing unless forced', () =
     }
     assert.equal(buildBrand(facts, style)['assets/icon.svg'], files['assets/icon.svg'])
 
-    const first = applyBrand(dir, 'sniffnet')
-    assert.equal(first.written.length, 5)
-    const second = applyBrand(dir, 'sniffnet')
+    const needle = buildBrand(facts, style, 'needle')
+    assert.notEqual(needle['assets/icon.svg'], files['assets/icon.svg'])
+    assert.equal(buildBrand(facts, style, 'needle')['assets/icon.svg'], needle['assets/icon.svg'])
+    assert.throws(() => buildBrand(facts, style, 'nope'), /unknown concept/)
+
+    const first = applyBrand(dir, 'sniffnet', { concept: 'radar' })
+    assert.equal(first.written.length, 8)
+    assert.equal(first.concept, 'radar')
+    const second = applyBrand(dir, 'sniffnet', { concept: 'radar' })
     assert.equal(second.written.length, 0)
-    assert.equal(second.skipped.length, 5)
-    const forced = applyBrand(dir, 'sniffnet', { force: true })
-    assert.equal(forced.written.length, 5)
+    assert.equal(second.skipped.length, 8)
+    const forced = applyBrand(dir, 'sniffnet', { force: true, concept: 'spark' })
+    assert.equal(forced.written.length, 8)
+    assert.equal(forced.concept, 'spark')
   } finally {
     rmSync(dir, { recursive: true, force: true })
   }

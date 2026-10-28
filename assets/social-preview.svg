@@ -2,32 +2,42 @@
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#0B1020"/>
-      <stop offset="0.6" stop-color="#0D1220"/>
+      <stop offset="0.55" stop-color="#0D1220"/>
       <stop offset="1" stop-color="#2A3FD0"/>
     </linearGradient>
-    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#4D6BFE"/>
       <stop offset="1" stop-color="#2A3FD0"/>
     </linearGradient>
+    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
     <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
       <path d="M48 0H0V48" fill="none" stroke="#FFFFFF" stroke-opacity="0.04" stroke-width="1"/>
     </pattern>
   </defs>
   <rect width="1280" height="640" fill="url(#bg)"/>
   <rect width="1280" height="640" fill="url(#grid)"/>
-  <rect x="88" y="96" width="152" height="152" rx="38" fill="url(#mark)"/>
-  <g transform="translate(88 96) scale(0.296875)"><g fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="150" cy="176" r="18" fill="#FFFFFF" stroke="none" opacity="0.55"/>
-    <circle cx="256" cy="140" r="18" fill="#FFFFFF" stroke="none" opacity="0.8"/>
-    <circle cx="362" cy="176" r="18" fill="#FFFFFF" stroke="none" opacity="0.55"/>
-    <path d="M150 176 L256 140 L362 176" opacity="0.35"/>
-    <path d="M196 290 L244 338 L342 224"/>
-  </g></g>
-  <text x="88" y="332" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="64" font-weight="700" fill="#FFFFFF">dsh-plugin-tailor</text>
-  <text x="90" y="392" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="27" fill="#DCE6FA">Tailor a repository to fit: audit it across</text>
-  <text x="90" y="434" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="27" fill="#9FB2D4">8 maturity dimensions, pick one of seven</text>
-  <text x="90" y="476" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="27" fill="#9FB2D4">README styles , draft a bilingual README</text>
-  <text x="90" y="560" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="22" fill="#4D6BFE">https://github.com/sakikoTGW/dsh-plugin-tailor</text>
-  <rect x="0" y="636" width="1280" height="4" fill="#4D6BFE" opacity="0.8"/>
-  <rect x="0" y="0" width="1280" height="4" fill="#22305C" opacity="0.6"/>
+  <g fill="none" stroke="#FFFFFF" stroke-opacity="0.07">
+    <circle cx="1116" cy="300" r="96" stroke-width="1.5"/>
+    <circle cx="1116" cy="300" r="176" stroke-width="1.5"/>
+    <circle cx="1116" cy="300" r="264" stroke-width="1.5"/>
+  </g>
+  <circle cx="1194" cy="214" r="5" fill="#4D6BFE" opacity="0.8"/>
+  <g transform="translate(88 92) scale(0.3125)">
+    <rect width="512" height="512" rx="112" fill="url(#tile)"/>
+    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M158 358 L348 162" stroke-width="15"/>
+    <ellipse cx="326" cy="184" rx="12" ry="21" transform="rotate(-43 326 184)" stroke-width="8"/>
+    <path d="M318 202 C276 244 232 240 224 292 C217 338 262 358 296 336" stroke-width="9" opacity="0.86"/>
+    <circle cx="296" cy="336" r="6" fill="#8CE3B8" stroke="none"/>
+  </g>
+  </g>
+  <text x="272" y="200" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="58" font-weight="800" letter-spacing="-1.2" fill="#FFFFFF">dsh-plugin-tailor</text>
+  <text x="274" y="268" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="27" fill="#DCE6FA">From it runs to ship it.</text>
+  <text x="90" y="566" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="21" fill="#7FA2FF">https://github.com/sakikoTGW/dsh-plugin-tailor</text>
+  <rect x="0" y="636" width="1280" height="4" fill="#4D6BFE" opacity="0.85"/>
 </svg>

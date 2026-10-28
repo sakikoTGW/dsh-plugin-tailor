@@ -8,7 +8,7 @@
 |---|---|
 | OS | Windows 11 x64 |
 | Node | v24.12.0 |
-| package | `dsh-plugin-tailor@0.1.0`（本地工作树） |
+| package | `dsh-plugin-tailor@0.2.0`（本地工作树） |
 | 被测仓库 A | `dsh-plugin-tailor`（本仓库，含 docs/CI/品牌素材） |
 | 被测仓库 B | `dsh-plugin-resolver`（已成熟仓库，v0.1.3） |
 

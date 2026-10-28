@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <img alt="version" src="https://img.shields.io/badge/version-0.1.0-4D6BFE?style=flat-square">
+  <img alt="version" src="https://img.shields.io/badge/version-0.2.0-4D6BFE?style=flat-square">
   <img alt="license" src="https://img.shields.io/badge/license-MIT-263146?style=flat-square">
   <img alt="DSH" src="https://img.shields.io/badge/DSH-%3E%3D0.2.0--rc.2%20%3C0.3.0-4D6BFE?style=flat-square">
   <img alt="Node" src="https://img.shields.io/badge/node-%3E%3D20-339933?style=flat-square&logo=node.js&logoColor=white">
@@ -21,7 +21,7 @@
 
 > From “it runs” to “ship it”: audit → pick a style → brand assets → bilingual README → pre-release verification.
 
-<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.1.0</sub></p>
+<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.2.0</sub></p>
 
 <p align="center">
   <img src="assets/demo.gif" alt="Real terminal: repo_audit scores dsh-plugin-resolver 84/100, repo_verify returns PASS" width="760">
@@ -36,6 +36,7 @@
 - [Quickstart](#quickstart)
 - [Six tools](#six-tools)
 - [Seven styles](#seven-styles)
+- [Brand assets](#brand-assets)
 - [Results and evidence](#results-and-evidence)
 - [Layout](#layout)
 - [Tests and CI](#tests-and-ci)
@@ -68,14 +69,14 @@ What it does: **8 dimensions / 34 checks** for maturity, **7 style presets** for
 
 - **8 dimensions / 34 checks**: identity, first screen, install, docs, evidence, release, community, brand — every gap comes with a concrete fix, not just a score.
 - **7 styles + bilingual drafts**: from the resolver evidence flow to doomemacs' pure typography; dry-run diff first, write second.
-- **Deterministic brand assets**: icon / logo / banner / social preview as SVG; re-running on an unchanged repository is byte-identical.
+- **12 vector concepts × light/dark**: `icon` / `logo` (light+dark) / `banner` (light+dark) / `social` / `brand-sheet` — 8 files, byte-identical on re-run.
 - **Write protection**: hand-written READMEs, existing assets and dirty worktrees are refused unless `force` is explicit.
 - **Pre-release verification**: relative links, images, anchors, badges, required sections and leftover TODOs in one PASS/FAIL command.
 - **CLI and DSH tools share one logic layer**: `bin/tailor.mjs` calls the same code as the six tools, so the terminal reproduces the agent.
 
 ## Quickstart
 
-> **Not on npm yet. v0.1.0 ships as a [GitHub Release](https://github.com/sakikoTGW/dsh-plugin-tailor/releases/tag/v0.1.0) with a `.tgz`. Either path works:**
+> **Not on npm yet. v0.2.0 ships as a [GitHub Release](https://github.com/sakikoTGW/dsh-plugin-tailor/releases/tag/v0.2.0) with a `.tgz`. Either path works:**
 
 ```sh
 # from source
@@ -83,7 +84,7 @@ git clone https://github.com/sakikoTGW/dsh-plugin-tailor
 dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor
 
 # or the release tarball
-dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.1.0.tgz
+dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.2.0.tgz
 ```
 
 Restart the engine once and the six `repo_*` tools are live. After that, edits under `logic/` apply on the next call; edits to `host/register.js` or `index.js` need an engine restart.
@@ -117,7 +118,7 @@ repo_verify { path: ".", style: "dsh-tui" }
 | `repo_audit` | read | `path`, `style?` | 0-100 score, 8-dimension breakdown, impact-sorted gaps, style gaps |
 | `repo_plan` | read | `path`, `style?`, `limit?` | P0/P1/P2 tasks with acceptance criteria and verify command |
 | `repo_readme` | dry-run / write | `path`, `style?`, `lang?`, `apply?`, `force?` | diff, TODO list, style gaps |
-| `repo_brand` | dry-run / write | `path`, `style?`, `apply?`, `force?` | 4 SVGs + `assets/README.md` |
+| `repo_brand` | dry-run / write | `path`, `style?`, `concept?`, `tagline?`, `apply?`, `force?` | 8 files (12 concepts) |
 | `repo_verify` | read | `path`, `style?` | PASS/FAIL, per-check detail, leftover TODOs, score delta |
 
 Writes are dry-run by default; hand-written READMEs and existing assets are refused/skipped unless `force`; a dirty worktree is refused without `force`.
@@ -128,17 +129,52 @@ Writes are dry-run by default; hand-written READMEs and existing assets are refu
   <img src="assets/styles.svg" alt="Seven README style presets: resolver, dsh-tui, dsh-go, bubbletea, sniffnet, 1panel, doomemacs" width="100%">
 </p>
 
-| id | Source | Language | Hero | Demo | Best for |
-|---|---|---|---|---|---|
-| `resolver` | [dsh-plugin-resolver](https://github.com/sakikoTGW/dsh-plugin-resolver) | bilingual | banner | GIF | engineering repos with benchmarks/tests |
-| `dsh-tui` | [dsh-TUI](https://github.com/ccch1mneyyy/dsh-TUI) | bilingual | centered logo | GIF | tools with a real logo |
-| `dsh-go` | [dsh-go](https://github.com/ccch1mneyyy/dsh-go) | zh-first | banner | screenshots | apps / mobile / community products |
-| `bubbletea` | [bubbletea](https://github.com/charmbracelet/bubbletea) | en-first | logo | GIF | TUIs and developer tools |
-| `sniffnet` | [sniffnet](https://github.com/GyulyVGC/sniffnet) | en-first | brand banner | screenshots | end-user products |
-| `1panel` | [1Panel](https://github.com/1Panel-dev/1Panel) | bilingual | centered logo | GIF | panels and platforms |
-| `doomemacs` | [doomemacs](https://github.com/doomemacs/doomemacs) | en-first | none | none | mature tools / frameworks |
+| id | Source | Language | Hero | Demo | Default concept | Best for |
+|---|---|---|---|---|---|---|
+| `resolver` | [dsh-plugin-resolver](https://github.com/sakikoTGW/dsh-plugin-resolver) | bilingual | banner | GIF | `arcs` | engineering repos with benchmarks/tests |
+| `dsh-tui` | [dsh-TUI](https://github.com/ccch1mneyyy/dsh-TUI) | bilingual | centered logo | GIF | `prompt` | tools with a real logo |
+| `dsh-go` | [dsh-go](https://github.com/ccch1mneyyy/dsh-go) | zh-first | banner | screenshots | `orbit` | apps / mobile / community products |
+| `bubbletea` | [bubbletea](https://github.com/charmbracelet/bubbletea) | en-first | logo | GIF | `bubble` | TUIs and developer tools |
+| `sniffnet` | [sniffnet](https://github.com/GyulyVGC/sniffnet) | en-first | brand banner | screenshots | `radar` | end-user products |
+| `1panel` | [1Panel](https://github.com/1Panel-dev/1Panel) | bilingual | centered logo | GIF | `hexstack` | panels and platforms |
+| `doomemacs` | [doomemacs](https://github.com/doomemacs/doomemacs) | en-first | none | none | `monogram` | mature tools / frameworks |
 
 How to choose, each preset's section order, and the “12 things good repositories share” live in [docs/STYLES.md](docs/STYLES.md).
+
+## Brand assets
+
+<p align="center">
+  <img src="assets/brand-sheet.svg" alt="12 original vector concepts: needle, stitch, quill, arcs, orbit, prompt, bubble, radar, hexstack, monogram, spark, layers" width="100%">
+</p>
+
+`repo_brand` is not a template swap: pick one of 12 hand-built geometric concepts, combined with the style palette and light/dark layouts.
+
+| Concept | Best for | Concept | Best for |
+|---|---|---|---|
+| `needle` | tailoring / custom / craft | `stitch` | done / verify / delivery |
+| `quill` | writing / docs / narrative | `arcs` | growth / metrics / evidence |
+| `orbit` | network / remote / connection | `prompt` | CLI / terminal / tools |
+| `bubble` | product / interaction / light | `radar` | monitoring / scanning / security |
+| `hexstack` | platform / panel / layers | `monogram` | mature tools / minimal |
+| `spark` | generic / brand / highlight | `layers` | architecture / modules / reuse |
+
+One run writes 8 files:
+
+| File | Purpose |
+|---|---|
+| `icon.svg` | 512×512 icon / avatar |
+| `logo.svg` / `logo-dark.svg` | light / dark lockups |
+| `banner.svg` / `banner-light.svg` | 1280×400 dark / light banners |
+| `social-preview.svg` | 1280×640 social card |
+| `brand-sheet.svg` | 12 concepts side by side, default highlighted |
+| `assets/README.md` | asset index + switch commands |
+
+```sh
+node bin/tailor.mjs brand . --style=resolver --concept=needle \
+  --tagline="From it runs to ship it." --apply --force
+```
+
+Dry-run lists files and concepts; `apply` writes, and existing files are skipped by default.
 
 ## Results and evidence
 
@@ -164,7 +200,7 @@ logic/
   plan.mjs          gaps → P0/P1/P2 tasks
   styles.mjs        seven style presets (pure data)
   readme.mjs        bilingual drafts, diff, apply safety
-  brand.mjs         deterministic SVG
+  brand.mjs         12-concept brand engine (light + dark)
   verify.mjs        links / anchors / images / sections / TODOs
   util.mjs          diff, slug, path boundary
 bin/tailor.mjs      CLI (same logic as the tools)
@@ -190,6 +226,7 @@ node bin/tailor.mjs verify . --style=resolver
 - **Drafts must be reviewed**: `TODO(tailor)` markers are for you to fill; `repo_verify` reports leftover TODOs as a warning.
 - **zh / en only**, no auto style selection, no auto commit / push / publish.
 - **No real screenshots or images**: `repo_brand` only generates SVG geometry; the demo GIF must be recorded from a real run.
+- **Brand assets are geometric SVG, not illustration/photography**: illustration-level work still needs a human or an image model; `repo_brand` guarantees concept choice, light/dark pairs, consistency and reproducibility.
 - **`collectFacts` dominates runtime** (git subprocesses + directory walk); the judgement logic itself is effectively free.
 - **SVG text metrics depend on system fonts** (Inter / Segoe UI / Microsoft YaHei), so widths vary slightly across machines.
 - Not on npm yet: install from source; release steps are in [PUBLISHING.md](PUBLISHING.md).
