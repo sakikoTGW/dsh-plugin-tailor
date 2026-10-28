@@ -60,6 +60,7 @@ node bin/tailor.mjs style:init . --id=acme --extends=evidence
 
 - 内置风格在加载时校验，失败直接报错（不会静默用坏数据）。
 - 自定义风格校验失败会**跳过该文件**并在 `repo_styles` 中列出文件与原因；其他风格照常可用。
+- 机器可读：CLI `tailor styles . --json`（DSH 工具 `repo_styles { json: true }`）输出 `{ builtin, custom, dirs, styles[], errors[] }`。
 - `extends` 必须指向已加载的风格（顺序：内置 → 全局 → 仓库）。
 - 未知名 key、缺 `install` 章节等只给 warning，不阻断。
 

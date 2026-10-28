@@ -4,6 +4,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); version
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-10-29
+
+First npm release, plus a machine-readable style listing.
+
+### Added
+
+- `repo_styles` accepts `json: true` / CLI `--json`: returns `{ builtin, custom, dirs, styles[], errors[] }` for GUIs and other agents.
+- Published to npm as `dsh-plugin-tailor`; README install paths and npm badge added.
+
+### Changed
+
+- Test count 16 (new JSON output test); docs and PUBLISHING checklist updated.
+- Custom style dirs in the JSON payload are absolute paths.
+
 ## [0.4.0] - 2026-10-29
 
 Styles are now structured data, and users can author their own.

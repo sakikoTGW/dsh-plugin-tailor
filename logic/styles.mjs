@@ -13,7 +13,7 @@
 
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { homedir } from 'node:os'
-import { join } from 'node:path'
+import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { mergeStyle, validateStyle } from './style-schema.mjs'
@@ -132,12 +132,12 @@ export function loadStyles(root) {
   const builtinIds = new Set(BUILTIN.registry.keys())
   const globalDir = process.env.TAILOR_STYLES_DIR || join(homedir(), '.tailor', 'styles')
   loadDir(globalDir, 'global', registry, errors, { builtinIds })
-  if (root) loadDir(join(root, '.tailor', 'styles'), 'repo', registry, errors, { builtinIds })
+  if (root) loadDir(join(resolve(root), '.tailor', 'styles'), 'repo', registry, errors, { builtinIds })
   return {
     styles: [...registry.values()],
     byId: registry,
     errors,
-    dirs: { builtin: BUILTIN_DIR, global: globalDir, repo: root ? join(root, '.tailor', 'styles') : null },
+    dirs: { builtin: BUILTIN_DIR, global: globalDir, repo: root ? join(resolve(root), '.tailor', 'styles') : null },
   }
 }
 

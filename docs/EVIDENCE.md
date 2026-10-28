@@ -1,4 +1,4 @@
-# EVIDENCE — dsh-plugin-tailor v0.4.0
+# EVIDENCE — dsh-plugin-tailor v0.4.1
 
 > 结案证据。命令、输出、环境都在这里；结论只引用本文件里出现过的数字。
 
@@ -8,8 +8,8 @@
 
 ```text
 $ npm test
-ℹ tests 15
-ℹ pass 15
+ℹ tests 16
+ℹ pass 16
 ℹ fail 0
 ```
 
@@ -76,7 +76,7 @@ CLI（5 次中位数）：`audit` 248 ms、`plan` 254 ms、`readme` 228 ms、`br
 - 品牌概念 12 个：`needle`、`stitch`、`quill`、`arcs`、`orbit`、`prompt`、`bubble`、`radar`、`hexstack`、`monogram`、`spark`、`layers`；本仓库默认 `needle`，`assets/brand-sheet.svg` 是 12 概念对照，`concepts.gif` 是逐个展示。
 - `styles/`：7 个内置风格 JSON + `schema.json` + 字段说明；自定义风格从 `.tailor/styles/`（仓库）或 `~/.tailor/styles/`（本机）加载，`extends` 合并后校验。
 - `npm pack` 包内容：`index.js`、`host/`、`logic/`、`bin/`、`styles/`、`cordis.patch.yml`、双语 README、docs、assets；`test/`、`bench/`、`.tailor/`、`demo/` 不进包（见 `npm pack --dry-run`）。
-- 包体积：**789.9 kB**（tarball）/ **1.1 MB**（unpacked），**57 个文件**；GitHub Release 附带同一份 `.tgz`。
+- 包体积：**790.8 kB**（tarball）/ **1.1 MB**（unpacked），**57 个文件**；GitHub Release 附带同一份 `.tgz`。
 
 ## 6. 已知限制（不掩饰）
 

@@ -77,12 +77,13 @@ export function registerTools(ctx, options) {
   add({
     name: 'repo_styles',
     description:
-      'List the structured README style presets repo_readme can render: 7 built-ins (evidence, terminal, mobile, playful, product, platform, minimal) plus custom JSON styles from <repo>/.tailor/styles and ~/.tailor/styles. Shows where each style was loaded from and any invalid style files. Read-only.',
+      'List the structured README style presets repo_readme can render: 7 built-ins plus custom JSON styles from <repo>/.tailor/styles and ~/.tailor/styles. Shows where each style was loaded from and any invalid style files. Pass json:true for a machine-readable payload. Read-only.',
     parameters: {
       type: 'object',
       additionalProperties: false,
       properties: {
         path: { type: 'string', description: 'Repository path used to discover .tailor/styles. Defaults to the working directory.' },
+        json: { type: 'boolean', description: 'Return JSON (styles, dirs, errors) instead of the human-readable table.' },
       },
     },
     timeoutMs: TOOL_TIMEOUT_MS,

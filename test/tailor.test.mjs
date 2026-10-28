@@ -479,3 +479,31 @@ test('styles: scaffold and CLI style:init create loadable custom styles', () => 
     rmSync(dir, { recursive: true, force: true })
   }
 })
+
+test('styles: --json output is machine readable', async () => {
+  const dir = makeRepo('good')
+  try {
+    writeJson(join(dir, '.tailor', 'styles', 'acme.json'), {
+      extends: 'evidence',
+      id: 'acme',
+      label: { zh: 'Acme 证据风', en: 'Acme evidence' },
+    })
+    const payload = JSON.parse((await repoStyles(null, null, {}, { path: dir, json: true })).text)
+    assert.equal(payload.builtin, 7)
+    assert.equal(payload.custom, 1)
+    assert.match(payload.dirs.repo, /\.tailor[\\/]styles$/)
+    const acme = payload.styles.find((style) => style.id === 'acme')
+    assert.equal(acme.origin, 'repo')
+    assert.equal(acme.label.zh, 'Acme 证据风')
+    assert.ok(Array.isArray(acme.sections) && acme.sections.includes('install'))
+    assert.ok(Array.isArray(payload.errors))
+
+    const cli = spawnSync(process.execPath, [join(ROOT, 'bin', 'tailor.mjs'), 'styles', dir, '--json'], { encoding: 'utf8', timeout: 30_000 })
+    assert.equal(cli.status, 0, cli.stderr)
+    const parsed = JSON.parse(cli.stdout)
+    assert.equal(parsed.styles.length, 8)
+    assert.ok(parsed.styles.some((style) => style.id === 'evidence'))
+  } finally {
+    rmSync(dir, { recursive: true, force: true })
+  }
+})

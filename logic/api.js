@@ -35,13 +35,34 @@ function sourceOf(style) {
  * @param {any} ctx
  * @param {any} manager
  * @param {{ defaultStyle?: string }} options
- * @param {{ path?: string }} args
+ * @param {{ path?: string, json?: boolean }} args
  */
 export async function repoStyles(ctx, manager, options, args) {
   const path = args?.path ?? '.'
   const registry = loadStyles(path)
   const builtinCount = registry.styles.filter((style) => (style._origin ?? 'builtin') === 'builtin').length
   const custom = registry.styles.filter((style) => (style._origin ?? 'builtin') !== 'builtin')
+  if (args?.json === true) {
+    const payload = {
+      builtin: builtinCount,
+      custom: custom.length,
+      dirs: registry.dirs,
+      styles: registry.styles.map((style) => ({
+        id: style.id,
+        label: style.label,
+        language: style.language,
+        hero: style.hero,
+        demo: style.demo,
+        mark: style.mark,
+        origin: originOf(style),
+        file: style._file ?? null,
+        sections: style.sections,
+        badgeSet: style.badgeSet,
+      })),
+      errors: registry.errors.map((entry) => ({ file: entry.file, errors: entry.errors ?? [], warnings: entry.warnings ?? [] })),
+    }
+    return { text: JSON.stringify(payload, null, 2) }
+  }
   const lines = []
   lines.push(`repo_styles · ${registry.styles.length} presets (${builtinCount} built-in${custom.length > 0 ? ` + ${custom.length} custom` : ''})`)
   lines.push('')

@@ -32,7 +32,7 @@ function parseArgs(argv) {
   for (const token of rest) {
     if (token.startsWith('--')) {
       const [key, rawValue] = token.slice(2).split('=')
-      if (key === 'apply' || key === 'force') options[key] = rawValue === undefined ? true : rawValue !== 'false'
+      if (key === 'apply' || key === 'force' || key === 'json') options[key] = rawValue === undefined ? true : rawValue !== 'false'
       else if (key === 'limit') options.limit = Number(rawValue)
       else options[key] = rawValue ?? true
     } else if (path === '.') {
@@ -65,6 +65,7 @@ async function main() {
     tagline: typeof options.tagline === 'string' ? options.tagline : undefined,
     apply: options.apply === true,
     force: options.force === true,
+    json: options.json === true,
     limit: Number.isFinite(options.limit) ? options.limit : undefined,
   }
   const ctx = null
@@ -99,7 +100,7 @@ async function main() {
 function printHelp() {
   process.stdout.write(`dsh-plugin-tailor CLI
 
-  styles  [path]             list built-in + custom style presets
+  styles  [path] [--json]    list built-in + custom style presets
   audit  [path] [--style=]  score a repository and list gaps
   plan   [path] [--style=]  ordered tasks with acceptance criteria
   readme [path] [--style=] [--lang=zh|en|both] [--apply] [--force]
@@ -118,6 +119,7 @@ Examples:
   node bin/tailor.mjs brand . --style=evidence --concept=needle --apply --force
   node bin/tailor.mjs verify . --style=product
   node bin/tailor.mjs style:init . --id=acme --extends=evidence
+  node bin/tailor.mjs styles . --json | jq '.styles[].id'
 `)
 }
 

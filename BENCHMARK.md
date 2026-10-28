@@ -8,7 +8,7 @@
 |---|---|
 | OS | Windows 11 x64 |
 | Node | v24.12.0 |
-| package | `dsh-plugin-tailor@0.4.0`（本地工作树） |
+| package | `dsh-plugin-tailor@0.4.1`（本地工作树） |
 | 被测仓库 A | `dsh-plugin-tailor`（本仓库，含 docs/CI/品牌素材） |
 | 被测仓库 B | `dsh-plugin-resolver`（已成熟仓库，v0.1.3） |
 
@@ -53,8 +53,8 @@
 | 项 | 值 |
 |---|---|
 | 测试文件 | `test/tailor.test.mjs` |
-| 用例数 | 15 |
-| 结果 | pass 15 / fail 0 |
+| 用例数 | 16 |
+| 结果 | pass 16 / fail 0 |
 | 覆盖 | styles（内置 JSON / 自定义 / extends / 校验跳过 / 脚手架）、facts、audit、plan、readme 渲染/落盘安全、brand 确定性、verify 坏链、宿主注册、CLI |
 
 ## 自举审计（同一 rubric）

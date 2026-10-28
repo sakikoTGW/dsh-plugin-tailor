@@ -9,12 +9,12 @@ How `dsh-plugin-tailor` is versioned, packed, released and listed.
 
 ## Release checklist
 
-1. **Tests**: `npm test` → pass 11 / fail 0.
+1. **Tests**: `npm test` → pass 16 / fail 0.
 2. **Self-audit**: `node bin/tailor.mjs audit . --style=evidence` → score must not drop below `docs/EVIDENCE.md`.
 3. **Package contents**: `npm pack --dry-run` — check that `test/`, `.tmp/`, `.tailor/` are **not** in the tarball and that `docs/`, `assets/`, CLI are.
 4. **Version**: `npm version patch|minor|major` (updates `package.json`, commits and tags).
 5. **CHANGELOG**: move `[Unreleased]` to the new version with a date.
-6. **Publish**: `npm publish` (public, `publishConfig.registry = https://registry.npmjs.org/`).
+6. **Publish**: `npm publish --access public` (public, `publishConfig.registry = https://registry.npmjs.org/`).
 7. **GitHub Release**: create from the tag, paste the CHANGELOG section, attach nothing (source tarball is enough).
 8. **Market catalog**: bump `sakikoTGW/dsh-plugins` `catalog.json` entry to the new version, run `npm run render && npm run verify`, commit/push.
 9. **Verify install**: `dsh plugin --profile <profile> add dsh-plugin-tailor@<version>` in a throwaway profile, then `node bin/tailor.mjs audit .` from the installed package.

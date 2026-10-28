@@ -9,12 +9,13 @@
 </p>
 
 <p align="center">
-  <img alt="version" src="https://img.shields.io/badge/version-0.4.0-4D6BFE?style=flat-square">
+  <img alt="version" src="https://img.shields.io/badge/version-0.4.1-4D6BFE?style=flat-square">
+  <a href="https://www.npmjs.com/package/dsh-plugin-tailor"><img alt="npm" src="https://img.shields.io/npm/v/dsh-plugin-tailor?style=flat-square&color=CB3837&logo=npm&logoColor=white"></a>
   <a href="https://github.com/sakikoTGW/dsh-plugin-tailor/releases"><img alt="release" src="https://img.shields.io/github/v/release/sakikoTGW/dsh-plugin-tailor?style=flat-square&color=2FBF71"></a>
   <img alt="license" src="https://img.shields.io/badge/license-MIT-263146?style=flat-square">
   <img alt="DSH" src="https://img.shields.io/badge/DSH-%3E%3D0.2.0--rc.2%20%3C0.3.0-4D6BFE?style=flat-square">
   <img alt="Node" src="https://img.shields.io/badge/node-%3E%3D20-339933?style=flat-square&logo=node.js&logoColor=white">
-  <a href="https://github.com/sakikoTGW/dsh-plugin-tailor/actions/workflows/test.yml"><img alt="test" src="https://img.shields.io/badge/test-15%2F15-2FBF71?style=flat-square"></a>
+  <a href="https://github.com/sakikoTGW/dsh-plugin-tailor/actions/workflows/test.yml"><img alt="test" src="https://img.shields.io/badge/test-16%2F16-2FBF71?style=flat-square"></a>
   <img alt="checks" src="https://img.shields.io/badge/rubric-34%20checks-2FBF71?style=flat-square">
 </p>
 
@@ -22,7 +23,7 @@
 
 > 把仓库从「能跑」改到「敢发布」：审计 → 选风格 → 品牌素材 → 双语 README → 发布前校验。
 
-<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.4.0</sub></p>
+<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.4.1</sub></p>
 
 <p align="center">
   <a href="#快速开始"><b>安装</b></a> · <a href="#七种风格">七种风格</a> · <a href="#六个工具">六个工具</a> · <a href="#路线图">路线图</a>
@@ -100,15 +101,20 @@
 
 ## 快速开始
 
-> **npm 尚未发布。v0.4.0 已打进 [GitHub Release](https://github.com/sakikoTGW/dsh-plugin-tailor/releases/tag/v0.4.0)（含 `.tgz`）。二选一：**
+> **已发布到 npm 与 GitHub Release（v0.4.1）。三种装法：**
 
 ```sh
-# 源码
+# 1) DSH 插件（推荐，直接从 npm 装）
+dsh plugin --profile <profile> add dsh-plugin-tailor
+
+# 2) CLI 全局安装（不需要 DSH 也能用）
+npm install -g dsh-plugin-tailor
+dsh-repo-tailor styles
+
+# 3) 离线：源码或 Release tarball
 git clone https://github.com/sakikoTGW/dsh-plugin-tailor
 dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor
-
-# 或 Release 里的 tarball
-dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.4.0.tgz
+dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.4.1.tgz
 ```
 
 装完重启一次引擎，六个 `repo_*` 工具上线。之后改 `logic/` 下一次调用即生效，改 `host/register.js` 或 `index.js` 需要重启引擎。
@@ -144,7 +150,7 @@ repo_verify { path: ".", style: "terminal" }
 
 | 工具 | 读写 | 主要参数 | 返回 |
 |---|---|---|---|
-| `repo_styles` | 读 | `path?` | 内置 + 自定义风格的 id、来源（builtin/global/repo）、校验错误 |
+| `repo_styles` | 读 | `path?`, `json?` | 内置 + 自定义风格的 id、来源（builtin/global/repo）、校验错误；`json: true` 返回机器可读结构 |
 | `repo_audit` | 读 | `path`, `style?` | 0-100 分、8 维明细、按影响排序的 gaps、风格缺口 |
 | `repo_plan` | 读 | `path`, `style?`, `limit?` | P0/P1/P2 任务，每条带 acceptance 与 verify |
 | `repo_readme` | dry-run / 写 | `path`, `style?`, `lang?`, `apply?`, `force?` | diff、TODO 清单、风格缺口 |
@@ -202,6 +208,7 @@ node bin/tailor.mjs style:init . --id=acme --extends=evidence
 - `extends` 逐键合并：`label` / `palette` / `labels` 等对象合并，`sections` / `badgeSet` 数组替换。
 - 每个字段的含义、允许值、完整 schema 见 [styles/README.md](styles/README.md) 与 [styles/schema.json](styles/schema.json)。
 - 写坏的风格文件会被**跳过**并在 `repo_styles` 里列出文件与原因，其他风格照常可用。
+- 机器可读：`tailor styles . --json`（DSH 工具 `repo_styles { json: true }`）输出 `styles` / `dirs` / `errors`，给 GUI 或其他 agent 用。
 - 所有工具（`repo_audit` / `repo_plan` / `repo_readme` / `repo_brand` / `repo_verify`）都接受自定义 `style` id。
 
 ## 品牌素材
@@ -282,7 +289,7 @@ node bin/tailor.mjs brand . --style=evidence --concept=needle \
 </p>
 
 - **自举**：本仓库用自己补文档/品牌/README，审计分 **37 → 100**（D → A）；`dsh-plugin-resolver` 审计 **84/100（B）**，`repo_verify` 返回 `PASS`。
-- **测试**：15 项离线测试（`npm test`，pass 15 / fail 0），CI 在 Node 20/22/24 上跑。
+- **测试**：16 项离线测试（`npm test`，pass 16 / fail 0），CI 在 Node 20/22/24 上跑。
 - **纯逻辑耗时**：`auditFacts` **0.01 ms**、`renderReadme` **0.03 ms**、`verifyFacts` **0.03 ms**；`collectFacts` 因为要起 4 个 `git` 子进程约 **109–794 ms**（视仓库大小）。
 - **CLI 端到端**：`tailor audit .` 中位数 **248 ms**，其中约 200 ms 是 Node 启动。
 - **口径**：环境、方法、输出体积都写在 [BENCHMARK.md](BENCHMARK.md)；自举前后与测试输出在 [docs/EVIDENCE.md](docs/EVIDENCE.md)。
@@ -307,13 +314,13 @@ styles/             7 个内置风格 JSON + schema.json + 说明
 bin/tailor.mjs      CLI（和工具共用逻辑）
 bench/micro.mjs     纯逻辑基准
 docs/               SPEC / STYLES / ACCEPTANCE / EVIDENCE
-test/tailor.test.mjs 15 项离线测试
+test/tailor.test.mjs 16 项离线测试
 ```
 
 ## 测试与 CI
 
 ```sh
-npm test                # 15 项离线测试
+npm test                # 16 项离线测试
 node bench/micro.mjs .  # 纯逻辑微基准
 node bin/tailor.mjs verify . --style=evidence
 ```
@@ -336,7 +343,7 @@ node bin/tailor.mjs verify . --style=evidence
 - **自定义风格写坏会被跳过**：`repo_styles` 会列出文件和原因；加载器不猜测、不自动修复。
 - **`collectFacts` 是主要耗时项**（git 子进程 + 文件遍历），纯判断逻辑可以忽略不计。
 - **SVG 字宽依赖系统字体**：Inter / Segoe UI / 微软雅黑，不同机器上文字宽度略有差异。
-- npm 尚未发布：现在只能从源码安装，发布流程在 [PUBLISHING.md](PUBLISHING.md)。
+- npm 包与插件包同名：插件用 `dsh-plugin-tailor`，CLI 命令是 `dsh-repo-tailor`（也可 `npx dsh-plugin-tailor`）；发布流程见 [PUBLISHING.md](PUBLISHING.md)。
 
 ## 权限与安全边界
 

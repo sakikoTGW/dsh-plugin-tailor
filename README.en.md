@@ -9,12 +9,13 @@
 </p>
 
 <p align="center">
-  <img alt="version" src="https://img.shields.io/badge/version-0.4.0-4D6BFE?style=flat-square">
+  <img alt="version" src="https://img.shields.io/badge/version-0.4.1-4D6BFE?style=flat-square">
+  <a href="https://www.npmjs.com/package/dsh-plugin-tailor"><img alt="npm" src="https://img.shields.io/npm/v/dsh-plugin-tailor?style=flat-square&color=CB3837&logo=npm&logoColor=white"></a>
   <a href="https://github.com/sakikoTGW/dsh-plugin-tailor/releases"><img alt="release" src="https://img.shields.io/github/v/release/sakikoTGW/dsh-plugin-tailor?style=flat-square&color=2FBF71"></a>
   <img alt="license" src="https://img.shields.io/badge/license-MIT-263146?style=flat-square">
   <img alt="DSH" src="https://img.shields.io/badge/DSH-%3E%3D0.2.0--rc.2%20%3C0.3.0-4D6BFE?style=flat-square">
   <img alt="Node" src="https://img.shields.io/badge/node-%3E%3D20-339933?style=flat-square&logo=node.js&logoColor=white">
-  <a href="https://github.com/sakikoTGW/dsh-plugin-tailor/actions/workflows/test.yml"><img alt="test" src="https://img.shields.io/badge/test-15%2F15-2FBF71?style=flat-square"></a>
+  <a href="https://github.com/sakikoTGW/dsh-plugin-tailor/actions/workflows/test.yml"><img alt="test" src="https://img.shields.io/badge/test-16%2F16-2FBF71?style=flat-square"></a>
   <img alt="checks" src="https://img.shields.io/badge/rubric-34%20checks-2FBF71?style=flat-square">
 </p>
 
@@ -22,7 +23,7 @@
 
 > From “it runs” to “ship it”: audit → pick a style → brand assets → bilingual README → pre-release verification.
 
-<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.4.0</sub></p>
+<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.4.1</sub></p>
 
 <p align="center">
   <a href="#quickstart"><b>Install</b></a> · <a href="#seven-styles">Seven styles</a> · <a href="#six-tools">Six tools</a> · <a href="#roadmap">Roadmap</a>
@@ -100,15 +101,20 @@ What it does: **8 dimensions / 34 checks** for maturity, **7 style presets** for
 
 ## Quickstart
 
-> **Not on npm yet. v0.4.0 ships as a [GitHub Release](https://github.com/sakikoTGW/dsh-plugin-tailor/releases/tag/v0.4.0) with a `.tgz`. Either path works:**
+> **Published to npm and GitHub Releases (v0.4.1). Three ways to install:**
 
 ```sh
-# from source
+# 1) DSH plugin (recommended, straight from npm)
+dsh plugin --profile <profile> add dsh-plugin-tailor
+
+# 2) CLI only (no DSH needed)
+npm install -g dsh-plugin-tailor
+dsh-repo-tailor styles
+
+# 3) Offline: source or the release tarball
 git clone https://github.com/sakikoTGW/dsh-plugin-tailor
 dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor
-
-# or the release tarball
-dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.4.0.tgz
+dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.4.1.tgz
 ```
 
 Restart the engine once and the six `repo_*` tools are live. After that, edits under `logic/` apply on the next call; edits to `host/register.js` or `index.js` need an engine restart.
@@ -144,7 +150,7 @@ repo_verify { path: ".", style: "terminal" }
 
 | Tool | R/W | Arguments | Returns |
 |---|---|---|---|
-| `repo_styles` | read | `path?` | built-in + custom style ids, origin (builtin/global/repo) and validation errors |
+| `repo_styles` | read | `path?`, `json?` | built-in + custom style ids, origin (builtin/global/repo) and validation errors; `json: true` returns a machine-readable payload |
 | `repo_audit` | read | `path`, `style?` | 0-100 score, 8-dimension breakdown, impact-sorted gaps, style gaps |
 | `repo_plan` | read | `path`, `style?`, `limit?` | P0/P1/P2 tasks with acceptance criteria and verify command |
 | `repo_readme` | dry-run / write | `path`, `style?`, `lang?`, `apply?`, `force?` | diff, TODO list, style gaps |
@@ -202,6 +208,7 @@ node bin/tailor.mjs style:init . --id=acme --extends=evidence
 - `extends` merges key by key: `label` / `palette` / `labels` merge, `sections` / `badgeSet` arrays replace.
 - Field reference and full schema: [styles/README.md](styles/README.md) and [styles/schema.json](styles/schema.json).
 - Invalid style files are **skipped** and reported by `repo_styles`; other styles keep working.
+- Machine-readable: `tailor styles . --json` (DSH tool `repo_styles { json: true }`) returns `styles` / `dirs` / `errors` for GUIs and other agents.
 - Every tool (`repo_audit` / `repo_plan` / `repo_readme` / `repo_brand` / `repo_verify`) accepts a custom `style` id.
 
 ## Brand assets
@@ -282,7 +289,7 @@ Real CLI output, not mockups; each screenshot is rendered from the actual stdout
 </p>
 
 - **Self-audit**: this repository used itself to add docs, brand assets and README — score **37 → 100** (D → A). `dsh-plugin-resolver` audits at **84/100 (B)** and `repo_verify` returns `PASS`.
-- **Tests**: 15 offline tests (`npm test`, pass 15 / fail 0); CI runs on Node 20/22/24.
+- **Tests**: 16 offline tests (`npm test`, pass 16 / fail 0); CI runs on Node 20/22/24.
 - **Pure logic**: `auditFacts` **0.01 ms**, `renderReadme` **0.03 ms**, `verifyFacts` **0.03 ms**; `collectFacts` is **109–794 ms** because it spawns 4 `git` processes (depends on repository size).
 - **CLI end-to-end**: `tailor audit .` median **248 ms**, of which ~200 ms is Node startup.
 - **Method**: environment, procedure and output sizes are in [BENCHMARK.md](BENCHMARK.md); before/after and test output are in [docs/EVIDENCE.md](docs/EVIDENCE.md).
@@ -307,13 +314,13 @@ styles/             seven built-in style JSON files + schema.json + docs
 bin/tailor.mjs      CLI (same logic as the tools)
 bench/micro.mjs     pure-logic microbenchmark
 docs/               SPEC / STYLES / ACCEPTANCE / EVIDENCE
-test/tailor.test.mjs 15 offline tests
+test/tailor.test.mjs 16 offline tests
 ```
 
 ## Tests and CI
 
 ```sh
-npm test                # 15 offline tests
+npm test                # 16 offline tests
 node bench/micro.mjs .  # pure-logic microbenchmark
 node bin/tailor.mjs verify . --style=evidence
 ```
@@ -336,7 +343,7 @@ node bin/tailor.mjs verify . --style=evidence
 - **Invalid custom styles are skipped**: `repo_styles` lists the file and the reason; the loader does not guess or auto-fix.
 - **`collectFacts` dominates runtime** (git subprocesses + directory walk); the judgement logic itself is effectively free.
 - **SVG text metrics depend on system fonts** (Inter / Segoe UI / Microsoft YaHei), so widths vary slightly across machines.
-- Not on npm yet: install from source; release steps are in [PUBLISHING.md](PUBLISHING.md).
+- npm package and plugin share the name: install `dsh-plugin-tailor`; the CLI command is `dsh-repo-tailor` (or `npx dsh-plugin-tailor`); release steps in [PUBLISHING.md](PUBLISHING.md).
 
 ## Security boundaries
 

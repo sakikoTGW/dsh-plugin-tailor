@@ -1,6 +1,6 @@
 # SPEC — dsh-plugin-tailor
 
-> 状态：v0.4.0 实现中。验收见 [ACCEPTANCE.md](ACCEPTANCE.md)，风格说明见 [STYLES.md](STYLES.md)，风格数据格式见 [styles/README.md](../styles/README.md)，证据见 [EVIDENCE.md](EVIDENCE.md)。
+> 状态：v0.4.1 实现中。验收见 [ACCEPTANCE.md](ACCEPTANCE.md)，风格说明见 [STYLES.md](STYLES.md)，风格数据格式见 [styles/README.md](../styles/README.md)，证据见 [EVIDENCE.md](EVIDENCE.md)。
 
 ## 目标
 
