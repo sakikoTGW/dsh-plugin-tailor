@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <img alt="version" src="https://img.shields.io/badge/version-0.3.1-4D6BFE?style=flat-square">
+  <img alt="version" src="https://img.shields.io/badge/version-0.3.2-4D6BFE?style=flat-square">
   <a href="https://github.com/sakikoTGW/dsh-plugin-tailor/releases"><img alt="release" src="https://img.shields.io/github/v/release/sakikoTGW/dsh-plugin-tailor?style=flat-square&color=2FBF71"></a>
   <img alt="license" src="https://img.shields.io/badge/license-MIT-263146?style=flat-square">
   <img alt="DSH" src="https://img.shields.io/badge/DSH-%3E%3D0.2.0--rc.2%20%3C0.3.0-4D6BFE?style=flat-square">
@@ -22,7 +22,7 @@
 
 > 把仓库从「能跑」改到「敢发布」：审计 → 选风格 → 品牌素材 → 双语 README → 发布前校验。
 
-<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.3.1</sub></p>
+<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.3.2</sub></p>
 
 <p align="center">
   <a href="#快速开始"><b>安装</b></a> · <a href="#七种风格">七种风格</a> · <a href="#六个工具">六个工具</a> · <a href="#路线图">路线图</a>
@@ -67,6 +67,10 @@
 
 本插件做的事：把仓库成熟度拆成 **8 维 34 项检查**，把 README 风格拆成 **7 个预设**，把品牌素材变成**确定性 SVG**，把发布前检查变成一条 `repo_verify`。
 
+<p align="center">
+  <img src="assets/before-after.svg" alt="手工 README 对比 tailor 生成：demo、证据、品牌、链接检查" width="100%">
+</p>
+
 ## 怎么工作
 
 <p align="center">
@@ -94,7 +98,7 @@
 
 ## 快速开始
 
-> **npm 尚未发布。v0.3.1 已打进 [GitHub Release](https://github.com/sakikoTGW/dsh-plugin-tailor/releases/tag/v0.3.1)（含 `.tgz`）。二选一：**
+> **npm 尚未发布。v0.3.1 已打进 [GitHub Release](https://github.com/sakikoTGW/dsh-plugin-tailor/releases/tag/v0.3.2)（含 `.tgz`）。二选一：**
 
 ```sh
 # 源码
@@ -102,7 +106,7 @@ git clone https://github.com/sakikoTGW/dsh-plugin-tailor
 dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor
 
 # 或 Release 里的 tarball
-dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.3.1.tgz
+dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.3.2.tgz
 ```
 
 装完重启一次引擎，六个 `repo_*` 工具上线。之后改 `logic/` 下一次调用即生效，改 `host/register.js` 或 `index.js` 需要重启引擎。
@@ -117,6 +121,11 @@ node bin/tailor.mjs brand . --style=playful --apply
 node bin/tailor.mjs readme . --style=evidence --lang=both
 node bin/tailor.mjs verify . --style=evidence
 ```
+
+<p align="center">
+  <img src="assets/tools-help.png" alt="CLI help：六个命令与示例" width="100%">
+</p>
+<p align="center"><sub><code>tailor --help</code>：六个命令和示例，和 DSH 工具共用同一套逻辑。</sub></p>
 
 在 DSH 里直接调用：
 
@@ -166,6 +175,23 @@ repo_verify { path: ".", style: "terminal" }
 </p>
 
 `repo_brand` 不是换一张模板图，而是从 12 个手写几何概念里选，配上风格调色板和明暗两套版式：
+
+<p align="center">
+  <img src="assets/concepts.gif" alt="12 个图形概念逐个展示：needle、stitch、quill、arcs、orbit、prompt、bubble、radar、hexstack、monogram、spark、layers" width="560">
+</p>
+<p align="center"><sub>12 个概念，每帧一个；完整对照见上面的 brand-sheet。</sub></p>
+
+<table align="center">
+  <tr>
+    <td align="center" valign="middle"><img src="assets/logo-dark.svg" alt="深色版 logo" width="330"><br><sub>logo-dark</sub></td>
+    <td align="center" valign="middle"><img src="assets/icon.svg" alt="512 图标" width="120"><br><sub>icon</sub></td>
+  </tr>
+</table>
+
+<p align="center">
+  <img src="assets/banner-light.svg" alt="浅色版 banner：1280×400" width="100%">
+</p>
+<p align="center"><sub>明暗两套 banner / logo：深色给 README，浅色给文档与幻灯片。</sub></p>
 
 | 概念 | 适合 | 概念 | 适合 |
 |---|---|---|---|
@@ -256,6 +282,11 @@ node bin/tailor.mjs verify . --style=evidence
 
 - 测试覆盖：风格注册、facts、audit 排序、plan、README 渲染/落盘安全、品牌确定性、坏链/坏图/坏锚点、宿主注册、CLI。
 - CI：`.github/workflows/test.yml`，Node 20/22/24 矩阵，跑 `npm test`、CLI smoke、`npm pack --dry-run`。
+
+<p align="center">
+  <img src="assets/actions.png" alt="GitHub Actions：Node 20/22/24 矩阵全部通过，19 秒" width="100%">
+</p>
+<p align="center"><sub>真实 CI：Node 20 / 22 / 24 三个 job 全绿，19 秒。</sub></p>
 
 ## 已知限制
 

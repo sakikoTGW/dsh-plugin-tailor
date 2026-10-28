@@ -1,6 +1,6 @@
 {
   "name": "dsh-plugin-tailor",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Tailor a repository to fit: audit it across 8 maturity dimensions, pick one of seven README styles (resolver / dsh-tui / dsh-go / bubbletea / sniffnet / 1panel / doomemacs), draft a bilingual README, generate deterministic brand assets, and verify links before publishing.",
   "type": "module",
   "main": "index.js",

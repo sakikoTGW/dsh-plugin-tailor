@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <img alt="version" src="https://img.shields.io/badge/version-0.3.1-4D6BFE?style=flat-square">
+  <img alt="version" src="https://img.shields.io/badge/version-0.3.2-4D6BFE?style=flat-square">
   <a href="https://github.com/sakikoTGW/dsh-plugin-tailor/releases"><img alt="release" src="https://img.shields.io/github/v/release/sakikoTGW/dsh-plugin-tailor?style=flat-square&color=2FBF71"></a>
   <img alt="license" src="https://img.shields.io/badge/license-MIT-263146?style=flat-square">
   <img alt="DSH" src="https://img.shields.io/badge/DSH-%3E%3D0.2.0--rc.2%20%3C0.3.0-4D6BFE?style=flat-square">
@@ -22,7 +22,7 @@
 
 > From “it runs” to “ship it”: audit → pick a style → brand assets → bilingual README → pre-release verification.
 
-<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.3.1</sub></p>
+<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.3.2</sub></p>
 
 <p align="center">
   <a href="#quickstart"><b>Install</b></a> · <a href="#seven-styles">Seven styles</a> · <a href="#six-tools">Six tools</a> · <a href="#roadmap">Roadmap</a>
@@ -67,6 +67,10 @@
 
 What it does: **8 dimensions / 34 checks** for maturity, **7 style presets** for the README, **deterministic SVG** for brand assets, and one `repo_verify` before you publish.
 
+<p align="center">
+  <img src="assets/before-after.svg" alt="Manual README versus tailor-generated: demo, evidence, brand, link checks" width="100%">
+</p>
+
 ## How it works
 
 <p align="center">
@@ -94,7 +98,7 @@ What it does: **8 dimensions / 34 checks** for maturity, **7 style presets** for
 
 ## Quickstart
 
-> **Not on npm yet. v0.3.1 ships as a [GitHub Release](https://github.com/sakikoTGW/dsh-plugin-tailor/releases/tag/v0.3.1) with a `.tgz`. Either path works:**
+> **Not on npm yet. v0.3.1 ships as a [GitHub Release](https://github.com/sakikoTGW/dsh-plugin-tailor/releases/tag/v0.3.2) with a `.tgz`. Either path works:**
 
 ```sh
 # from source
@@ -102,7 +106,7 @@ git clone https://github.com/sakikoTGW/dsh-plugin-tailor
 dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor
 
 # or the release tarball
-dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.3.1.tgz
+dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.3.2.tgz
 ```
 
 Restart the engine once and the six `repo_*` tools are live. After that, edits under `logic/` apply on the next call; edits to `host/register.js` or `index.js` need an engine restart.
@@ -117,6 +121,11 @@ node bin/tailor.mjs brand . --style=playful --apply
 node bin/tailor.mjs readme . --style=evidence --lang=both
 node bin/tailor.mjs verify . --style=evidence
 ```
+
+<p align="center">
+  <img src="assets/tools-help.png" alt="CLI help: six commands and examples" width="100%">
+</p>
+<p align="center"><sub><code>tailor --help</code>: six commands and examples, same logic as the DSH tools.</sub></p>
 
 From DSH:
 
@@ -166,6 +175,23 @@ How to choose, each preset's section order, and the “12 things good repositori
 </p>
 
 `repo_brand` is not a template swap: pick one of 12 hand-built geometric concepts, combined with the style palette and light/dark layouts.
+
+<p align="center">
+  <img src="assets/concepts.gif" alt="The 12 concepts one by one: needle, stitch, quill, arcs, orbit, prompt, bubble, radar, hexstack, monogram, spark, layers" width="560">
+</p>
+<p align="center"><sub>12 concepts, one per frame; the full contact sheet is above.</sub></p>
+
+<table align="center">
+  <tr>
+    <td align="center" valign="middle"><img src="assets/logo-dark.svg" alt="dark logo" width="330"><br><sub>logo-dark</sub></td>
+    <td align="center" valign="middle"><img src="assets/icon.svg" alt="512 icon" width="120"><br><sub>icon</sub></td>
+  </tr>
+</table>
+
+<p align="center">
+  <img src="assets/banner-light.svg" alt="Light banner, 1280×400" width="100%">
+</p>
+<p align="center"><sub>Light and dark banners/logos: dark for the README, light for docs and slides.</sub></p>
 
 | Concept | Best for | Concept | Best for |
 |---|---|---|---|
@@ -256,6 +282,11 @@ node bin/tailor.mjs verify . --style=evidence
 
 - Coverage: style registry, facts, audit ordering, plan, README rendering/write safety, deterministic brand, broken links/images/anchors, host registration, CLI.
 - CI: `.github/workflows/test.yml`, Node 20/22/24 matrix, runs `npm test`, a CLI smoke test and `npm pack --dry-run`.
+
+<p align="center">
+  <img src="assets/actions.png" alt="GitHub Actions: Node 20/22/24 matrix all green in 19 seconds" width="100%">
+</p>
+<p align="center"><sub>Real CI: the Node 20 / 22 / 24 jobs all pass in 19 seconds.</sub></p>
 
 ## Known limitations
 

@@ -1,4 +1,4 @@
-# EVIDENCE — dsh-plugin-tailor v0.3.1
+# EVIDENCE — dsh-plugin-tailor v0.3.2
 
 > 结案证据。命令、输出、环境都在这里；结论只引用本文件里出现过的数字。
 
@@ -70,10 +70,10 @@ CLI（5 次中位数）：`audit` 248 ms、`plan` 254 ms、`readme` 228 ms、`br
 
 ## 5. 生成物与包
 
-- `assets/`：品牌引擎生成 8 个文件（icon、明暗 logo、明暗 banner、social、brand-sheet、README），另加手写的 pipeline / styles / stats / features 四张图；`demo.gif`、`audit-resolver.png`、`tools-styles.png`、`tools-brand.png`、`tools-verify.png` 全部由真实 stdout 渲染。
-- 品牌概念 12 个：`needle`、`stitch`、`quill`、`arcs`、`orbit`、`prompt`、`bubble`、`radar`、`hexstack`、`monogram`、`spark`、`layers`；本仓库默认 `needle`，`assets/brand-sheet.svg` 是 12 概念对照。
+- `assets/`：品牌引擎生成 8 个文件（icon、明暗 logo、明暗 banner、social、brand-sheet、README），另加手写的 pipeline / styles / stats / features / before-after 图；`demo.gif`、`concepts.gif`、`actions.png`、`tools-*.png`、`audit-resolver.png` 由真实运行/截图渲染。
+- 品牌概念 12 个：`needle`、`stitch`、`quill`、`arcs`、`orbit`、`prompt`、`bubble`、`radar`、`hexstack`、`monogram`、`spark`、`layers`；本仓库默认 `needle`，`assets/brand-sheet.svg` 是 12 概念对照，`concepts.gif` 是逐个展示。
 - `npm pack` 包内容：`index.js`、`host/`、`logic/`、`bin/`、`cordis.patch.yml`、双语 README、docs、assets；`test/`、`bench/`、`.tailor/`、`demo/` 不进包（见 `npm pack --dry-run`）。
-- 包体积：**502.9 kB**（tarball）/ **736.6 kB**（unpacked），**43 个文件**；GitHub Release 附带同一份 `.tgz`。
+- 包体积：**774.7 kB**（tarball）/ **1.0 MB**（unpacked），**47 个文件**；GitHub Release 附带同一份 `.tgz`。
 
 ## 6. 已知限制（不掩饰）
 

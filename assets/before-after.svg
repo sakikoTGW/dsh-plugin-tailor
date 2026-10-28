@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" width="1200" height="480" role="img" aria-label="Manual README versus tailor-generated README">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1020"/>
+      <stop offset="0.55" stop-color="#0D1220"/>
+      <stop offset="1" stop-color="#141B33"/>
+    </linearGradient>
+    <linearGradient id="hero" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2B3E86"/>
+      <stop offset="0.6" stop-color="#1A2350"/>
+      <stop offset="1" stop-color="#0F1730"/>
+    </linearGradient>
+    <linearGradient id="arrow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4D6BFE"/>
+      <stop offset="1" stop-color="#2FBF71"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#FFFFFF" stroke-opacity="0.03" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="480" fill="url(#bg)"/>
+  <rect width="1200" height="480" fill="url(#grid)"/>
+  <text x="48" y="52" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">同一份仓库事实，两种交付</text>
+
+  <!-- left: manual -->
+  <g transform="translate(48 78)">
+    <rect width="500" height="330" rx="18" fill="#0F1526" stroke="#22305C"/>
+    <text x="26" y="38" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="15" font-weight="700" fill="#8FA3C8">手工写 README</text>
+    <text x="26" y="64" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12" fill="#5F739E">结构靠记忆，数字靠回忆</text>
+    <g font-family="Consolas, monospace" font-size="12" fill="#4E638C">
+      <text x="26" y="106"># project-name</text>
+      <text x="26" y="130">随便一句话介绍</text>
+      <text x="26" y="154">## Install</text>
+      <text x="26" y="178">npm install ...（可能过期）</text>
+      <text x="26" y="202">## Usage</text>
+      <text x="26" y="226">TODO</text>
+      <text x="26" y="250">## License</text>
+      <text x="26" y="274">MIT</text>
+    </g>
+    <g font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12">
+      <text x="330" y="106" fill="#FF8A8A">✕ 无 demo</text>
+      <text x="330" y="130" fill="#FF8A8A">✕ 无证据</text>
+      <text x="330" y="154" fill="#FF8A8A">✕ 无品牌</text>
+      <text x="330" y="178" fill="#FF8A8A">✕ 链接失修</text>
+      <text x="330" y="202" fill="#FF8A8A">✕ TODO 残留</text>
+    </g>
+    <rect x="300" y="270" width="176" height="1" fill="#22305C"/>
+  </g>
+
+  <!-- arrow -->
+  <g transform="translate(566 232)">
+    <path d="M0 0 H58" stroke="url(#arrow)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M50 -8 L62 0 L50 8" fill="none" stroke="url(#arrow)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="30" y="-18" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11" fill="#8FA3C8">一条流水线</text>
+  </g>
+
+  <!-- right: tailored -->
+  <g transform="translate(652 78)">
+    <rect width="500" height="330" rx="18" fill="#0F1526" stroke="#2A3F6E"/>
+    <rect width="500" height="74" rx="18" fill="url(#hero)"/>
+    <rect y="56" width="500" height="18" fill="url(#hero)"/>
+    <rect x="22" y="18" width="38" height="38" rx="10" fill="#4D6BFE"/>
+    <g fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M33 27 L39 34 L51 20"/>
+    </g>
+    <text x="72" y="42" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">project-name</text>
+    <text x="22" y="94" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11" fill="#9FB2D4">MIT · Node &gt;=20 · v1.2.3</text>
+    <!-- badges -->
+    <g transform="translate(22 106)">
+      <rect width="54" height="18" rx="4" fill="#4D6BFE"/><text x="27" y="13" text-anchor="middle" font-size="9" fill="#FFFFFF" font-family="Inter, sans-serif">npm 1.2.3</text>
+      <rect x="60" width="46" height="18" rx="4" fill="#22305C"/><text x="83" y="13" text-anchor="middle" font-size="9" fill="#C9D3EA" font-family="Inter, sans-serif">MIT</text>
+      <rect x="112" width="72" height="18" rx="4" fill="#2FBF71"/><text x="148" y="13" text-anchor="middle" font-size="9" fill="#0B1020" font-family="Inter, sans-serif">tests 34</text>
+    </g>
+    <!-- demo block -->
+    <rect x="22" y="140" width="456" height="86" rx="8" fill="#080D18" stroke="#22305C"/>
+    <circle cx="38" cy="156" r="4" fill="#FF5F56"/><circle cx="52" cy="156" r="4" fill="#FFBD2E"/><circle cx="66" cy="156" r="4" fill="#27C93F"/>
+    <text x="34" y="186" font-family="Consolas, monospace" font-size="10" fill="#2FBF71">$ npm test</text>
+    <text x="34" y="204" font-family="Consolas, monospace" font-size="10" fill="#C9D3EA">ok  pipeline · 34 checks passed</text>
+    <!-- toc -->
+    <g font-family="Consolas, monospace" font-size="10" fill="#6F86B8">
+      <text x="22" y="252">- Why · How · Install · Evidence</text>
+      <text x="22" y="272">- Limitations · Feedback · License</text>
+    </g>
+    <g font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12">
+      <text x="330" y="252" fill="#2FBF71">✓ demo</text>
+      <text x="330" y="272" fill="#2FBF71">✓ 数字有出处</text>
+      <text x="330" y="292" fill="#2FBF71">✓ 链接可解析</text>
+    </g>
+    <rect x="22" y="300" width="456" height="1" fill="#22305C"/>
+  </g>
+
+  <text x="600" y="452" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5F739E">不是模板替换：先审计事实，再选风格，最后替你把链接、徽章和 TODO 检查一遍。</text>
+</svg>

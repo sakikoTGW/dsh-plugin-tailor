@@ -4,6 +4,22 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); version
 
 ## [Unreleased]
 
+## [0.3.2] - 2026-10-29
+
+Visual density pass: product screenshots and motion instead of text-only sections.
+
+### Added
+
+- `assets/before-after.svg`: manual README vs tailor-generated, side by side.
+- `assets/concepts.gif`: the 12 vector concepts animated, one per frame.
+- Brand gallery: light/dark logo plus icon and the light banner in the Brand assets section.
+- `assets/actions.png`: real GitHub Actions run (Node 20/22/24, 19 s, all green).
+- `assets/tools-help.png`: real `tailor --help` output in Quickstart.
+
+### Changed
+
+- Screenshots are placed earlier and larger; CI proof is rendered instead of described.
+
 ## [0.3.1] - 2026-10-29
 
 README and repo presentation pass, based on patterns from mature READMEs.

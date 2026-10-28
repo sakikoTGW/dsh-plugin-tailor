@@ -30,14 +30,18 @@ Available concepts: `needle`, `stitch`, `quill`, `arcs`, `orbit`, `prompt`, `bub
 
 | File | 说明 |
 |---|---|
-| `tools-styles.png` | `tailor styles` 真实输出（节选 32 行）：7 个风格只描述风格 |
+| `tools-styles.png` | `tailor styles` 真实输出（节选 32 行） |
 | `tools-brand.png` | `tailor brand` dry-run：8 个文件 + 12 个概念 |
 | `tools-verify.png` | `tailor verify` PASS：链接 / 图片 / 锚点 / 章节 / TODO |
+| `tools-help.png` | `tailor --help`：六个命令与示例 |
+| `actions.png` | GitHub Actions 真实运行：Node 20/22/24 全绿，19s |
 | `audit-resolver.png` | `tailor audit` 对成熟仓库打分（960×680） |
 | `demo.gif` | 真实 audit + verify 演示（7 帧，80 KB） |
+| `concepts.gif` | 12 个图形概念逐个展示（12 帧） |
+| `before-after.svg` | 手工 README vs tailor 生成对比 |
 | `pipeline.svg` | 五阶段流水线（手写） |
 | `styles.svg` | 7 种 README 风格矩阵（手写） |
 | `stats.svg` | 首屏数字条：8 维 / 34 项 / 7 风格 / 12 概念 |
 | `features.svg` | 六个能力卡片（Features 网格） |
 
-`tools-*.png`、`audit-resolver.png` 与 `demo.gif` 全部由实际 stdout 渲染，命令写在终端卡里；不含手写假数据。
+`tools-*.png`、`actions.png`、`audit-resolver.png` 与 `demo.gif` 全部由实际运行/截图产物生成；`concepts.gif` 由 12 个概念 SVG 渲染。

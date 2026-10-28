@@ -42,7 +42,7 @@
   <text x="72" y="214" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="26" fill="#1B2742">From it runs to ship it.</text>
   <g transform="translate(72 314)">
       <rect width="226" height="44" rx="22" fill="#FFFFFF" fill-opacity="0.75" stroke="#D7E0F5"/>
-      <text x="113" y="29" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="18" fill="#33456B">v0.3.1</text>
+      <text x="113" y="29" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="18" fill="#33456B">v0.3.2</text>
     </g>
   <g transform="translate(318 314)">
       <rect width="226" height="44" rx="22" fill="#FFFFFF" fill-opacity="0.75" stroke="#D7E0F5"/>
