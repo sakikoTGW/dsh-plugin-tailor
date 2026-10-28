@@ -78,7 +78,23 @@ CLI（5 次中位数）：`audit` 248 ms、`plan` 254 ms、`readme` 228 ms、`br
 - `npm pack` 包内容：`index.js`、`host/`、`logic/`、`bin/`、`styles/`、`cordis.patch.yml`、双语 README、docs、assets；`test/`、`bench/`、`.tailor/`、`demo/` 不进包（见 `npm pack --dry-run`）。
 - 包体积：**790.8 kB**（tarball）/ **1.1 MB**（unpacked），**57 个文件**；GitHub Release 附带同一份 `.tgz`。
 
-## 6. 已知限制（不掩饰）
+## 6. npm 发布
+
+```text
+$ npm publish --access public
++ dsh-plugin-tailor@0.4.1
+
+$ npm view dsh-plugin-tailor version
+0.4.1
+$ npm view dsh-plugin-tailor dist-tags --json
+{ "latest": "0.4.1" }
+```
+
+- 安装冒烟：`npm install --prefix <tmp> dsh-plugin-tailor@0.4.1` → `.bin/dsh-repo-tailor styles --json` 返回 7 个内置风格与 `dirs`。
+- registry tarball 与本地 `npm pack` 同为 57 files / 790.8 kB。
+- registry 里另有一个无 bin 的 `0.0.0-stage` 占位版本，已 deprecate；`latest` 指向 0.4.1。
+
+## 7. 已知限制（不掩饰）
 
 - 100 分只说明「结构 + 证据 + 品牌 + 社区」都在，不说明文笔好；`repo_verify` 也不检查事实是否正确。
 - 草稿的 `TODO(tailor)` 需要人填；填之前 `repo_verify` 会 warn。
@@ -86,7 +102,7 @@ CLI（5 次中位数）：`audit` 248 ms、`plan` 254 ms、`readme` 228 ms、`br
 - `collectFacts` 要起 git 子进程，是大仓库的主要耗时。
 - SVG 字宽依赖系统字体；不同机器上截图/渲染会有轻微差异。
 
-## 7. 复现
+## 8. 复现
 
 ```sh
 npm test
