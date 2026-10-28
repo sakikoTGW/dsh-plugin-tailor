@@ -21,15 +21,14 @@ export async function repoStyles(ctx, manager, options, args) {
   const lines = []
   lines.push(`repo_styles · ${STYLES.length} presets`)
   lines.push('')
-  lines.push('id          language   hero      demo        source')
+  lines.push('id          language   hero      demo        first screen')
   lines.push('----------  ---------  --------  ----------  ------------------------------------------')
   for (const style of STYLES) {
-    lines.push(`${style.id.padEnd(10)}  ${style.language.padEnd(9)}  ${style.hero.padEnd(8)}  ${style.demo.padEnd(10)}  ${style.source}`)
+    lines.push(`${style.id.padEnd(10)}  ${style.language.padEnd(9)}  ${style.hero.padEnd(8)}  ${style.demo.padEnd(10)}  ${style.notes.zh}`)
   }
   lines.push('')
   for (const style of STYLES) {
     lines.push(`## ${style.id} — ${style.label.zh} / ${style.label.en}`)
-    lines.push(`source: ${style.sourceUrl}`)
     lines.push(`essence: ${style.essence.zh}`)
     lines.push(`tone: ${style.tone.zh}`)
     lines.push(`sections: ${style.sections.join(' → ')}`)

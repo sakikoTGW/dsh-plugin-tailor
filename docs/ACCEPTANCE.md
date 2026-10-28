@@ -1,4 +1,4 @@
-# ACCEPTANCE — dsh-plugin-tailor v0.2.0
+# ACCEPTANCE — dsh-plugin-tailor v0.3.0
 
 > 依据 `vibe-playbook/templates/ACCEPTANCE.md`。结案时逐项附证据。
 
@@ -38,7 +38,7 @@
 | 脏 worktree 被写 | 未提交改动混进生成结果 | `git status --porcelain` 非空且无 force → 拒绝 |
 | 生成草稿把旧 README 当事实源 | 二次 apply 不幂等 | 检测 generated 标记，生成时忽略生成内容 |
 | 数字过期 | README 的数字与测试不符 | `repo_verify` 检查 TODO / 测试数；人工对 BENCHMARK |
-| 风格不匹配 | 选了 dsh-go 却没有截图 | `repo_audit` / `repo_readme` 输出 style gaps 与对应任务 |
+| 风格不匹配 | 选了 mobile 却没有截图 | `repo_audit` / `repo_readme` 输出 style gaps 与对应任务 |
 
 ## 证据清单（结案时附上）
 

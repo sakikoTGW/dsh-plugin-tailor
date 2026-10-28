@@ -158,14 +158,15 @@ function writeBinary(path, buffer) {
   writeFileSync(path, buffer)
 }
 
-test('styles: seven presets with sections, palette and source', () => {
+test('styles: seven presets with sections, palette and concept', () => {
   assert.equal(STYLES.length, 7)
-  assert.deepEqual(styleIds().sort(), ['1panel', 'bubbletea', 'doomemacs', 'dsh-go', 'dsh-tui', 'resolver', 'sniffnet'])
+  assert.deepEqual(styleIds().sort(), ['evidence', 'minimal', 'mobile', 'platform', 'playful', 'product', 'terminal'])
   for (const style of STYLES) {
     assert.ok(style.sections.includes('install'), `${style.id} must include install`)
     assert.ok(style.palette.brand.startsWith('#'), `${style.id} palette`)
     assert.ok(style.labels && typeof style.essence.zh === 'string')
-    assert.ok(style.sourceUrl.startsWith('https://'))
+    assert.ok(style.sections.length > 5)
+    assert.equal(getStyle('dsh-tui').id, 'terminal')
   }
   assert.throws(() => getStyle('nope'), /unknown style/)
 })
@@ -195,8 +196,8 @@ test('audit: good fixture scores higher than a bare one', () => {
   const good = makeRepo('good')
   const bare = makeRepo('bare')
   try {
-    const goodAudit = auditFacts(collectFacts(good), 'resolver')
-    const bareAudit = auditFacts(collectFacts(bare), 'resolver')
+    const goodAudit = auditFacts(collectFacts(good), 'evidence')
+    const bareAudit = auditFacts(collectFacts(bare), 'evidence')
     assert.ok(goodAudit.score > bareAudit.score, `${goodAudit.score} > ${bareAudit.score}`)
     assert.ok(goodAudit.score >= 70, `good score ${goodAudit.score}`)
     assert.ok(bareAudit.gaps.some((gap) => gap.check === 'license'))
@@ -211,7 +212,7 @@ test('audit: good fixture scores higher than a bare one', () => {
 test('plan: gaps become ordered tasks with acceptance and verify', () => {
   const dir = makeRepo('bare')
   try {
-    const plan = planWork(collectFacts(dir), 'dsh-tui')
+    const plan = planWork(collectFacts(dir), 'terminal')
     assert.ok(plan.tasks.length >= 5)
     assert.ok(plan.tasks.some((task) => task.priority === 'P0'))
     assert.ok(plan.tasks.some((task) => task.id === 'brand-assets'))
@@ -234,18 +235,18 @@ test('readme: renders a style-specific bilingual draft without invented numbers'
   try {
     const goodFacts = collectFacts(good)
     const bareFacts = collectFacts(bare)
-    const tui = renderBoth(goodFacts, 'dsh-tui')
+    const tui = renderBoth(goodFacts, 'terminal')
     assert.match(tui.zh.text, /generated-by: dsh-plugin-tailor/)
     assert.match(tui.zh.text, /dsh plugin --profile/)
     assert.match(tui.zh.text, /## 亮点/)
     assert.match(tui.en.text, /## Highlights/)
     assert.ok(tui.zh.text.includes('README.en.md'))
 
-    const doom = renderReadme(goodFacts, getStyle('doomemacs'), 'en')
+    const doom = renderReadme(goodFacts, getStyle('minimal'), 'en')
     assert.doesNotMatch(doom.text, /## Install\n\n```sh\nnpm install -g/) // hero-less style still installs, but no banner
     assert.ok(doom.text.includes('<h1 align="center">'))
 
-    const bareDraft = renderReadme(bareFacts, getStyle('resolver'), 'zh')
+    const bareDraft = renderReadme(bareFacts, getStyle('evidence'), 'zh')
     assert.ok(bareDraft.todos.length > 0)
     assert.doesNotMatch(bareDraft.text, /45 → 6/)
     assert.doesNotMatch(bareDraft.text, /undefined|\[object Object\]/)
@@ -267,15 +268,15 @@ test('readme: renders a style-specific bilingual draft without invented numbers'
 test('readme apply: refuses hand-written files, then writes and is idempotent', () => {
   const dir = makeRepo('bare')
   try {
-    assert.throws(() => applyReadme(dir, 'resolver', 'zh'), /not generated/)
-    const first = applyReadme(dir, 'resolver', 'zh', { force: true })
+    assert.throws(() => applyReadme(dir, 'evidence', 'zh'), /not generated/)
+    const first = applyReadme(dir, 'evidence', 'zh', { force: true })
     assert.deepEqual(first.written, ['README.md'])
     const text = readFileSync(join(dir, 'README.md'), 'utf8')
     assert.match(text, /generated-by: dsh-plugin-tailor/)
-    const second = applyReadme(dir, 'resolver', 'zh')
+    const second = applyReadme(dir, 'evidence', 'zh')
     assert.deepEqual(second.written, [])
     assert.deepEqual(second.skipped, ['README.md'])
-    assert.ok(previewReadme(dir, 'resolver', 'zh').existing)
+    assert.ok(previewReadme(dir, 'evidence', 'zh').existing)
   } finally {
     rmSync(dir, { recursive: true, force: true })
   }
@@ -285,7 +286,7 @@ test('brand: 12 concepts, deterministic SVG kit, apply skips unless forced', () 
   const dir = makeRepo('bare')
   try {
     const facts = collectFacts(dir)
-    const style = getStyle('sniffnet')
+    const style = getStyle('product')
     const files = buildBrand(facts, style)
     assert.deepEqual(Object.keys(files).sort(), [
       'assets/README.md',
@@ -310,13 +311,13 @@ test('brand: 12 concepts, deterministic SVG kit, apply skips unless forced', () 
     assert.equal(buildBrand(facts, style, 'needle')['assets/icon.svg'], needle['assets/icon.svg'])
     assert.throws(() => buildBrand(facts, style, 'nope'), /unknown concept/)
 
-    const first = applyBrand(dir, 'sniffnet', { concept: 'radar' })
+    const first = applyBrand(dir, 'product', { concept: 'radar' })
     assert.equal(first.written.length, 8)
     assert.equal(first.concept, 'radar')
-    const second = applyBrand(dir, 'sniffnet', { concept: 'radar' })
+    const second = applyBrand(dir, 'product', { concept: 'radar' })
     assert.equal(second.written.length, 0)
     assert.equal(second.skipped.length, 8)
-    const forced = applyBrand(dir, 'sniffnet', { force: true, concept: 'spark' })
+    const forced = applyBrand(dir, 'product', { force: true, concept: 'spark' })
     assert.equal(forced.written.length, 8)
     assert.equal(forced.concept, 'spark')
   } finally {
@@ -328,13 +329,13 @@ test('verify: catches broken links, images and anchors', () => {
   const broken = makeRepo('broken')
   const good = makeRepo('good')
   try {
-    const brokenResult = verifyRepo(broken, 'resolver')
+    const brokenResult = verifyRepo(broken, 'evidence')
     assert.equal(brokenResult.pass, false)
     assert.ok(brokenResult.checks.some((check) => check.id === 'links' && !check.ok))
     assert.ok(brokenResult.checks.some((check) => check.id === 'images' && !check.ok))
     assert.ok(brokenResult.checks.some((check) => check.id === 'anchors' && !check.ok))
 
-    const goodResult = verifyRepo(good, 'resolver')
+    const goodResult = verifyRepo(good, 'evidence')
     assert.equal(goodResult.pass, true, JSON.stringify(goodResult.checks.filter((check) => !check.ok)))
     assert.equal(goodResult.todos, 0)
   } finally {
@@ -346,8 +347,8 @@ test('verify: catches broken links, images and anchors', () => {
 test('verify: generated draft leaves TODO warnings and a baseline delta', () => {
   const dir = makeRepo('bare')
   try {
-    applyReadme(dir, 'resolver', 'zh', { force: true })
-    const result = verifyRepo(dir, 'resolver')
+    applyReadme(dir, 'evidence', 'zh', { force: true })
+    const result = verifyRepo(dir, 'evidence')
     assert.ok(result.todos > 0)
     assert.ok(result.checks.some((check) => check.id === 'todos' && !check.ok))
   } finally {
@@ -365,7 +366,7 @@ test('host: registers six tools and runs repo_audit', async () => {
       get: () => null,
       effect: (fn) => fn(),
     }
-    const disposers = registerTools(ctx, { defaultStyle: 'resolver' })
+    const disposers = registerTools(ctx, { defaultStyle: 'evidence' })
     assert.equal(disposers.length, 6)
     assert.deepEqual(defs.map((definition) => definition.name).sort(), ['repo_audit', 'repo_brand', 'repo_plan', 'repo_readme', 'repo_styles', 'repo_verify'])
     const styles = await defs.find((definition) => definition.name === 'repo_styles').execute({})
@@ -382,6 +383,6 @@ test('cli: styles command prints all presets', () => {
   const result = spawnSync(process.execPath, [join(ROOT, 'bin', 'tailor.mjs'), 'styles'], { encoding: 'utf8', timeout: 30_000 })
   assert.equal(result.status, 0, result.stderr)
   assert.match(result.stdout, /7 presets/)
-  assert.match(result.stdout, /doomemacs/)
-  assert.match(result.stdout, /sniffnet/)
+  assert.match(result.stdout, /minimal/)
+  assert.match(result.stdout, /product/)
 })

@@ -4,6 +4,22 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); version
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-10-29
+
+Style presets now speak only in styles, not in repository names. Plus real CLI screenshots.
+
+### Changed
+
+- Style ids are now neutral: `evidence`, `terminal`, `mobile`, `playful`, `product`, `platform`, `minimal`.
+- `repo_styles` no longer prints a `source` column or a source URL; it shows language, hero, demo and the style essence only.
+- The README styles table and `docs/STYLES.md` drop all repository names and links; the guide describes what each style does and when to pick it.
+- Short-lived legacy ids from 0.1–0.2 are accepted silently as aliases, so existing commands keep working without surfacing old names.
+- README gains a "Tool output" / "工具输出" section with real CLI screenshots (styles, brand dry-run, verify).
+
+### Fixed
+
+- Regenerated demo GIF and screenshots with the new `evidence` style id.
+
 ## [0.2.0] - 2026-10-29
 
 Brand engine v2: real concept library instead of one crude mark per style.
@@ -18,7 +34,7 @@ Brand engine v2: real concept library instead of one crude mark per style.
 ### Changed
 
 - Banner/social layouts: cleaner rings instead of clipped watermark marks; repo URL moves to the top-right; social hook can be overridden by `tagline`.
-- Every style now maps to a designed concept (`resolver`→arcs, `dsh-tui`→prompt, `dsh-go`→orbit, `bubbletea`→bubble, `sniffnet`→radar, `1panel`→hexstack, `doomemacs`→monogram).
+- Every style now maps to a designed concept (`evidence`→arcs, `terminal`→prompt, `mobile`→orbit, `playful`→bubble, `product`→radar, `platform`→hexstack, `minimal`→monogram).
 - `assets/README.md` documents the 8-file kit and how to switch concepts.
 
 ### Fixed
@@ -32,7 +48,7 @@ First release: audit → plan → brand → readme → verify, with seven style 
 ### Added
 
 - `repo_styles`, `repo_audit`, `repo_plan`, `repo_readme`, `repo_brand`, `repo_verify` — six host-only DSH tools.
-- Seven README style presets: `resolver`, `dsh-tui`, `dsh-go`, `bubbletea`, `sniffnet`, `1panel`, `doomemacs`.
+- Seven README style presets: `evidence`, `terminal`, `mobile`, `playful`, `product`, `platform`, `minimal`.
 - 8-dimension maturity rubric (identity, first screen, install, docs, evidence, release, community, brand) with per-check fixes.
 - Deterministic SVG brand generation: icon, logo, banner, social preview, plus `assets/README.md`.
 - Bilingual draft generation (`README.md` + `README.en.md`) with `TODO(tailor)` markers instead of invented facts.

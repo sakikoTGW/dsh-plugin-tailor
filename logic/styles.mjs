@@ -1,21 +1,18 @@
 /**
  * README style presets.
  *
- * Each preset copies a real, publicly readable README tradition: what the first
+ * Each preset distils a real README tradition into layout + tone: what the first
  * screen shows, how many badges it keeps, whether it leads with a banner, a
- * logo or plain type, which sections it expects, and what the prose sounds
- * like. They are layout + tone presets, not content: the facts come from the
- * repository being audited.
+ * logo or plain type, which sections it expects, and how the prose sounds.
+ * Presets are content-free; facts always come from the audited repository.
  */
 
-/** @typedef {'resolver'|'dsh-tui'|'dsh-go'|'bubbletea'|'sniffnet'|'1panel'|'doomemacs'} StyleId */
+/** @typedef {'evidence'|'terminal'|'mobile'|'playful'|'product'|'platform'|'minimal'} StyleId */
 
 /**
  * @typedef {{
  *   id: string,
  *   label: { zh: string, en: string },
- *   source: string,
- *   sourceUrl: string,
  *   essence: { zh: string, en: string },
  *   language: 'bilingual' | 'zh-first' | 'en-first',
  *   tone: { zh: string, en: string },
@@ -36,10 +33,8 @@ const BILINGUAL = 'bilingual'
 /** @type {StylePreset[]} */
 export const STYLES = [
   {
-    id: 'resolver',
+    id: 'evidence',
     label: { zh: '证据优先 · 双语', en: 'Evidence-first · bilingual' },
-    source: 'dsh-plugin-resolver',
-    sourceUrl: 'https://github.com/sakikoTGW/dsh-plugin-resolver',
     essence: {
       zh: '先给结论和数字，再给机制；中英双份对等；每个数字都能指到基准或测试。',
       en: 'Lead with the result and the number, then the mechanism; equal Chinese/English pages; every number points at a benchmark or a test.',
@@ -73,10 +68,8 @@ export const STYLES = [
     requiredFacts: ['readme', 'demo'],
   },
   {
-    id: 'dsh-tui',
+    id: 'terminal',
     label: { zh: '居中 Logo · 双语', en: 'Centered logo · bilingual' },
-    source: 'ccch1mneyyy/dsh-TUI',
-    sourceUrl: 'https://github.com/ccch1mneyyy/dsh-TUI',
     essence: {
       zh: '居中 Logo + 语言切换 + 一排 flat-square 徽章；英文为主、中文对等；首屏一支 GIF。',
       en: 'Centered logo, language switch, one flat-square badge row; English-first with an equal Chinese page; one GIF above the fold.',
@@ -108,10 +101,8 @@ export const STYLES = [
     requiredFacts: ['readme', 'logo', 'demo'],
   },
   {
-    id: 'dsh-go',
+    id: 'mobile',
     label: { zh: '移动端 · 社群驱动', en: 'Mobile · community-driven' },
-    source: 'ccch1mneyyy/dsh-go',
-    sourceUrl: 'https://github.com/ccch1mneyyy/dsh-go',
     essence: {
       zh: 'Hero 图 + 中文优先 + 社群入口（群/论坛/二维码）+ 小宠物 GIF 组；最后才是安装和 FAQ。',
       en: 'Hero image, Chinese-first voice, community entry points (groups/forum/QR), pet-GIF gallery, then install and FAQ.',
@@ -144,10 +135,8 @@ export const STYLES = [
     requiredFacts: ['readme', 'screenshots'],
   },
   {
-    id: 'bubbletea',
+    id: 'playful',
     label: { zh: 'GIF 开场 · 教程感', en: 'GIF-first · tutorial' },
-    source: 'charmbracelet/bubbletea',
-    sourceUrl: 'https://github.com/charmbracelet/bubbletea',
     essence: {
       zh: 'Logo、三枚徽章、一支全宽 GIF，然后直接进教程；语气轻松，有 "In the wild"。',
       en: 'Logo, three badges, one full-width GIF, then straight into the tutorial; playful voice and an "In the wild" section.',
@@ -177,10 +166,8 @@ export const STYLES = [
     requiredFacts: ['readme', 'logo', 'demo'],
   },
   {
-    id: 'sniffnet',
+    id: 'product',
     label: { zh: '品牌横幅 · 产品页', en: 'Brand banner · product page' },
-    source: 'GyulyVGC/sniffnet',
-    sourceUrl: 'https://github.com/GyulyVGC/sniffnet',
     essence: {
       zh: '深色横幅 + 下载按钮 + 功能表格 + 截图；像产品落地页，先给下载入口。',
       en: 'Dark banner, download buttons, feature table, screenshots; a product landing page whose first job is download.',
@@ -211,10 +198,8 @@ export const STYLES = [
     requiredFacts: ['readme', 'banner', 'screenshots'],
   },
   {
-    id: '1panel',
+    id: 'platform',
     label: { zh: '居中品牌 · 国际化', en: 'Centered brand · i18n' },
-    source: '1Panel-dev/1Panel',
-    sourceUrl: 'https://github.com/1Panel-dev/1Panel',
     essence: {
       zh: '居中 Logo + 一句话定位 + 语言切换 + 少量徽章；截图和功能并排，中文优先但英文对等。',
       en: 'Centered logo, one-line positioning, language switch, few badges; screenshots next to features, Chinese-first with an equal English page.',
@@ -244,10 +229,8 @@ export const STYLES = [
     requiredFacts: ['readme', 'logo', 'screenshots'],
   },
   {
-    id: 'doomemacs',
+    id: 'minimal',
     label: { zh: '极简排版 · 无图', en: 'Minimal type · no images' },
-    source: 'doomemacs/doomemacs',
-    sourceUrl: 'https://github.com/doomemacs/doomemacs',
     essence: {
       zh: '居中标题 + 一行横向导航 + 极少量徽章 + 水平线分节；不靠图，靠排版和链接密度。',
       en: 'Centered title, one inline nav row, very few badges, horizontal rules between sections; no images, typography and link density carry it.',
@@ -282,11 +265,28 @@ export const STYLES = [
 const STYLE_MAP = new Map(STYLES.map((style) => [style.id, style]))
 
 /**
+ * Legacy ids from earlier versions. Accepted silently so old commands keep
+ * working, but never shown: user-facing output only uses the style ids below.
+ *
+ * @type {Map<string, string>}
+ */
+const LEGACY_ALIASES = new Map([
+  ['resolver', 'evidence'],
+  ['dsh-tui', 'terminal'],
+  ['dsh-go', 'mobile'],
+  ['bubbletea', 'playful'],
+  ['sniffnet', 'product'],
+  ['1panel', 'platform'],
+  ['doomemacs', 'minimal'],
+])
+
+/**
  * @param {string} id
  * @returns {StylePreset}
  */
 export function getStyle(id) {
-  const style = STYLE_MAP.get(id)
+  const resolved = LEGACY_ALIASES.get(id) ?? id
+  const style = STYLE_MAP.get(resolved)
   if (!style) {
     throw new Error(`unknown style "${id}" (available: ${STYLES.map((item) => item.id).join(', ')})`)
   }

@@ -483,7 +483,6 @@ Re-running with the same inputs is byte-identical.
 
 Concept: \`${concept.id}\` — ${concept.label.zh} / ${concept.label.en}. ${concept.fit}.
 Palette: brand \`${style.palette.brand}\` · deep \`${style.palette.deep}\` · ink \`${style.palette.ink}\`.
-Style source: [${style.source}](${style.sourceUrl}).
 
 Switch concept or regenerate:
 

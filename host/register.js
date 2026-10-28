@@ -77,7 +77,7 @@ export function registerTools(ctx, options) {
   add({
     name: 'repo_styles',
     description:
-      'List the README style presets repo_readme can render: resolver (evidence-first bilingual), dsh-tui (centered logo bilingual), dsh-go (mobile/community), bubbletea (GIF-first tutorial), sniffnet (product banner), 1panel (centered brand i18n) and doomemacs (minimal type). Read-only.',
+      'List the README style presets repo_readme can render: evidence (evidence-first bilingual), terminal (centered logo bilingual), mobile (mobile/community), playful (GIF-first tutorial), product (product page), platform (centered brand i18n) and minimal (minimal type). Read-only.',
     parameters: {
       type: 'object',
       additionalProperties: false,

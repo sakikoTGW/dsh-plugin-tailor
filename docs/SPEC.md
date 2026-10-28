@@ -36,15 +36,15 @@ repo_audit → repo_plan → repo_brand → repo_readme → repo_verify
 
 七个预设，分别复刻七种真实 README 传统（layout + tone，不复制内容）：
 
-| id | 来源 | 首屏 | 语言 | demo |
+| id | 风格 | 首屏 | 语言 | demo |
 |---|---|---|---|---|
-| `resolver` | dsh-plugin-resolver | banner | 双语 | GIF |
-| `dsh-tui` | ccch1mneyyy/dsh-TUI | 居中 Logo | 双语 | GIF |
-| `dsh-go` | ccch1mneyyy/dsh-go | banner | 中文优先 | 截图 |
-| `bubbletea` | charmbracelet/bubbletea | Logo | 英文优先 | GIF |
-| `sniffnet` | GyulyVGC/sniffnet | 品牌 banner | 英文优先 | 截图 |
-| `1panel` | 1Panel-dev/1Panel | 居中 Logo | 双语 | GIF |
-| `doomemacs` | doomemacs/doomemacs | 无图纯排版 | 英文优先 | 无 |
+| `evidence` | 证据优先 | banner | 双语 | GIF |
+| `terminal` | 终端工具 | 居中 Logo | 双语 | GIF |
+| `mobile` | 移动端 · 社群 | banner | 中文优先 | 截图 |
+| `playful` | GIF 开场 · 教程 | Logo | 英文优先 | GIF |
+| `product` | 品牌产品页 | 品牌 banner | 英文优先 | 截图 |
+| `platform` | 面板平台 | 居中 Logo | 双语 | GIF |
+| `minimal` | 极简排版 | 无图纯排版 | 英文优先 | 无 |
 
 每个预设定义：`hero`、`demo`、`badgeSet`、`sections` 顺序、章节标题、语气、调色板、默认图形概念（mark）、必需事实。
 品牌概念共 12 个：`needle`、`stitch`、`quill`、`arcs`、`orbit`、`prompt`、`bubble`、`radar`、`hexstack`、`monogram`、`spark`、`layers`；`repo_brand` 支持 `concept` 覆盖，并生成明暗两套 lockup/banner 与一张 12 概念对照图。

@@ -18,72 +18,72 @@
     <g transform="translate(48 130)">
       <rect width="264" height="196" rx="18" fill="#111A33" stroke="#22305C"/>
       <rect width="6" height="196" rx="3" fill="#4D6BFE"/>
-      <text x="26" y="42" font-size="18" font-weight="700" fill="#FFFFFF">resolver</text>
-      <text x="26" y="68" font-size="13" fill="#9FB2D4">双语 · banner · GIF</text>
-      <text x="26" y="92" font-size="12.5" fill="#6F86B8">证据优先，数字在首屏</text>
-      <text x="26" y="132" font-size="12" fill="#7E93C0">source</text>
-      <text x="26" y="154" font-size="12.5" fill="#C9D3EA">dsh-plugin-resolver</text>
+      <text x="26" y="42" font-size="18" font-weight="700" fill="#FFFFFF">evidence</text>
+      <text x="26" y="68" font-size="13" fill="#9FB2D4">证据优先 · 双语 · banner · GIF</text>
+      <text x="26" y="92" font-size="12.5" fill="#6F86B8">数字在首屏，限制写清楚</text>
+      <text x="26" y="132" font-size="12" fill="#7E93C0">默认概念</text>
+      <text x="26" y="154" font-size="12.5" fill="#C9D3EA">arcs · 上升弧</text>
       <text x="26" y="176" font-size="12" fill="#2FBF71">6 badges · 17 sections</text>
     </g>
     <g transform="translate(336 130)">
       <rect width="264" height="196" rx="18" fill="#111A33" stroke="#22305C"/>
       <rect width="6" height="196" rx="3" fill="#4B6FFF"/>
-      <text x="26" y="42" font-size="18" font-weight="700" fill="#FFFFFF">dsh-tui</text>
-      <text x="26" y="68" font-size="13" fill="#9FB2D4">双语 · 居中 logo · GIF</text>
+      <text x="26" y="42" font-size="18" font-weight="700" fill="#FFFFFF">terminal</text>
+      <text x="26" y="68" font-size="13" fill="#9FB2D4">终端工具 · 双语 · 居中 logo · GIF</text>
       <text x="26" y="92" font-size="12.5" fill="#6F86B8">品牌先行，文字更短</text>
-      <text x="26" y="132" font-size="12" fill="#7E93C0">source</text>
-      <text x="26" y="154" font-size="12.5" fill="#C9D3EA">ccch1mneyyy/dsh-TUI</text>
+      <text x="26" y="132" font-size="12" fill="#7E93C0">默认概念</text>
+      <text x="26" y="154" font-size="12.5" fill="#C9D3EA">prompt · 提示符</text>
       <text x="26" y="176" font-size="12" fill="#2FBF71">5 badges · 15 sections</text>
     </g>
     <g transform="translate(624 130)">
       <rect width="264" height="196" rx="18" fill="#111A33" stroke="#22305C"/>
       <rect width="6" height="196" rx="3" fill="#4B67B4"/>
-      <text x="26" y="42" font-size="18" font-weight="700" fill="#FFFFFF">dsh-go</text>
-      <text x="26" y="68" font-size="13" fill="#9FB2D4">中文优先 · hero · 截图</text>
-      <text x="26" y="92" font-size="12.5" fill="#6F86B8">移动端 / 社群驱动</text>
-      <text x="26" y="132" font-size="12" fill="#7E93C0">source</text>
-      <text x="26" y="154" font-size="12.5" fill="#C9D3EA">ccch1mneyyy/dsh-go</text>
+      <text x="26" y="42" font-size="18" font-weight="700" fill="#FFFFFF">mobile</text>
+      <text x="26" y="68" font-size="13" fill="#9FB2D4">移动端 · 中文优先 · hero · 截图</text>
+      <text x="26" y="92" font-size="12.5" fill="#6F86B8">社群驱动，先看截图</text>
+      <text x="26" y="132" font-size="12" fill="#7E93C0">默认概念</text>
+      <text x="26" y="154" font-size="12.5" fill="#C9D3EA">orbit · 轨道</text>
       <text x="26" y="176" font-size="12" fill="#2FBF71">4 badges · 14 sections</text>
     </g>
     <g transform="translate(912 130)">
       <rect width="264" height="196" rx="18" fill="#111A33" stroke="#22305C"/>
       <rect width="6" height="196" rx="3" fill="#FF75B7"/>
-      <text x="26" y="42" font-size="18" font-weight="700" fill="#FFFFFF">bubbletea</text>
-      <text x="26" y="68" font-size="13" fill="#9FB2D4">英文优先 · logo · GIF</text>
-      <text x="26" y="92" font-size="12.5" fill="#6F86B8">GIF 开场，教程感</text>
-      <text x="26" y="132" font-size="12" fill="#7E93C0">source</text>
-      <text x="26" y="154" font-size="12.5" fill="#C9D3EA">charmbracelet/bubbletea</text>
+      <text x="26" y="42" font-size="18" font-weight="700" fill="#FFFFFF">playful</text>
+      <text x="26" y="68" font-size="13" fill="#9FB2D4">GIF 开场 · 英文优先 · logo</text>
+      <text x="26" y="92" font-size="12.5" fill="#6F86B8">教程感，证明手感</text>
+      <text x="26" y="132" font-size="12" fill="#7E93C0">默认概念</text>
+      <text x="26" y="154" font-size="12.5" fill="#C9D3EA">bubble · 对话泡</text>
       <text x="26" y="176" font-size="12" fill="#2FBF71">3 badges · 11 sections</text>
     </g>
 
     <g transform="translate(48 356)">
       <rect width="264" height="196" rx="18" fill="#111A33" stroke="#22305C"/>
       <rect width="6" height="196" rx="3" fill="#2F9BFF"/>
-      <text x="26" y="42" font-size="18" font-weight="700" fill="#FFFFFF">sniffnet</text>
-      <text x="26" y="68" font-size="13" fill="#9FB2D4">英文优先 · 品牌 banner</text>
-      <text x="26" y="92" font-size="12.5" fill="#6F86B8">产品落地页，下载优先</text>
-      <text x="26" y="132" font-size="12" fill="#7E93C0">source</text>
-      <text x="26" y="154" font-size="12.5" fill="#C9D3EA">GyulyVGC/sniffnet</text>
+      <text x="26" y="42" font-size="18" font-weight="700" fill="#FFFFFF">product</text>
+      <text x="26" y="68" font-size="13" fill="#9FB2D4">品牌产品页 · 英文优先 · banner</text>
+      <text x="26" y="92" font-size="12.5" fill="#6F86B8">首屏给下载入口</text>
+      <text x="26" y="132" font-size="12" fill="#7E93C0">默认概念</text>
+      <text x="26" y="154" font-size="12.5" fill="#C9D3EA">radar · 雷达</text>
       <text x="26" y="176" font-size="12" fill="#2FBF71">4 badges · 11 sections</text>
     </g>
     <g transform="translate(336 356)">
       <rect width="264" height="196" rx="18" fill="#111A33" stroke="#22305C"/>
       <rect width="6" height="196" rx="3" fill="#2B6DE5"/>
-      <text x="26" y="42" font-size="18" font-weight="700" fill="#FFFFFF">1panel</text>
-      <text x="26" y="68" font-size="13" fill="#9FB2D4">双语 · 居中品牌 · GIF</text>
-      <text x="26" y="92" font-size="12.5" fill="#6F86B8">面板 / 平台，截图多</text>
-      <text x="26" y="132" font-size="12" fill="#7E93C0">source</text>
-      <text x="26" y="154" font-size="12.5" fill="#C9D3EA">1Panel-dev/1Panel</text>
+      <text x="26" y="42" font-size="18" font-weight="700" fill="#FFFFFF">platform</text>
+      <text x="26" y="68" font-size="13" fill="#9FB2D4">面板平台 · 双语 · 居中品牌</text>
+      <text x="26" y="92" font-size="12.5" fill="#6F86B8">定位一句话，截图多</text>
+      <text x="26" y="132" font-size="12" fill="#7E93C0">默认概念</text>
+      <text x="26" y="154" font-size="12.5" fill="#C9D3EA">hexstack · 面板栈</text>
       <text x="26" y="176" font-size="12" fill="#2FBF71">3 badges · 12 sections</text>
     </g>
     <g transform="translate(624 356)">
       <rect width="264" height="196" rx="18" fill="#111A33" stroke="#22305C"/>
       <rect width="6" height="196" rx="3" fill="#7C5CFF"/>
-      <text x="26" y="42" font-size="18" font-weight="700" fill="#FFFFFF">doomemacs</text>
-      <text x="26" y="68" font-size="13" fill="#9FB2D4">英文优先 · 无图 · 纯排版</text>
-      <text x="26" y="92" font-size="12.5" fill="#6F86B8">成熟工具，靠结构说话</text>
-      <text x="26" y="132" font-size="12" fill="#7E93C0">source</text>
-      <text x="26" y="154" font-size="12.5" fill="#C9D3EA">doomemacs/doomemacs</text>
+      <text x="26" y="42" font-size="18" font-weight="700" fill="#FFFFFF">minimal</text>
+      <text x="26" y="68" font-size="13" fill="#9FB2D4">极简排版 · 英文优先 · 无图</text>
+      <text x="26" y="92" font-size="12.5" fill="#6F86B8">靠结构和文风说话</text>
+      <text x="26" y="132" font-size="12" fill="#7E93C0">默认概念</text>
+      <text x="26" y="154" font-size="12.5" fill="#C9D3EA">monogram · 字母环</text>
       <text x="26" y="176" font-size="12" fill="#2FBF71">2 badges · 9 sections</text>
     </g>
     <g transform="translate(912 356)">

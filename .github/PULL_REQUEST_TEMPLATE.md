@@ -5,8 +5,8 @@
 ## Verification
 
 - [ ] `npm test` passes (paste pass/fail counts)
-- [ ] `node bin/tailor.mjs audit . --style=resolver` score unchanged or improved
-- [ ] `node bin/tailor.mjs verify . --style=resolver` passes
+- [ ] `node bin/tailor.mjs audit . --style=evidence` score unchanged or improved
+- [ ] `node bin/tailor.mjs verify . --style=evidence` passes
 - [ ] Generated READMEs do not contain new invented numbers
 
 ## Screenshots / output

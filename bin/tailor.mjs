@@ -92,10 +92,10 @@ function printHelp() {
 
 Examples:
   node bin/tailor.mjs audit .
-  node bin/tailor.mjs readme . --style=dsh-tui --lang=both
-  node bin/tailor.mjs brand . --style=bubbletea --apply
-  node bin/tailor.mjs brand . --style=resolver --concept=needle --apply --force
-  node bin/tailor.mjs verify . --style=sniffnet
+  node bin/tailor.mjs readme . --style=terminal --lang=both
+  node bin/tailor.mjs brand . --style=playful --apply
+  node bin/tailor.mjs brand . --style=evidence --concept=needle --apply --force
+  node bin/tailor.mjs verify . --style=product
 `)
 }
 

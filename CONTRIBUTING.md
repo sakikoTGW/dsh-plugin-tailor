@@ -6,7 +6,7 @@ Thanks for taking a look. This repository is small on purpose: one plugin, six t
 
 - Run `npm test` — if it fails, include the failing test name and output.
 - Run `node bin/tailor.mjs audit <path>` on the repository you are talking about; paste the score and the relevant gaps.
-- For generated-README problems, include the style id (`resolver`, `dsh-tui`, `dsh-go`, `bubbletea`, `sniffnet`, `1panel`, `doomemacs`) and the `repo_readme` diff.
+- For generated-README problems, include the style id (`evidence`, `terminal`, `mobile`, `playful`, `product`, `platform`, `minimal`) and the `repo_readme` diff.
 
 ## What is easy to contribute
 
@@ -30,9 +30,9 @@ git clone https://github.com/sakikoTGW/dsh-plugin-tailor
 cd dsh-plugin-tailor
 npm test
 node bin/tailor.mjs styles
-node bin/tailor.mjs audit . --style=resolver
-node bin/tailor.mjs readme . --style=resolver --lang=both
-node bin/tailor.mjs verify . --style=resolver
+node bin/tailor.mjs audit . --style=evidence
+node bin/tailor.mjs readme . --style=evidence --lang=both
+node bin/tailor.mjs verify . --style=evidence
 ```
 
 No install step: no dependencies. Node >= 20.

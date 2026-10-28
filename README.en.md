@@ -1,4 +1,4 @@
-<!-- generated-by: dsh-plugin-tailor style=resolver lang=en (draft scaffold, hand-polished) -->
+<!-- generated-by: dsh-plugin-tailor style=evidence lang=en (draft scaffold, hand-polished) -->
 
 <p align="center">
   <img src="assets/banner.svg" alt="dsh-plugin-tailor: from 'it runs' to 'ship it'" width="100%">
@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <img alt="version" src="https://img.shields.io/badge/version-0.2.0-4D6BFE?style=flat-square">
+  <img alt="version" src="https://img.shields.io/badge/version-0.3.0-4D6BFE?style=flat-square">
   <img alt="license" src="https://img.shields.io/badge/license-MIT-263146?style=flat-square">
   <img alt="DSH" src="https://img.shields.io/badge/DSH-%3E%3D0.2.0--rc.2%20%3C0.3.0-4D6BFE?style=flat-square">
   <img alt="Node" src="https://img.shields.io/badge/node-%3E%3D20-339933?style=flat-square&logo=node.js&logoColor=white">
@@ -21,7 +21,7 @@
 
 > From “it runs” to “ship it”: audit → pick a style → brand assets → bilingual README → pre-release verification.
 
-<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.2.0</sub></p>
+<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.3.0</sub></p>
 
 <p align="center">
   <img src="assets/demo.gif" alt="Real terminal: repo_audit scores dsh-plugin-resolver 84/100, repo_verify returns PASS" width="760">
@@ -37,6 +37,7 @@
 - [Six tools](#six-tools)
 - [Seven styles](#seven-styles)
 - [Brand assets](#brand-assets)
+- [Tool output](#tool-output)
 - [Results and evidence](#results-and-evidence)
 - [Layout](#layout)
 - [Tests and CI](#tests-and-ci)
@@ -68,7 +69,7 @@ What it does: **8 dimensions / 34 checks** for maturity, **7 style presets** for
 ## Features
 
 - **8 dimensions / 34 checks**: identity, first screen, install, docs, evidence, release, community, brand — every gap comes with a concrete fix, not just a score.
-- **7 styles + bilingual drafts**: from the resolver evidence flow to doomemacs' pure typography; dry-run diff first, write second.
+- **7 styles + bilingual drafts**: from evidence-first to minimal typography; dry-run diff first, write second.
 - **12 vector concepts × light/dark**: `icon` / `logo` (light+dark) / `banner` (light+dark) / `social` / `brand-sheet` — 8 files, byte-identical on re-run.
 - **Write protection**: hand-written READMEs, existing assets and dirty worktrees are refused unless `force` is explicit.
 - **Pre-release verification**: relative links, images, anchors, badges, required sections and leftover TODOs in one PASS/FAIL command.
@@ -76,7 +77,7 @@ What it does: **8 dimensions / 34 checks** for maturity, **7 style presets** for
 
 ## Quickstart
 
-> **Not on npm yet. v0.2.0 ships as a [GitHub Release](https://github.com/sakikoTGW/dsh-plugin-tailor/releases/tag/v0.2.0) with a `.tgz`. Either path works:**
+> **Not on npm yet. v0.2.0 ships as a [GitHub Release](https://github.com/sakikoTGW/dsh-plugin-tailor/releases/tag/v0.3.0) with a `.tgz`. Either path works:**
 
 ```sh
 # from source
@@ -84,7 +85,7 @@ git clone https://github.com/sakikoTGW/dsh-plugin-tailor
 dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor
 
 # or the release tarball
-dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.2.0.tgz
+dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.3.0.tgz
 ```
 
 Restart the engine once and the six `repo_*` tools are live. After that, edits under `logic/` apply on the next call; edits to `host/register.js` or `index.js` need an engine restart.
@@ -93,21 +94,21 @@ The CLI uses the same logic and needs no DSH host:
 
 ```sh
 node bin/tailor.mjs styles                    # list the 7 styles
-node bin/tailor.mjs audit . --style=dsh-tui   # score + gaps
-node bin/tailor.mjs plan . --style=dsh-tui    # task list
-node bin/tailor.mjs brand . --style=bubbletea --apply
-node bin/tailor.mjs readme . --style=resolver --lang=both
-node bin/tailor.mjs verify . --style=resolver
+node bin/tailor.mjs audit . --style=terminal   # score + gaps
+node bin/tailor.mjs plan . --style=terminal    # task list
+node bin/tailor.mjs brand . --style=playful --apply
+node bin/tailor.mjs readme . --style=evidence --lang=both
+node bin/tailor.mjs verify . --style=evidence
 ```
 
 From DSH:
 
 ```text
-repo_audit  { path: ".", style: "dsh-tui" }
-repo_plan   { path: ".", style: "dsh-tui" }
-repo_readme { path: ".", style: "dsh-tui", lang: "both" }
-repo_brand  { path: ".", style: "dsh-tui", apply: true }
-repo_verify { path: ".", style: "dsh-tui" }
+repo_audit  { path: ".", style: "terminal" }
+repo_plan   { path: ".", style: "terminal" }
+repo_readme { path: ".", style: "terminal", lang: "both" }
+repo_brand  { path: ".", style: "terminal", apply: true }
+repo_verify { path: ".", style: "terminal" }
 ```
 
 ## Six tools
@@ -126,18 +127,18 @@ Writes are dry-run by default; hand-written READMEs and existing assets are refu
 ## Seven styles
 
 <p align="center">
-  <img src="assets/styles.svg" alt="Seven README style presets: resolver, dsh-tui, dsh-go, bubbletea, sniffnet, 1panel, doomemacs" width="100%">
+  <img src="assets/styles.svg" alt="Seven README style presets: evidence-first, terminal, mobile, playful, product, platform, minimal" width="100%">
 </p>
 
-| id | Source | Language | Hero | Demo | Default concept | Best for |
+| id | Style | Language | Hero | Demo | Default concept | Best for |
 |---|---|---|---|---|---|---|
-| `resolver` | [dsh-plugin-resolver](https://github.com/sakikoTGW/dsh-plugin-resolver) | bilingual | banner | GIF | `arcs` | engineering repos with benchmarks/tests |
-| `dsh-tui` | [dsh-TUI](https://github.com/ccch1mneyyy/dsh-TUI) | bilingual | centered logo | GIF | `prompt` | tools with a real logo |
-| `dsh-go` | [dsh-go](https://github.com/ccch1mneyyy/dsh-go) | zh-first | banner | screenshots | `orbit` | apps / mobile / community products |
-| `bubbletea` | [bubbletea](https://github.com/charmbracelet/bubbletea) | en-first | logo | GIF | `bubble` | TUIs and developer tools |
-| `sniffnet` | [sniffnet](https://github.com/GyulyVGC/sniffnet) | en-first | brand banner | screenshots | `radar` | end-user products |
-| `1panel` | [1Panel](https://github.com/1Panel-dev/1Panel) | bilingual | centered logo | GIF | `hexstack` | panels and platforms |
-| `doomemacs` | [doomemacs](https://github.com/doomemacs/doomemacs) | en-first | none | none | `monogram` | mature tools / frameworks |
+| `evidence` | Evidence-first | bilingual | banner | GIF | `arcs` | engineering repos with benchmarks/tests |
+| `terminal` | Terminal tool | bilingual | centered logo | GIF | `prompt` | CLI tools with a real logo |
+| `mobile` | Mobile · community | zh-first | banner | screenshots | `orbit` | apps / mobile / community products |
+| `playful` | GIF-first tutorial | en-first | logo | GIF | `bubble` | TUIs and developer tools |
+| `product` | Product page | en-first | brand banner | screenshots | `radar` | end-user products |
+| `platform` | Panel platform | bilingual | centered logo | GIF | `hexstack` | panels and platforms |
+| `minimal` | Minimal type | en-first | none | none | `monogram` | mature tools / frameworks |
 
 How to choose, each preset's section order, and the “12 things good repositories share” live in [docs/STYLES.md](docs/STYLES.md).
 
@@ -170,11 +171,30 @@ One run writes 8 files:
 | `assets/README.md` | asset index + switch commands |
 
 ```sh
-node bin/tailor.mjs brand . --style=resolver --concept=needle \
+node bin/tailor.mjs brand . --style=evidence --concept=needle \
   --tagline="From it runs to ship it." --apply --force
 ```
 
 Dry-run lists files and concepts; `apply` writes, and existing files are skipped by default.
+
+## Tool output
+
+Real CLI output, not mockups; each screenshot is rendered from the actual stdout with the command in the frame.
+
+<p align="center">
+  <img src="assets/tools-styles.png" alt="repo_styles output: seven style ids, languages, heroes and notes" width="100%">
+</p>
+<p align="center"><sub><code>tailor styles</code>: describes styles only, no repository names.</sub></p>
+
+<p align="center">
+  <img src="assets/tools-brand.png" alt="repo_brand dry-run: 8 files and 12 concepts" width="100%">
+</p>
+<p align="center"><sub><code>tailor brand . --style=evidence --concept=needle</code>: dry-run lists 8 files and 12 concepts.</sub></p>
+
+<p align="center">
+  <img src="assets/tools-verify.png" alt="repo_verify PASS output: links, images, anchors, sections and TODOs" width="100%">
+</p>
+<p align="center"><sub><code>tailor verify</code>: on PASS it reports links, images, anchors, sections and leftover TODOs.</sub></p>
 
 ## Results and evidence
 
@@ -214,7 +234,7 @@ test/tailor.test.mjs 11 offline tests
 ```sh
 npm test                # 11 offline tests
 node bench/micro.mjs .  # pure-logic microbenchmark
-node bin/tailor.mjs verify . --style=resolver
+node bin/tailor.mjs verify . --style=evidence
 ```
 
 - Coverage: style registry, facts, audit ordering, plan, README rendering/write safety, deterministic brand, broken links/images/anchors, host registration, CLI.
