@@ -15,6 +15,26 @@ import { loadStyles, resolveStyle, styleWarnings } from './styles.mjs'
 import { extractSection, makeSlugger, oneLine, resolveInside, truncate, unifiedDiff } from './util.mjs'
 
 const MARKER_PREFIX = '<!-- generated-by: dsh-plugin-tailor'
+
+/** Visual defaults for styles without a `visual` block (v0.5+). */
+const VISUAL_DEFAULTS = {
+  engine: 'editorial',
+  badgeStyle: 'flat-square',
+  demoWidth: 760,
+  navStyle: 'inline',
+  featureCards: false,
+  footer: false,
+}
+
+/** @param {any} style */
+function visualOf(style) {
+  return { ...VISUAL_DEFAULTS, ...(style.visual ?? {}) }
+}
+
+/** @param {any} style */
+function isCentered(style) {
+  return visualOf(style).engine !== 'editorial'
+}
 const GENERATED_MARKER = /^<!-- generated-by: dsh-plugin-tailor/m
 
 const I18N = {
@@ -142,6 +162,7 @@ export function renderReadme(facts, style, lang) {
   const displayName = facts.name || facts.dirName
   const desc = facts.description || (facts.readme.generated ? '' : facts.readme.firstParagraph) || ''
   const altText = escapeHtml(desc === '' ? displayName : truncate(desc, 120))
+  const visual = visualOf(style)
 
   // ---- hero / language / badges / title / tagline -------------------------
   if (style.sections.includes('hero')) {
@@ -157,7 +178,7 @@ export function renderReadme(facts, style, lang) {
     if (badgeLine) push('badges', '', badgeLine)
   }
   if (style.sections.includes('title')) {
-    if (style.hero === 'none') {
+    if (style.hero === 'none' || isCentered(style)) {
       push('title', '', `<h1 align="center">${escapeHtml(displayName)}</h1>`)
     } else {
       push('title', '', `# ${escapeHtml(displayName)}`)
@@ -166,9 +187,6 @@ export function renderReadme(facts, style, lang) {
   if (style.sections.includes('tagline')) {
     const tagline = renderTagline(facts, style, lang, desc, todos)
     if (tagline) push('tagline', '', tagline)
-  }
-  if (style.sections.includes('nav')) {
-    push('nav', '', renderNav(facts, style, lang, blocks))
   }
   if (style.sections.includes('demo')) {
     const demo = renderDemo(facts, style, lang, todos)
@@ -180,6 +198,25 @@ export function renderReadme(facts, style, lang) {
     if (['hero', 'language', 'badges', 'title', 'tagline', 'nav', 'demo', 'toc'].includes(id)) continue
     const body = renderBodySection(id, facts, style, lang, t, todos, headingFor)
     if (body) push(id, headingFor(id), body)
+  }
+
+  // ---- footer (no heading, not in TOC) ------------------------------------
+  if (visual.footer) {
+    const footer = renderFooter(facts, style, lang)
+    if (footer) push('footer', '', footer)
+  }
+
+  // ---- nav (needs body headings, inserted after the first screen) ----------
+  if (style.sections.includes('nav')) {
+    const nav = renderNav(facts, style, lang, blocks)
+    if (nav) {
+      const firstScreen = new Set(['hero', 'language', 'badges', 'title', 'tagline', 'demo'])
+      let insertAt = 0
+      for (let index = 0; index < blocks.length; index += 1) {
+        if (firstScreen.has(blocks[index].id)) insertAt = index + 1
+      }
+      blocks.splice(insertAt, 0, { id: 'nav', heading: '', body: nav })
+    }
   }
 
   // ---- TOC ----------------------------------------------------------------
@@ -325,7 +362,9 @@ function renderBadges(facts, style, lang) {
     }
   }
   if (badges.length === 0) return ''
-  return `<p align="center">\n  ${badges.join('\n  ')}\n</p>`
+  const badgeStyle = visualOf(style).badgeStyle
+  const line = `<p align="center">\n  ${badges.join('\n  ')}\n</p>`
+  return badgeStyle === 'flat-square' ? line : line.replace(/style=flat-square/g, `style=${badgeStyle}`)
 }
 
 /**
@@ -342,8 +381,9 @@ function renderTagline(facts, style, lang, desc, todos) {
     todos.push('tagline: add a one-line positioning sentence to package.json description')
   }
   const parts = []
+  const leftAligned = visualOf(style).engine === 'editorial'
   if (tagline) {
-    if (style.hero === 'none' || style.id === 'resolver') {
+    if (leftAligned) {
       parts.push(`> ${tagline}`)
     } else {
       parts.push(`<p align="center">\n  ${escapeHtml(tagline)}\n</p>`)
@@ -373,9 +413,14 @@ function renderNav(facts, style, lang, blocks) {
     .slice(0, 6)
     .map((block) => {
       const slug = slugifyHeadingSafe(block.heading)
-      return `<a href="#${slug}">${escapeHtml(block.heading)}</a>`
+      return { heading: block.heading, slug }
     })
-  return items.length === 0 ? '' : `<p align="center">\n  ${items.join(' · ')}\n</p>`
+  if (items.length === 0) return ''
+  if (visualOf(style).navStyle === 'chips') {
+    const chips = items.map((item) => `<a href="#${item.slug}"><kbd>${escapeHtml(item.heading)}</kbd></a>`)
+    return `<p align="center">\n  ${chips.join(' ')}\n</p>`
+  }
+  return `<p align="center">\n  ${items.map((item) => `<a href="#${item.slug}">${escapeHtml(item.heading)}</a>`).join(' · ')}\n</p>`
 }
 
 /** @param {string} heading */
@@ -394,17 +439,18 @@ function slugifyHeadingSafe(heading) {
  * @returns {string}
  */
 function renderDemo(facts, style, lang, todos) {
+  const width = visualOf(style).demoWidth
   const gif = facts.assets.find((asset) => /demo.*\.gif$/i.test(asset.path)) ?? facts.assets.find((asset) => asset.ext === '.gif')
   if (style.demo === 'gif') {
     if (gif) {
-      return `<p align="center">\n  <img src="${gif.path}" alt="${I18N[lang].realOutput}" width="760">\n</p>\n<p align="center"><sub>${I18N[lang].realOutput}${lang === 'zh' ? '：' : ': '}<code>${escapeHtml(demoCommand(facts))}</code></sub></p>`
+      return `<p align="center">\n  <img src="${gif.path}" alt="${I18N[lang].realOutput}" width="${width}">\n</p>\n<p align="center"><sub>${I18N[lang].realOutput}${lang === 'zh' ? '：' : ': '}<code>${escapeHtml(demoCommand(facts))}</code></sub></p>`
     }
     todos.push('demo: record a real GIF into assets/demo.gif (VHS tape recommended)')
     return `<!-- TODO(tailor): demo GIF missing (expected assets/demo.gif) -->`
   }
   const shot = facts.assets.find((asset) => ['.png', '.webp', '.jpg', '.jpeg'].includes(asset.ext) && !/logo|banner|icon|social|qr/i.test(asset.path))
   if (shot) {
-    return `<p align="center">\n  <img src="${shot.path}" alt="${I18N[lang].realOutput}" width="720">\n</p>`
+    return `<p align="center">\n  <img src="${shot.path}" alt="${I18N[lang].realOutput}" width="${Math.min(width, 860)}">\n</p>\n<p align="center"><sub>${I18N[lang].realOutput}</sub></p>`
   }
   todos.push('demo: capture a real screenshot into assets/')
   return ''
@@ -627,7 +673,26 @@ function renderQuickstart(facts, style, lang, todos) {
 function renderFeatures(facts, style, lang, todos) {
   const source = lang === 'en' && sourceReadmeEn(facts) !== '' ? sourceReadmeEn(facts) : sourceReadme(facts)
   const extracted = extractSection(source, ['features', '功能', '亮点', 'highlights', '能做什么'])
-  if (extracted) return cleanSectionText(extracted)
+  if (extracted) {
+    if (visualOf(style).featureCards) {
+      const bullets = extracted
+        .split(/\r?\n/)
+        .filter((line) => /^\s*[-*]\s+/.test(line))
+        .map((line) => line.replace(/^\s*[-*]\s+/, '').replace(/[`*_]/g, '').trim())
+        .filter(Boolean)
+        .slice(0, 6)
+      if (bullets.length >= 2) {
+        const rows = []
+        for (let index = 0; index < bullets.length; index += 2) {
+          const left = bullets[index]
+          const right = bullets[index + 1] ?? ''
+          rows.push(`<tr><td width="50%">✅ ${escapeHtml(left)}</td><td width="50%">${right ? `✅ ${escapeHtml(right)}` : ''}</td></tr>`)
+        }
+        return `<table align="center">\n${rows.join('\n')}\n</table>`
+      }
+    }
+    return cleanSectionText(extracted)
+  }
   if (facts.keywords.length >= 3) {
     return facts.keywords.slice(0, 6).map((keyword) => `- ${keyword}`).join('\n') + (lang === 'zh' ? '\n\n> 以上来自 package.json keywords，建议换成用户能看懂的功能列表。' : '\n\n> From package.json keywords; replace with user-facing features.')
   }
@@ -731,6 +796,28 @@ function renderLicense(facts) {
 }
 
 /**
+ * Small centered footer: name/version, license, repo, issues, language switch.
+ *
+ * @param {import('./facts.mjs').RepoFacts} facts
+ * @param {any} style
+ * @param {'zh'|'en'} lang
+ * @returns {string}
+ */
+function renderFooter(facts, style, lang) {
+  const bits = [`<sub>${escapeHtml(facts.name || facts.dirName)}${facts.version ? ` v${escapeHtml(facts.version)}` : ''}</sub>`]
+  if (facts.license) bits.push(`<sub>${escapeHtml(facts.license)}</sub>`)
+  if (facts.repo) {
+    bits.push(`<sub><a href="${escapeHtml(facts.repo)}">${lang === 'zh' ? '仓库' : 'Repository'}</a></sub>`)
+    bits.push(`<sub><a href="${escapeHtml(facts.repo)}/issues">Issues</a></sub>`)
+  }
+  if (facts.readmeEn.path) {
+    bits.push(`<sub><a href="${lang === 'zh' ? 'README.en.md' : 'README.md'}">${lang === 'zh' ? 'English' : '简体中文'}</a></sub>`)
+  }
+  bits.push(`<sub><a href="#top">${lang === 'zh' ? '回到顶部' : 'Back to top'}</a></sub>`)
+  return `<p align="center">\n  ${bits.join(' · ')}\n</p>`
+}
+
+/**
  * @param {import('./facts.mjs').RepoFacts} facts
  * @param {'zh'|'en'} lang
  * @param {string[]} todos
@@ -742,7 +829,20 @@ function renderScreenshots(facts, lang, todos) {
     todos.push('screenshots: capture 2-4 real screenshots into assets/ or docs/assets/')
     return `<!-- TODO(tailor): screenshots missing -->`
   }
-  return shots.slice(0, 4).map((asset) => `<p align="center">\n  <img src="${asset.path}" alt="${escapeHtml(facts.name)}" width="720">\n</p>`).join('\n')
+  const picked = shots.slice(0, 4)
+  if (picked.length === 1) {
+    return `<p align="center">\n  <img src="${picked[0].path}" alt="${escapeHtml(facts.name)}" width="760">\n</p>`
+  }
+  const rows = []
+  for (let index = 0; index < picked.length; index += 2) {
+    const left = picked[index]
+    const right = picked[index + 1]
+    rows.push(
+      `<tr><td align="center"><img src="${left.path}" alt="${escapeHtml(facts.name)}" width="420"></td>` +
+        `<td align="center">${right ? `<img src="${right.path}" alt="${escapeHtml(facts.name)}" width="420">` : ''}</td></tr>`,
+    )
+  }
+  return `<table align="center">\n${rows.join('\n')}\n</table>`
 }
 
 /**

@@ -11,7 +11,8 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import test from 'node:test'
 
-import { applyBrand, buildBrand, CONCEPTS } from '../logic/brand.mjs'
+import { applyBrand, buildBrand, brandQA, CONCEPTS } from '../logic/brand.mjs'
+import { contrastChecks, contrastRatio, buildPaletteTokens } from '../logic/palette.mjs'
 import { collectFacts } from '../logic/facts.mjs'
 import { planWork } from '../logic/plan.mjs'
 import { applyReadme, previewReadme, renderReadme, renderBoth } from '../logic/readme.mjs'
@@ -295,10 +296,14 @@ test('brand: 12 concepts, deterministic SVG kit, apply skips unless forced', () 
       'assets/banner-light.svg',
       'assets/banner.svg',
       'assets/brand-sheet.svg',
+      'assets/brand-tokens.json',
+      'assets/icon-maskable.svg',
       'assets/icon.svg',
       'assets/logo-dark.svg',
       'assets/logo.svg',
       'assets/social-preview.svg',
+      'assets/wordmark-dark.svg',
+      'assets/wordmark.svg',
     ])
     for (const [path, content] of Object.entries(files)) {
       if (path.endsWith('.svg')) {
@@ -308,20 +313,70 @@ test('brand: 12 concepts, deterministic SVG kit, apply skips unless forced', () 
     }
     assert.equal(buildBrand(facts, style)['assets/icon.svg'], files['assets/icon.svg'])
 
+    const tokens = JSON.parse(files['assets/brand-tokens.json'])
+    assert.equal(tokens.style, 'product')
+    assert.equal(tokens.concept, style.mark)
+    assert.ok(tokens.palette.onBrand)
+    assert.ok(Array.isArray(tokens.contrast.checks) && tokens.contrast.checks.length >= 5)
+    assert.equal(brandQA(style).pass, true)
+
     const needle = buildBrand(facts, style, 'needle')
     assert.notEqual(needle['assets/icon.svg'], files['assets/icon.svg'])
     assert.equal(buildBrand(facts, style, 'needle')['assets/icon.svg'], needle['assets/icon.svg'])
     assert.throws(() => buildBrand(facts, style, 'nope'), /unknown concept/)
 
     const first = applyBrand(dir, 'product', { concept: 'radar' })
-    assert.equal(first.written.length, 8)
+    assert.equal(first.written.length, 12)
     assert.equal(first.concept, 'radar')
+    assert.equal(first.qa.pass, true)
     const second = applyBrand(dir, 'product', { concept: 'radar' })
     assert.equal(second.written.length, 0)
-    assert.equal(second.skipped.length, 8)
+    assert.equal(second.skipped.length, 12)
     const forced = applyBrand(dir, 'product', { force: true, concept: 'spark' })
-    assert.equal(forced.written.length, 8)
+    assert.equal(forced.written.length, 12)
     assert.equal(forced.concept, 'spark')
+  } finally {
+    rmSync(dir, { recursive: true, force: true })
+  }
+})
+
+test('palette: contrast math and WCAG checks', () => {
+  assert.equal(Number(contrastRatio('#000000', '#FFFFFF').toFixed(1)), 21)
+  const tokens = buildPaletteTokens(getStyle('evidence').palette)
+  const { checks, pass } = contrastChecks(tokens)
+  assert.equal(pass, true)
+  assert.ok(checks.length >= 5)
+  assert.ok(checks.every((check) => check.ratio > 0 && typeof check.grade === 'string'))
+  const borderline = buildPaletteTokens({ ...getStyle('evidence').palette, brand: '#F7F9FF' })
+  assert.ok(contrastChecks(borderline).checks.some((check) => check.id === 'onbrand-on-brand'))
+})
+
+test('visual: engines change hero, nav, badges, cards and footer', () => {
+  const dir = makeRepo('good')
+  try {
+    const facts = collectFacts(dir)
+    const evidence = renderReadme(facts, getStyle('evidence'), 'zh').text
+    assert.match(evidence, /<kbd>/)
+    assert.match(evidence, /回到顶部/)
+    assert.doesNotMatch(evidence, /<h1 align="center">/)
+
+    const terminal = renderReadme(facts, getStyle('terminal'), 'zh').text
+    assert.match(terminal, /<h1 align="center">/)
+    assert.match(terminal, /<kbd>/)
+
+    const product = renderReadme(facts, getStyle('product'), 'zh').text
+    assert.match(product, /style=for-the-badge/)
+    assert.match(product, /<table align="center">/)
+
+    const minimal = renderReadme(facts, getStyle('minimal'), 'zh').text
+    assert.doesNotMatch(minimal, /<kbd>/)
+    assert.doesNotMatch(minimal, /回到顶部/)
+
+    const custom = { ...getStyle('evidence'), id: 'custom-visual', visual: { engine: 'showcase', badgeStyle: 'for-the-badge', navStyle: 'chips', featureCards: true, footer: false, demoWidth: 900 } }
+    const customText = renderReadme(facts, custom, 'zh').text
+    assert.match(customText, /style=for-the-badge/)
+    assert.match(customText, /<kbd>/)
+    assert.doesNotMatch(customText, /回到顶部/)
   } finally {
     rmSync(dir, { recursive: true, force: true })
   }

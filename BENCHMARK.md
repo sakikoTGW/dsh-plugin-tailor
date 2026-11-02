@@ -1,6 +1,6 @@
 # BENCHMARK
 
-真实测量，2026-10-28。口径写在这里，数字只覆盖本插件自己的逻辑与 CLI，不包含 DSH 宿主启动时间。
+真实测量，2026-11-02。口径写在这里，数字只覆盖本插件自己的逻辑与 CLI，不包含 DSH 宿主启动时间。
 
 ## 环境
 
@@ -8,7 +8,7 @@
 |---|---|
 | OS | Windows 11 x64 |
 | Node | v24.12.0 |
-| package | `dsh-plugin-tailor@0.4.1`（本地工作树） |
+| package | `dsh-plugin-tailor@0.5.0`（本地工作树） |
 | 被测仓库 A | `dsh-plugin-tailor`（本仓库，含 docs/CI/品牌素材） |
 | 被测仓库 B | `dsh-plugin-resolver`（已成熟仓库，v0.1.3） |
 
@@ -23,7 +23,7 @@
 | 操作 | A：tailor | B：resolver | 说明 |
 |---|---|---|---|
 | `collectFacts`（含 git 子进程） | 109 ms | 794 ms | 主要成本是 4 次 `git` 子进程 + 文件遍历，不是解析 |
-| `auditFacts`（8 维、34 项检查） | 0.01 ms | 0.01 ms | 纯内存 |
+| `auditFacts`（8 维、44 项检查） | 0.01 ms | 0.01 ms | 纯内存 |
 | `renderReadme`（zh，resolver 风格） | 0.03 ms | 0.12 ms | 纯字符串组装 |
 | `verifyFacts`（链接/图片/锚点/章节/TODO） | 0.03 ms | 0.86 ms | resolver 的 README 更长、链接更多 |
 
@@ -53,9 +53,9 @@
 | 项 | 值 |
 |---|---|
 | 测试文件 | `test/tailor.test.mjs` |
-| 用例数 | 16 |
-| 结果 | pass 16 / fail 0 |
-| 覆盖 | styles（内置 JSON / 自定义 / extends / 校验跳过 / 脚手架）、facts、audit、plan、readme 渲染/落盘安全、brand 确定性、verify 坏链、宿主注册、CLI |
+| 用例数 | 18 |
+| 结果 | pass 18 / fail 0 |
+| 覆盖 | styles（内置 JSON / 自定义 / extends / 校验跳过 / 脚手架）、facts、audit、plan、readme 渲染/落盘安全/版式引擎、brand 确定性与对比度、verify 坏链、宿主注册、CLI |
 
 ## 自举审计（同一 rubric）
 
@@ -65,7 +65,7 @@
 | tailor（补 docs/CI/社区/品牌后） | 63 | C | 仍是首屏（无 README/素材引用）与品牌 |
 | tailor（生成双语草稿后） | 96 | A | 有 TODO、缺 demo |
 | tailor（手写打磨 + demo + 证据文档） | **100** | **A** | 0 gaps |
-| resolver | 84 | B | 文档目录、CONTRIBUTING、docs/ 拆分 |
+| resolver | 81 | B | 文档目录、CONTRIBUTING、docs/ 拆分；v0.5 视觉口径（maskable/wordmark/tokens/浅色 banner） |
 
 复现方式与逐项输出见 [docs/EVIDENCE.md](docs/EVIDENCE.md)。
 

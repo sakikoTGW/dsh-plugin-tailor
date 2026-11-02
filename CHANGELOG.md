@@ -4,6 +4,27 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); version
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-11-02
+
+Visual depth: brand engine v3, design tokens and contrast QA, three README layout engines, visual audit checks.
+
+### Added
+
+- `logic/palette.mjs`: sRGB colour math, WCAG contrast, design tokens (spacing / type / motion).
+- Brand kit grows from 8 to 12 files: `icon-maskable.svg`, `wordmark.svg`, `wordmark-dark.svg`, `brand-tokens.json`; the sheet now includes palette swatches and contrast results.
+- `brandQA(style)`: contrast PASS/FAIL printed by `repo_brand` dry-run and stored in `brand-tokens.json`.
+- Style schema v2 `visual` block: `engine` (editorial / centered / showcase), `badgeStyle`, `demoWidth`, `navStyle`, `featureCards`, `footer`; all 7 built-ins configured; custom styles inherit defaults.
+- README renderer: engine-specific title/tagline alignment, `<kbd>` chip nav, badge styles, demo width, feature cards, 2-column screenshot grid, footer, working nav (was never rendered before).
+- Audit: brand dimension grows from 4 to 14 checks (weight 5% → 20%), total 44 checks; facts parse image width/height for SVG/PNG/GIF and README alt/first-image/width stats.
+- `assets/mark-motion.gif`: 6-beat construction explainer (grid → mark → tile → lockup → identity), timed with the motion tokens.
+- `docs/DESIGN.md`: design brief distilled from emotion-design / apple-design / hallmark.
+
+### Changed
+
+- Brand visuals: removed decorative glow, grid and concentric rings; flat gradient tile, 8pt spacing, optical type tracking; social/banner simplified.
+- Terminal screenshots no longer draw fake macOS traffic lights; title bar is a clean label.
+- Docs/README updated: visual system section, 12-file kit, 44 checks, 18 tests.
+
 ## [0.4.1] - 2026-10-29
 
 First npm release, plus a machine-readable style listing.

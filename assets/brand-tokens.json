@@ -1,0 +1,194 @@
+{
+  "generatedBy": "dsh-plugin-tailor",
+  "style": "evidence",
+  "concept": "needle",
+  "palette": {
+    "brand": "#4D6BFE",
+    "deep": "#2A3FD0",
+    "ink": "#0B1020",
+    "green": "#2FBF71",
+    "bg": "#0D1220",
+    "border": "#22305C",
+    "onBrand": "#0B1020",
+    "onDeep": "#FFFFFF",
+    "onLight": "#0B1020",
+    "onDark": "#F4F7FF",
+    "soft": "#192248",
+    "line": "#22305C",
+    "accent": "#2FBF71",
+    "glow": "#D3DAFF"
+  },
+  "design": {
+    "spacing": [
+      4,
+      8,
+      12,
+      16,
+      24,
+      32,
+      48,
+      64,
+      80
+    ],
+    "radii": [
+      8,
+      12,
+      16,
+      24,
+      112
+    ],
+    "type": {
+      "families": {
+        "display": "Inter, Segoe UI, PingFang SC, Microsoft YaHei, sans-serif",
+        "body": "Inter, Segoe UI, PingFang SC, Microsoft YaHei, sans-serif",
+        "mono": "Consolas, SFMono-Regular, Menlo, monospace"
+      },
+      "sizes": [
+        12,
+        14,
+        16,
+        19,
+        24,
+        30,
+        44,
+        64
+      ],
+      "tracking": {
+        "display": "-0.03em",
+        "body": "0"
+      }
+    },
+    "motion": {
+      "press": 90,
+      "hover": 160,
+      "page": 320,
+      "exitRatio": 0.625,
+      "easing": {
+        "enter": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "exit": "cubic-bezier(0.4, 0, 1, 1)"
+      },
+      "rules": [
+        "no looping decorative motion",
+        "exit faster than enter",
+        "start from 0.96 scale + opacity 0"
+      ]
+    }
+  },
+  "contrast": {
+    "pass": true,
+    "checks": [
+      {
+        "id": "ondark-on-bg",
+        "label": "正文 onDark / bg",
+        "fg": "#F4F7FF",
+        "bg": "#0D1220",
+        "ratio": 17.43,
+        "min": 7,
+        "grade": "AAA",
+        "pass": true
+      },
+      {
+        "id": "ondark-on-ink",
+        "label": "标题 onDark / ink",
+        "fg": "#F4F7FF",
+        "bg": "#0B1020",
+        "ratio": 17.67,
+        "min": 7,
+        "grade": "AAA",
+        "pass": true
+      },
+      {
+        "id": "onbrand-on-brand",
+        "label": "图标 onBrand / brand",
+        "fg": "#0B1020",
+        "bg": "#4D6BFE",
+        "ratio": 4.37,
+        "min": 3,
+        "grade": "AA-large",
+        "pass": true
+      },
+      {
+        "id": "brand-on-bg",
+        "label": "品牌色 / bg（图形）",
+        "fg": "#4D6BFE",
+        "bg": "#0D1220",
+        "ratio": 4.31,
+        "min": 3,
+        "grade": "AA-large",
+        "pass": true
+      },
+      {
+        "id": "green-on-ink",
+        "label": "强调色 / ink（图形）",
+        "fg": "#2FBF71",
+        "bg": "#0B1020",
+        "ratio": 7.94,
+        "min": 3,
+        "grade": "AAA",
+        "pass": true
+      },
+      {
+        "id": "onlight-on-light",
+        "label": "浅底正文 onLight / #F7F9FF",
+        "fg": "#0B1020",
+        "bg": "#F7F9FF",
+        "ratio": 17.99,
+        "min": 7,
+        "grade": "AAA",
+        "pass": true
+      }
+    ]
+  },
+  "assets": {
+    "assets/icon.svg": {
+      "width": 512,
+      "height": 512,
+      "usage": "app icon / avatar"
+    },
+    "assets/icon-maskable.svg": {
+      "width": 512,
+      "height": 512,
+      "usage": "maskable icon (safe area 80%)"
+    },
+    "assets/logo.svg": {
+      "width": 760,
+      "height": 176,
+      "usage": "light theme lockup"
+    },
+    "assets/logo-dark.svg": {
+      "width": 760,
+      "height": 176,
+      "usage": "dark theme lockup"
+    },
+    "assets/wordmark.svg": {
+      "width": 760,
+      "height": 120,
+      "usage": "text-only lockup (light)"
+    },
+    "assets/wordmark-dark.svg": {
+      "width": 760,
+      "height": 120,
+      "usage": "text-only lockup (dark)"
+    },
+    "assets/banner.svg": {
+      "width": 1280,
+      "height": 400,
+      "usage": "README hero / release post"
+    },
+    "assets/banner-light.svg": {
+      "width": 1280,
+      "height": 400,
+      "usage": "light docs / slides"
+    },
+    "assets/social-preview.svg": {
+      "width": 1280,
+      "height": 640,
+      "usage": "GitHub social preview"
+    },
+    "assets/brand-sheet.svg": {
+      "width": 1280,
+      "height": 0,
+      "usage": "concept + contrast reference"
+    }
+  }
+}

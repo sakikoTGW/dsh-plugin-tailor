@@ -1,6 +1,6 @@
 # SPEC — dsh-plugin-tailor
 
-> 状态：v0.4.1 实现中。验收见 [ACCEPTANCE.md](ACCEPTANCE.md)，风格说明见 [STYLES.md](STYLES.md)，风格数据格式见 [styles/README.md](../styles/README.md)，证据见 [EVIDENCE.md](EVIDENCE.md)。
+> 状态：v0.5.0 实现中。验收见 [ACCEPTANCE.md](ACCEPTANCE.md)，风格说明见 [STYLES.md](STYLES.md)，风格数据格式见 [styles/README.md](../styles/README.md)，证据见 [EVIDENCE.md](EVIDENCE.md)。
 
 ## 目标
 
@@ -19,10 +19,10 @@ repo_audit → repo_plan → repo_brand → repo_readme → repo_verify
 | 工具 | 读写 | 输入 | 输出 | 失败语义 |
 |---|---|---|---|---|
 | `repo_styles` | 读 | `path?` | 内置 + 自定义风格的 id、语言、hero、demo、来源（builtin/global/repo）、校验错误 | 不会失败；无效自定义文件只报告并跳过 |
-| `repo_audit` | 读 | `path`, `style?` | 0-100 分、8 维明细、按影响排序的 gaps、风格缺口 | 路径不存在 / 非目录 → 明确错误 |
+| `repo_audit` | 读 | `path`, `style?` | 0-100 分、8 维 44 项明细、按影响排序的 gaps、风格缺口 | 路径不存在 / 非目录 → 明确错误 |
 | `repo_plan` | 读 | `path`, `style?`, `limit?` | P0/P1/P2 任务，含 acceptance 与 verify 命令 | 同上 |
-| `repo_readme` | dry-run / 写 | `path`, `style?`, `lang?`, `apply?`, `force?` | diff、TODO 清单、风格缺口；apply 时写入 README(.en).md | 手写 README 且未 `force` → 拒绝；worktree 脏且未 `force` → 拒绝 |
-| `repo_brand` | dry-run / 写 | `path`, `style?`, `concept?`, `tagline?`, `apply?`, `force?` | 8 个文件（icon、明暗 logo、明暗 banner、social、brand-sheet、README）；12 个概念可选 | 未知 concept → 列出可用 id；已存在且未 `force` → 跳过（不覆盖） |
+| `repo_readme` | dry-run / 写 | `path`, `style?`, `lang?`, `apply?`, `force?` | diff、TODO 清单、风格缺口；apply 时写入 README(.en).md；按 `visual.engine` 选版式 | 手写 README 且未 `force` → 拒绝；worktree 脏且未 `force` → 拒绝 |
+| `repo_brand` | dry-run / 写 | `path`, `style?`, `concept?`, `tagline?`, `apply?`, `force?` | 12 个文件（icon、maskable、明暗 logo、明暗 wordmark、明暗 banner、social、brand-sheet、brand-tokens.json、README）；12 个概念可选；WCAG 对比度 QA | 未知 concept → 列出可用 id；已存在且未 `force` → 跳过（不覆盖）；对比度失败只报告，不阻止写入 |
 | `repo_verify` | 读 | `path`, `style?` | PASS/FAIL、链接/图片/锚点/徽章/章节/TODO 检查、baseline 分数差 | 同上 |
 
 ## 错误语义
@@ -46,9 +46,9 @@ repo_audit → repo_plan → repo_brand → repo_readme → repo_verify
 | `platform` | 面板平台 | 居中 Logo | 双语 | GIF |
 | `minimal` | 极简排版 | 无图纯排版 | 英文优先 | 无 |
 
-每个预设定义：`hero`、`demo`、`badgeSet`、`sections` 顺序、章节标题、语气、调色板、默认图形概念（mark）、必需事实。
-品牌概念共 12 个：`needle`、`stitch`、`quill`、`arcs`、`orbit`、`prompt`、`bubble`、`radar`、`hexstack`、`monogram`、`spark`、`layers`；`repo_brand` 支持 `concept` 覆盖，并生成明暗两套 lockup/banner 与一张 12 概念对照图。
-详见 [STYLES.md](STYLES.md)。
+每个预设定义：`hero`、`demo`、`badgeSet`、`sections` 顺序、章节标题、语气、调色板、默认图形概念（mark）、必需事实，以及 `visual`（版式引擎与视觉开关）。
+品牌概念共 12 个：`needle`、`stitch`、`quill`、`arcs`、`orbit`、`prompt`、`bubble`、`radar`、`hexstack`、`monogram`、`spark`、`layers`；`repo_brand` 支持 `concept` 覆盖，一次生成 12 个文件（icon、maskable、明暗 logo、明暗 wordmark、明暗 banner、social、brand-sheet、brand-tokens.json、README），并对调色板做 WCAG 对比度检查。
+详见 [STYLES.md](STYLES.md) 与 [DESIGN.md](DESIGN.md)。
 
 ## 风格存储与自定义
 
@@ -65,6 +65,14 @@ repo_audit → repo_plan → repo_brand → repo_readme → repo_verify
 - 合法字段与允许值由 `styles/schema.json` 固定；新增 section 才需要改 `logic/readme.mjs`。
 - `style:init`（CLI）是唯一会写 `.tailor/styles/` 的入口；六个 host 工具不写风格文件。
 - 所有工具接受自定义 `style` id；旧版风格 id 作为静默别名保留。
+
+## 视觉系统
+
+- **版式引擎**：`visual.engine` ∈ `editorial` / `centered` / `showcase`，决定首屏、导航、demo 与功能卡片的排法；`badgeStyle` / `navStyle` / `demoWidth` / `featureCards` / `footer` 可细调。
+- **品牌 QA**：`palette.mjs` 计算 WCAG 对比度（正文 ≥7:1、图形 ≥3:1），`brandQA(style)` 返回 PASS/FAIL 与逐项结果；`repo_brand` dry-run 打印，`brand-tokens.json` 固化。
+- **视觉检查**：品牌维度 14 项、权重 20%：logo 尺寸/比例、明暗配对、banner 比例、social 2:1、maskable、wordmark、tokens、demo 资产、README 图数、alt 覆盖率、首屏图位置、宽度控制。
+- **图片事实**：`facts.assets` 带 `width/height`（SVG/PNG/GIF 无依赖解析）；README media 统计 alt、首屏图、宽度属性、H1/H2。
+- **动效**：只做有信息量的构造演示（`assets/mark-motion.gif`），不做装饰性循环；时长 token 见 [DESIGN.md](DESIGN.md)。
 
 ## 非目标
 

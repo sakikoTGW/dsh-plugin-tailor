@@ -9,32 +9,32 @@
 </p>
 
 <p align="center">
-  <img alt="version" src="https://img.shields.io/badge/version-0.4.1-4D6BFE?style=flat-square">
+  <img alt="version" src="https://img.shields.io/badge/version-0.5.0-4D6BFE?style=flat-square">
   <a href="https://www.npmjs.com/package/dsh-plugin-tailor"><img alt="npm" src="https://img.shields.io/npm/v/dsh-plugin-tailor?style=flat-square&color=CB3837&logo=npm&logoColor=white"></a>
   <a href="https://github.com/sakikoTGW/dsh-plugin-tailor/releases"><img alt="release" src="https://img.shields.io/github/v/release/sakikoTGW/dsh-plugin-tailor?style=flat-square&color=2FBF71"></a>
   <img alt="license" src="https://img.shields.io/badge/license-MIT-263146?style=flat-square">
   <img alt="DSH" src="https://img.shields.io/badge/DSH-%3E%3D0.2.0--rc.2%20%3C0.3.0-4D6BFE?style=flat-square">
   <img alt="Node" src="https://img.shields.io/badge/node-%3E%3D20-339933?style=flat-square&logo=node.js&logoColor=white">
-  <a href="https://github.com/sakikoTGW/dsh-plugin-tailor/actions/workflows/test.yml"><img alt="test" src="https://img.shields.io/badge/test-16%2F16-2FBF71?style=flat-square"></a>
-  <img alt="checks" src="https://img.shields.io/badge/rubric-34%20checks-2FBF71?style=flat-square">
+  <a href="https://github.com/sakikoTGW/dsh-plugin-tailor/actions/workflows/test.yml"><img alt="test" src="https://img.shields.io/badge/test-18%2F18-2FBF71?style=flat-square"></a>
+  <img alt="checks" src="https://img.shields.io/badge/rubric-44%20checks-2FBF71?style=flat-square">
 </p>
 
 # dsh-plugin-tailor
 
 > From “it runs” to “ship it”: audit → pick a style → brand assets → bilingual README → pre-release verification.
 
-<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.4.1</sub></p>
+<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.5.0</sub></p>
 
 <p align="center">
   <a href="#quickstart"><b>Install</b></a> · <a href="#seven-styles">Seven styles</a> · <a href="#six-tools">Six tools</a> · <a href="#roadmap">Roadmap</a>
 </p>
 
 <p align="center">
-  <img src="assets/stats.svg" alt="8 audit dimensions, 34 checks, 7 styles, 12 original vector concepts" width="100%">
+  <img src="assets/stats.svg" alt="8 audit dimensions, 44 checks, 7 styles, 12 original vector concepts" width="100%">
 </p>
 
 <p align="center">
-  <img src="assets/demo.gif" alt="Real terminal: repo_audit scores dsh-plugin-resolver 84/100, repo_verify returns PASS" width="760">
+  <img src="assets/demo.gif" alt="Real terminal: repo_audit scores dsh-plugin-resolver 81/100, repo_verify returns PASS" width="760">
 </p>
 <p align="center"><sub>Real output: <code>tailor audit ../dsh-plugin-resolver</code> and <code>tailor verify …</code> (<a href="demo/demo.tape">VHS tape</a> to re-record)</sub></p>
 
@@ -48,6 +48,7 @@
 - [Seven styles](#seven-styles)
 - [Custom styles](#custom-styles)
 - [Brand assets](#brand-assets)
+- [Visual system](#visual-system)
 - [Tool output](#tool-output)
 - [Results and evidence](#results-and-evidence)
 - [Layout](#layout)
@@ -67,7 +68,7 @@
 - **Nobody checks before release**: broken relative links, anchors, images, leftover TODOs, stale test counts — readers find them first.
 - **“Beautiful” has no standard**: instead of copying one template, this plugin distils what good repositories share into selectable style presets plus executable checks.
 
-What it does: **8 dimensions / 34 checks** for maturity, **7 style presets** for the README, **deterministic SVG** for brand assets, and one `repo_verify` before you publish.
+What it does: **8 dimensions / 44 checks** for maturity, **7 style presets** for the README, **deterministic SVG** for brand assets, and one `repo_verify` before you publish.
 
 <p align="center">
   <img src="assets/before-after.svg" alt="Manual README versus tailor-generated: demo, evidence, brand, link checks" width="100%">
@@ -79,7 +80,7 @@ What it does: **8 dimensions / 34 checks** for maturity, **7 style presets** for
   <img src="assets/pipeline.svg" alt="repo_audit → repo_plan → repo_brand → repo_readme → repo_verify" width="100%">
 </p>
 
-1. **`repo_audit`** reads `package.json`, README, assets, CI and git state, scores 8 dimensions / 34 checks, and returns gaps sorted by impact.
+1. **`repo_audit`** reads `package.json`, README, assets, CI and git state, scores 8 dimensions / 44 checks, and returns gaps sorted by impact.
 2. **`repo_plan`** turns gaps into P0/P1/P2 tasks with acceptance criteria and the exact `repo_verify` command; style gaps (no GIF, no screenshots, no English page) become tasks too.
 3. **`repo_brand`** generates `icon.svg` / `logo.svg` / `banner.svg` / `social-preview.svg` from the style palette and mark — deterministic, no image model, never overwrites existing files.
 4. **`repo_readme`** assembles zh/en drafts from repository facts only; missing facts become `TODO(tailor)` markers; dry-run prints a diff, `apply` writes.
@@ -91,17 +92,19 @@ What it does: **8 dimensions / 34 checks** for maturity, **7 style presets** for
   <img src="assets/features.svg" alt="Six capabilities: repo_audit, repo_readme, repo_brand, bilingual parity, write protection, repo_verify" width="100%">
 </p>
 
-- **8 dimensions / 34 checks**: identity, first screen, install, docs, evidence, release, community, brand — every gap comes with a concrete fix, not just a score.
+- **8 dimensions / 44 checks**: identity, first screen, install, docs, evidence, release, community, brand — every gap comes with a concrete fix, not just a score.
 - **7 styles + bilingual drafts**: from evidence-first to minimal typography; dry-run diff first, write second.
 - **Author your own style**: built-ins are seven JSON files; custom styles live in `.tailor/styles/` or `~/.tailor/styles/`, with `extends` inheritance and schema validation.
-- **12 vector concepts × light/dark**: `icon` / `logo` (light+dark) / `banner` (light+dark) / `social` / `brand-sheet` — 8 files, byte-identical on re-run.
+- **12 vector concepts × 12 brand files**: icon / maskable / light+dark logo / light+dark wordmark / light+dark banner / social / brand-sheet / brand-tokens.json / index — 12 files, byte-identical on re-run.
+- **Visual QA**: the palette is checked for WCAG contrast and `repo_brand` prints PASS/FAIL; the audit carries 14 brand/visual checks (sizes, ratios, light/dark pairs, alt text, first-screen image, width control).
+- **3 README layout engines**: `editorial` / `centered` / `showcase`, configured per style via `visual`, not one template recoloured.
 - **Write protection**: hand-written READMEs, existing assets and dirty worktrees are refused unless `force` is explicit.
 - **Pre-release verification**: relative links, images, anchors, badges, required sections and leftover TODOs in one PASS/FAIL command.
 - **CLI and DSH tools share one logic layer**: `bin/tailor.mjs` calls the same code as the six tools, so the terminal reproduces the agent.
 
 ## Quickstart
 
-> **Published to npm and GitHub Releases (v0.4.1). Three ways to install:**
+> **Published to npm and GitHub Releases (v0.5.0). Three ways to install:**
 
 ```sh
 # 1) DSH plugin (recommended, straight from npm)
@@ -114,7 +117,7 @@ dsh-repo-tailor styles
 # 3) Offline: source or the release tarball
 git clone https://github.com/sakikoTGW/dsh-plugin-tailor
 dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor
-dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.4.1.tgz
+dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.5.0.tgz
 ```
 
 Restart the engine once and the six `repo_*` tools are live. After that, edits under `logic/` apply on the next call; edits to `host/register.js` or `index.js` need an engine restart.
@@ -245,23 +248,49 @@ node bin/tailor.mjs style:init . --id=acme --extends=evidence
 | `hexstack` | platform / panel / layers | `monogram` | mature tools / minimal |
 | `spark` | generic / brand / highlight | `layers` | architecture / modules / reuse |
 
-One run writes 8 files:
+One run writes 12 files:
 
-| File | Purpose |
-|---|---|
-| `icon.svg` | 512×512 icon / avatar |
-| `logo.svg` / `logo-dark.svg` | light / dark lockups |
-| `banner.svg` / `banner-light.svg` | 1280×400 dark / light banners |
-| `social-preview.svg` | 1280×640 social card |
-| `brand-sheet.svg` | 12 concepts side by side, default highlighted |
-| `assets/README.md` | asset index + switch commands |
+| File | Size | Purpose |
+|---|---|---|
+| `icon.svg` | 512×512 | icon / avatar |
+| `icon-maskable.svg` | 512×512 | PWA / Android, 80% safe area |
+| `logo.svg` / `logo-dark.svg` | 760×176 | light / dark lockups |
+| `wordmark.svg` / `wordmark-dark.svg` | 760×120 | text-only lockup for slides / video |
+| `banner.svg` / `banner-light.svg` | 1280×400 | dark / light banners |
+| `social-preview.svg` | 1280×640 | GitHub social preview |
+| `brand-sheet.svg` | 1280×auto | 12 concepts + palette contrast |
+| `brand-tokens.json` | — | palette, contrast, type, spacing and motion tokens |
+| `assets/README.md` | — | asset index, usage and switch commands |
+
+The palette is checked for WCAG contrast before it reaches the tokens: body ≥7:1, graphics ≥3:1; dry-run lists every check.
 
 ```sh
 node bin/tailor.mjs brand . --style=evidence --concept=needle \
   --tagline="From it runs to ship it." --apply --force
 ```
 
-Dry-run lists files and concepts; `apply` writes, and existing files are skipped by default.
+Dry-run lists files, concept and contrast checks; `apply` writes, and existing files are skipped by default.
+
+## Visual system
+
+Visuals are a system of explainable rules, not "add a banner". The design and motion principles live in [docs/DESIGN.md](docs/DESIGN.md) (from emotion-design / apple-design / hallmark: decide the emotion first, motion must carry information, no fake terminal chrome, spacing and type go into tokens).
+
+<p align="center">
+  <img src="assets/mark-motion.gif" alt="Logo construction motion: grid → mark → tile → lockup → identity, each beat explained" width="640">
+</p>
+<p align="center"><sub>Mark construction: 6 beats, ~3s; the last beat holds for 2s instead of looping decoratively.</sub></p>
+
+Three layout engines, configured in a style's `visual` block (custom styles can use them too):
+
+| engine | Styles | First screen | Nav | Demo | Feel |
+|---|---|---|---|---|---|
+| `editorial` | `evidence` / `minimal` | left-aligned banner or type-only | inline links | 720–760px | long-form, dense |
+| `centered` | `terminal` / `platform` | centered logo + centered H1 | `<kbd>` chips | 760px | product homepage, clear anchor |
+| `showcase` | `mobile` / `playful` / `product` | full-width banner + centered H1 | `<kbd>` chips | 860px | launch page, visuals first |
+
+Configurable: `engine`, `badgeStyle` (flat-square / for-the-badge), `demoWidth`, `navStyle`, `featureCards`, `footer`; schema in [styles/README.md](styles/README.md).
+
+The visual audit is now 14 checks (brand dimension weighs 20%): logo size/ratio, light/dark pairs, banner ratio, 2:1 social preview, maskable icon, wordmark, tokens, demo asset, README image count, alt coverage, first-screen image, width control. `repo_audit` sorts the gaps by impact.
 
 ## Tool output
 
@@ -273,7 +302,7 @@ Real CLI output, not mockups; each screenshot is rendered from the actual stdout
 <p align="center"><sub><code>tailor styles</code>: describes styles only, no repository names.</sub></p>
 
 <p align="center">
-  <img src="assets/tools-brand.png" alt="repo_brand dry-run: 8 files and 12 concepts" width="100%">
+  <img src="assets/tools-brand.png" alt="repo_brand dry-run: 12 files, 12 concepts and contrast QA" width="100%">
 </p>
 <p align="center"><sub><code>tailor brand . --style=evidence --concept=needle</code>: dry-run lists 8 files and 12 concepts.</sub></p>
 
@@ -285,11 +314,11 @@ Real CLI output, not mockups; each screenshot is rendered from the actual stdout
 ## Results and evidence
 
 <p align="center">
-  <img src="assets/audit-resolver.png" alt="Real repo_audit output for dsh-plugin-resolver: 84/100, grade B, 6 gaps" width="100%">
+  <img src="assets/audit-resolver.png" alt="Real repo_audit output for dsh-plugin-resolver: 81/100, grade B, 10 gaps" width="100%">
 </p>
 
-- **Self-audit**: this repository used itself to add docs, brand assets and README — score **37 → 100** (D → A). `dsh-plugin-resolver` audits at **84/100 (B)** and `repo_verify` returns `PASS`.
-- **Tests**: 16 offline tests (`npm test`, pass 16 / fail 0); CI runs on Node 20/22/24.
+- **Self-audit**: this repository used itself to add docs, brand assets and README — score **37 → 100** (D → A). `dsh-plugin-resolver` audits at **81/100 (B)** and `repo_verify` returns `PASS`.
+- **Tests**: 18 offline tests (`npm test`, pass 18 / fail 0); CI runs on Node 20/22/24.
 - **Pure logic**: `auditFacts` **0.01 ms**, `renderReadme` **0.03 ms**, `verifyFacts` **0.03 ms**; `collectFacts` is **109–794 ms** because it spawns 4 `git` processes (depends on repository size).
 - **CLI end-to-end**: `tailor audit .` median **248 ms**, of which ~200 ms is Node startup.
 - **Method**: environment, procedure and output sizes are in [BENCHMARK.md](BENCHMARK.md); before/after and test output are in [docs/EVIDENCE.md](docs/EVIDENCE.md).
@@ -302,25 +331,26 @@ host/register.js    tool schemas (stable; restart to change)
 logic/
   api.js            six tool entry points
   facts.mjs         read-only repository facts
-  rubric.mjs        8 dimensions / 34 checks
+  rubric.mjs        8 dimensions / 44 checks
   plan.mjs          gaps → P0/P1/P2 tasks
   styles.mjs        style loader (JSON + custom + extends + validation)
   style-schema.mjs  style schema and merge rules
-  readme.mjs        bilingual drafts, diff, apply safety
-  brand.mjs         12-concept brand engine (light + dark)
+  readme.mjs        bilingual drafts, layout engines, diff, apply safety
+  brand.mjs         12-concept brand engine (12 files + contrast QA)
+  palette.mjs       colour, contrast, design tokens
   verify.mjs        links / anchors / images / sections / TODOs
   util.mjs          diff, slug, path boundary
 styles/             seven built-in style JSON files + schema.json + docs
 bin/tailor.mjs      CLI (same logic as the tools)
 bench/micro.mjs     pure-logic microbenchmark
-docs/               SPEC / STYLES / ACCEPTANCE / EVIDENCE
-test/tailor.test.mjs 16 offline tests
+docs/               SPEC / STYLES / DESIGN / ACCEPTANCE / EVIDENCE
+test/tailor.test.mjs 18 offline tests
 ```
 
 ## Tests and CI
 
 ```sh
-npm test                # 16 offline tests
+npm test                # 18 offline tests
 node bench/micro.mjs .  # pure-logic microbenchmark
 node bin/tailor.mjs verify . --style=evidence
 ```
@@ -338,8 +368,9 @@ node bin/tailor.mjs verify . --style=evidence
 - **The score measures structure and evidence presence, not prose quality**: 100 does not mean the README is pleasant to read; a human still decides.
 - **Drafts must be reviewed**: `TODO(tailor)` markers are for you to fill; `repo_verify` reports leftover TODOs as a warning.
 - **zh / en only**, no auto style selection, no auto commit / push / publish.
-- **No real screenshots or images**: `repo_brand` only generates SVG geometry; the demo GIF must be recorded from a real run.
-- **Brand assets are geometric SVG, not illustration/photography**: illustration-level work still needs a human or an image model; `repo_brand` guarantees concept choice, light/dark pairs, consistency and reproducibility.
+- **No real screenshots or images**: `repo_brand` only generates SVG geometry and tokens; the demo GIF/screenshots must be recorded from a real run.
+- **Motion is a GIF explainer, not interactive animation**: `mark-motion.gif` only explains the construction; a README cannot honour `prefers-reduced-motion`.
+- **Brand assets are geometric SVG, not illustration/photography**: illustration-level work still needs a human or an image model; `repo_brand` guarantees concept choice, 12 files, light/dark pairs, contrast QA, consistency and reproducibility.
 - **Invalid custom styles are skipped**: `repo_styles` lists the file and the reason; the loader does not guess or auto-fix.
 - **`collectFacts` dominates runtime** (git subprocesses + directory walk); the judgement logic itself is effectively free.
 - **SVG text metrics depend on system fonts** (Inter / Segoe UI / Microsoft YaHei), so widths vary slightly across machines.
@@ -373,7 +404,7 @@ No. Badge images are loaded by GitHub from shields.io at render time; the plugin
 The score measures structure, evidence and brand presence — not prose quality or factual correctness. A human still reads it before publishing.
 
 **When will it be on npm?**
-See the roadmap. For now use the `.tgz` attached to the GitHub Release.
+It is published: `dsh-plugin-tailor@0.5.0` (`latest` points at the current version).
 
 ## Roadmap
 
@@ -381,7 +412,8 @@ See the roadmap. For now use the `.tgz` attached to the GitHub Release.
 - [x] **v0.2** 12 original vector concepts, light/dark brand kit, brand sheet
 - [x] **v0.3** style-only presets, real CLI screenshots, re-recorded demo
 - [x] **v0.4** structured styles (JSON + schema), custom styles, `extends`, `style:init`
-- [ ] **v0.4** npm publish + `dsh-plugins` hub listing
+- [x] **v0.5** visual: 12-file brand kit, contrast QA, 3 layout engines, 44 checks, construction motion
+- [ ] **v0.5** npm 0.5.0 publish + `dsh-plugins` hub listing
 - [ ] **v0.4** `--palette` variants (warm / high-contrast / mono / follow brand)
 - [ ] **v0.5** side-by-side style previews from a real repository
 - [ ] **v0.5** optional image-model illustration mode (PNG, SVG geometry stays the default)

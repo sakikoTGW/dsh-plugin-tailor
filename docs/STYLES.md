@@ -131,7 +131,24 @@ node bin/tailor.mjs readme . --style=acme --lang=both
 | 文案 | `labels` + `tone` | 章节标题与语气；正文仍来自 facts |
 | 品牌 | `palette` + `mark` | `repo_brand` 的调色板与默认概念；可用 `concept` 覆盖 |
 | 语言 | `language` | 双语 / 中文优先 / 英文优先，以及语言切换行 |
+| 版式 | `visual` | 版式引擎、徽章样式、导航样式、demo 宽度、功能卡片、页脚 |
 | 继承 | `extends` | 自定义风格从父风格继承，只覆盖需要的字段 |
+
+### 版式引擎（v0.5+）
+
+风格不再只是“换章节顺序”，`visual.engine` 决定首屏、导航和 demo 的排法：
+
+| engine | 使用的风格 | 首屏 | 导航 | demo | 视觉特征 |
+|---|---|---|---|---|---|
+| `editorial` | `evidence` / `minimal` | 左对齐 banner 或纯文字 | inline 链接 | 720–760px | 长文感、信息密度高 |
+| `centered` | `terminal` / `platform` | 居中 logo + 居中 H1 | `<kbd>` chips | 760px | 产品主页、锚点明确 |
+| `showcase` | `mobile` / `playful` / `product` | 全宽 banner + 居中 H1 | `<kbd>` chips | 860px | 发布页、图先行 |
+
+可配置字段：`engine`、`badgeStyle`（`flat-square` / `for-the-badge`）、`demoWidth`（480–960）、`navStyle`（`chips` / `inline`）、`featureCards`、`footer`。没有 `visual` 字段的旧风格/自定义风格使用默认值（editorial / flat-square / inline / 无卡片 / 无页脚），行为向后兼容。
+
+```json
+{ "visual": { "engine": "showcase", "badgeStyle": "for-the-badge", "demoWidth": 860, "navStyle": "chips", "featureCards": true, "footer": true } }
+```
 
 每个预设的默认图形概念（都可在 `repo_brand` 里换）：
 
@@ -142,7 +159,7 @@ node bin/tailor.mjs readme . --style=acme --lang=both
 | `product` | `radar` 雷达 | `platform` | `hexstack` 面板栈 |
 | `minimal` | `monogram` 字母环 | 任意 | 另外还有 `needle`、`stitch`、`quill`、`spark`、`layers` |
 
-12 个概念的对照图见仓库 [`assets/brand-sheet.svg`](../assets/brand-sheet.svg)；`repo_brand` 会一次生成 icon、明暗两套 logo、明暗两套 banner、social 和这张对照图。
+12 个概念的对照图见仓库 [`assets/brand-sheet.svg`](../assets/brand-sheet.svg)；`repo_brand` 一次生成 12 个文件：icon、maskable icon、明暗 logo、明暗 wordmark、明暗 banner、social、brand-sheet、`brand-tokens.json` 和索引，并对调色板做 WCAG 对比度检查。
 
 ## 常见问题
 

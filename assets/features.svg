@@ -30,7 +30,7 @@
         </g>
       </g>
       <text x="96" y="50" font-size="18" font-weight="700" fill="#FFFFFF">repo_audit</text>
-      <text x="96" y="74" font-size="13" fill="#9FB2D4">8 维 34 项检查</text>
+      <text x="96" y="74" font-size="13" fill="#9FB2D4">8 维 44 项检查</text>
       <text x="26" y="122" font-size="13" fill="#6F86B8">身份、首屏、安装、文档、证据、</text>
       <text x="26" y="144" font-size="13" fill="#6F86B8">发布、社区、品牌；缺口带修法。</text>
       <text x="26" y="174" font-size="12" fill="#2FBF71">P0 / P1 / P2 排序</text>
@@ -64,9 +64,9 @@
         </g>
       </g>
       <text x="96" y="50" font-size="18" font-weight="700" fill="#FFFFFF">repo_brand</text>
-      <text x="96" y="74" font-size="13" fill="#9FB2D4">12 概念 · 明暗两套</text>
+      <text x="96" y="74" font-size="13" fill="#9FB2D4">12 概念 · 12 文件</text>
       <text x="26" y="122" font-size="13" fill="#6F86B8">icon、明暗 logo、明暗 banner、</text>
-      <text x="26" y="144" font-size="13" fill="#6F86B8">social、brand-sheet，确定性 SVG。</text>
+      <text x="26" y="144" font-size="13" fill="#6F86B8">12 文件 + 对比度 QA。</text>
       <text x="26" y="174" font-size="12" fill="#2FBF71">同一输入字节一致</text>
     </g>
 

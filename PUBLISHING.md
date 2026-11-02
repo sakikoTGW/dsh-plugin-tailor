@@ -9,7 +9,7 @@ How `dsh-plugin-tailor` is versioned, packed, released and listed.
 
 ## Release checklist
 
-1. **Tests**: `npm test` → pass 16 / fail 0.
+1. **Tests**: `npm test` → pass 18 / fail 0.
 2. **Self-audit**: `node bin/tailor.mjs audit . --style=evidence` → score must not drop below `docs/EVIDENCE.md`.
 3. **Package contents**: `npm pack --dry-run` — check that `test/`, `.tmp/`, `.tailor/` are **not** in the tarball and that `docs/`, `assets/`, CLI are.
 4. **Version**: `npm version patch|minor|major` (updates `package.json`, commits and tags).

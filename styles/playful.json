@@ -35,6 +35,7 @@
     "badges",
     "title",
     "tagline",
+    "nav",
     "demo",
     "install",
     "features",
@@ -73,5 +74,13 @@
     "readme",
     "logo",
     "demo"
-  ]
+  ],
+  "visual": {
+    "engine": "showcase",
+    "badgeStyle": "for-the-badge",
+    "demoWidth": 860,
+    "navStyle": "chips",
+    "featureCards": false,
+    "footer": true
+  }
 }

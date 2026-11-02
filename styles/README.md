@@ -28,12 +28,26 @@ node bin/tailor.mjs style:init . --id=acme --extends=evidence
   "id": "acme",
   "label": { "zh": "Acme 证据风", "en": "Acme evidence" },
   "palette": { "brand": "#E4572E", "deep": "#B23A1C" },
+  "visual": { "engine": "showcase", "badgeStyle": "for-the-badge", "navStyle": "chips", "featureCards": true, "footer": true },
   "sections": ["hero", "language", "badges", "title", "tagline", "demo", "install", "features", "limitations", "license"]
 }
 ```
 
-- `extends` 先继承父风格，再按键合并：`label` / `essence` / `tone` / `notes` / `palette` 逐键合并，`labels` 合并，数组（`sections`、`badgeSet`、`requiredFacts`）整体替换。
+- `extends` 先继承父风格，再按键合并：`label` / `essence` / `tone` / `notes` / `palette` / `visual` 逐键合并，`labels` 合并，数组（`sections`、`badgeSet`、`requiredFacts`）整体替换。
 - 不写 `extends` 就是完全自定义：必须提供 schema 里的全部必填字段。
+
+## 版式字段（visual）
+
+| 字段 | 允许值 | 默认 | 作用 |
+|---|---|---|---|
+| `engine` | `editorial` / `centered` / `showcase` | `editorial` | 首屏、标题对齐、整体节奏 |
+| `badgeStyle` | `flat-square` / `for-the-badge` | `flat-square` | shields 徽章样式 |
+| `demoWidth` | 480–960 | 760 | demo 图宽度 |
+| `navStyle` | `chips` / `inline` | `inline` | 导航：`<kbd>` chips 或行内链接 |
+| `featureCards` | boolean | `false` | 功能小节是否转成两列卡片 |
+| `footer` | boolean | `false` | 文末是否加居中页脚 |
+
+没有 `visual` 字段的旧风格走默认值，行为向后兼容。
 
 ## 字段
 
@@ -52,6 +66,7 @@ node bin/tailor.mjs style:init . --id=acme --extends=evidence
 | `badgeSet` | string[] | 可选：npm/version/license/dsh/node/ci/checks/stars/platform/forum |
 | `sections` | string[] | 章节顺序，必须来自渲染器支持的 section id |
 | `labels` | `{section: {zh,en}}` | 覆盖章节标题 |
+| `visual` | object | 版式引擎与视觉开关，见上表 |
 | `requiredFacts` | string[] | 生成前必须存在的事实（缺失进 TODO） |
 
 完整 schema：`styles/schema.json`（编辑器可直接感知）。

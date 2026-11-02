@@ -68,5 +68,13 @@
   },
   "requiredFacts": [
     "readme"
-  ]
+  ],
+  "visual": {
+    "engine": "editorial",
+    "badgeStyle": "flat-square",
+    "demoWidth": 720,
+    "navStyle": "inline",
+    "featureCards": false,
+    "footer": false
+  }
 }

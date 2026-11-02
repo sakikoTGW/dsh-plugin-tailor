@@ -38,6 +38,7 @@
     "badges",
     "title",
     "tagline",
+    "nav",
     "demo",
     "toc",
     "why",
@@ -87,5 +88,13 @@
     "readme",
     "logo",
     "demo"
-  ]
+  ],
+  "visual": {
+    "engine": "centered",
+    "badgeStyle": "flat-square",
+    "demoWidth": 760,
+    "navStyle": "chips",
+    "featureCards": false,
+    "footer": true
+  }
 }

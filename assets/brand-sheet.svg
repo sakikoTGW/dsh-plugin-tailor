@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 942" width="1280" height="942" role="img" aria-label="Brand concept sheet">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 1028" width="1280" height="1028" role="img" aria-label="Brand concept sheet with palette contrast">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#0B1020"/>
@@ -8,9 +8,9 @@
       <path d="M40 0H0V40" fill="none" stroke="#FFFFFF" stroke-opacity="0.035" stroke-width="1"/>
     </pattern>
   </defs>
-  <rect width="1280" height="942" fill="url(#bg)"/>
-  <rect width="1280" height="942" fill="url(#grid)"/>
-  <text x="48" y="64" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="30" font-weight="800" fill="#FFFFFF">12 个原创图形概念</text>
+  <rect width="1280" height="1028" fill="url(#bg)"/>
+  <rect width="1280" height="1028" fill="url(#grid)"/>
+  <text x="48" y="64" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="30" font-weight="800" letter-spacing="-0.6" fill="#FFFFFF">12 个原创图形概念</text>
   <text x="48" y="96" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="15" fill="#8FA3C8">为 dsh-plugin-tailor 的 证据优先 · 双语 风格生成。默认：needle。切换：<tspan font-family="Consolas, monospace" fill="#A9BBDA">repo_brand { concept }</tspan></text>
   <text x="48" y="124" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5F739E">同一仓库、同一概念重复生成字节一致；全部为手写 SVG 几何，无图片模型。</text>
   <g transform="translate(48 158)">
@@ -21,19 +21,9 @@
       <stop offset="0" stop-color="#4D6BFE"/>
       <stop offset="1" stop-color="#2A3FD0"/>
     </linearGradient>
-    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
-      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
-      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
-    </radialGradient>
-    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
-      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
-    </pattern>
   </defs>
     <rect width="512" height="512" rx="112" fill="url(#tile)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGrid)"/>
-    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="2"/>
     <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
     <path d="M158 358 L348 162" stroke-width="15"/>
     <ellipse cx="326" cy="184" rx="12" ry="21" transform="rotate(-43 326 184)" stroke-width="8"/>
@@ -54,19 +44,9 @@
       <stop offset="0" stop-color="#4D6BFE"/>
       <stop offset="1" stop-color="#2A3FD0"/>
     </linearGradient>
-    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
-      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
-      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
-    </radialGradient>
-    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
-      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
-    </pattern>
   </defs>
     <rect width="512" height="512" rx="112" fill="url(#tile)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGrid)"/>
-    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="2"/>
     <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
     <path d="M128 268 L218 358 L392 148" stroke-width="32" stroke-dasharray="56 30"/>
     <circle cx="392" cy="148" r="10" fill="#8CE3B8" stroke="none"/>
@@ -85,19 +65,9 @@
       <stop offset="0" stop-color="#4D6BFE"/>
       <stop offset="1" stop-color="#2A3FD0"/>
     </linearGradient>
-    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
-      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
-      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
-    </radialGradient>
-    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
-      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
-    </pattern>
   </defs>
     <rect width="512" height="512" rx="112" fill="url(#tile)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGrid)"/>
-    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="2"/>
     <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
     <path d="M372 120 C280 150 206 232 178 348" stroke-width="12"/>
     <path d="M372 120 C376 216 316 300 244 352 C180 338 158 278 166 226 C236 252 322 214 372 120 Z" fill="#FFFFFF" fill-opacity="0.16" stroke-width="7"/>
@@ -118,19 +88,9 @@
       <stop offset="0" stop-color="#4D6BFE"/>
       <stop offset="1" stop-color="#2A3FD0"/>
     </linearGradient>
-    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
-      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
-      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
-    </radialGradient>
-    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
-      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
-    </pattern>
   </defs>
     <rect width="512" height="512" rx="112" fill="url(#tile)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGrid)"/>
-    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="2"/>
     <g fill="none" stroke="#FFFFFF" stroke-linecap="round">
     <path d="M120 380 A 240 240 0 0 1 360 140" stroke-width="26"/>
     <path d="M168 400 A 190 190 0 0 1 358 210" stroke-width="20" opacity="0.6"/>
@@ -151,19 +111,9 @@
       <stop offset="0" stop-color="#4D6BFE"/>
       <stop offset="1" stop-color="#2A3FD0"/>
     </linearGradient>
-    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
-      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
-      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
-    </radialGradient>
-    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
-      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
-    </pattern>
   </defs>
     <rect width="512" height="512" rx="112" fill="url(#tile)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGrid)"/>
-    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="2"/>
     <g fill="none" stroke="#FFFFFF" stroke-linecap="round">
     <circle cx="256" cy="256" r="104" stroke-width="22"/>
     <ellipse cx="256" cy="256" rx="190" ry="62" transform="rotate(-28 256 256)" stroke-width="9" opacity="0.65"/>
@@ -184,19 +134,9 @@
       <stop offset="0" stop-color="#4D6BFE"/>
       <stop offset="1" stop-color="#2A3FD0"/>
     </linearGradient>
-    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
-      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
-      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
-    </radialGradient>
-    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
-      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
-    </pattern>
   </defs>
     <rect width="512" height="512" rx="112" fill="url(#tile)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGrid)"/>
-    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="2"/>
     <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
     <path d="M196 156 L118 256 L196 356" stroke-width="27"/>
     <path d="M306 156 L384 256 L306 356" stroke-width="27" opacity="0.5"/>
@@ -216,19 +156,9 @@
       <stop offset="0" stop-color="#4D6BFE"/>
       <stop offset="1" stop-color="#2A3FD0"/>
     </linearGradient>
-    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
-      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
-      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
-    </radialGradient>
-    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
-      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
-    </pattern>
   </defs>
     <rect width="512" height="512" rx="112" fill="url(#tile)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGrid)"/>
-    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="2"/>
     <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
     <path d="M120 184 Q120 128 184 128 H328 Q392 128 392 192 V284 Q392 348 328 348 H248 L188 404 V348 H184 Q120 348 120 284 Z" stroke-width="21"/>
     <circle cx="200" cy="238" r="13" fill="#FFFFFF" stroke="none"/>
@@ -249,19 +179,9 @@
       <stop offset="0" stop-color="#4D6BFE"/>
       <stop offset="1" stop-color="#2A3FD0"/>
     </linearGradient>
-    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
-      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
-      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
-    </radialGradient>
-    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
-      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
-    </pattern>
   </defs>
     <rect width="512" height="512" rx="112" fill="url(#tile)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGrid)"/>
-    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="2"/>
     <g fill="none" stroke="#FFFFFF" stroke-linecap="round">
     <circle cx="256" cy="256" r="58" stroke-width="16"/>
     <circle cx="256" cy="256" r="126" stroke-width="8" opacity="0.55"/>
@@ -284,19 +204,9 @@
       <stop offset="0" stop-color="#4D6BFE"/>
       <stop offset="1" stop-color="#2A3FD0"/>
     </linearGradient>
-    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
-      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
-      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
-    </radialGradient>
-    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
-      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
-    </pattern>
   </defs>
     <rect width="512" height="512" rx="112" fill="url(#tile)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGrid)"/>
-    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="2"/>
     <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
     <path d="M256 112 L382 188 V324 L256 400 L130 324 V188 Z" stroke-width="18"/>
     <path d="M188 228 H324" stroke-width="22"/>
@@ -317,19 +227,9 @@
       <stop offset="0" stop-color="#4D6BFE"/>
       <stop offset="1" stop-color="#2A3FD0"/>
     </linearGradient>
-    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
-      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
-      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
-    </radialGradient>
-    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
-      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
-    </pattern>
   </defs>
     <rect width="512" height="512" rx="112" fill="url(#tile)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGrid)"/>
-    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="2"/>
     <g fill="none" stroke="#FFFFFF">
     <circle cx="256" cy="256" r="148" stroke-width="13" opacity="0.9"/>
     <circle cx="256" cy="256" r="168" stroke-width="3" opacity="0.28" stroke-dasharray="2 12"/>
@@ -350,19 +250,9 @@
       <stop offset="0" stop-color="#4D6BFE"/>
       <stop offset="1" stop-color="#2A3FD0"/>
     </linearGradient>
-    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
-      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
-      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
-    </radialGradient>
-    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
-      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
-    </pattern>
   </defs>
     <rect width="512" height="512" rx="112" fill="url(#tile)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGrid)"/>
-    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="2"/>
     <g fill="none" stroke="#FFFFFF" stroke-linecap="round">
     <path d="M256 100 C270 208 300 238 408 256 C300 274 270 304 256 412 C242 304 212 274 104 256 C212 238 242 208 256 100 Z" fill="#FFFFFF" stroke="none"/>
     <ellipse cx="256" cy="256" rx="178" ry="64" transform="rotate(-24 256 256)" stroke-width="7" opacity="0.32"/>
@@ -382,19 +272,9 @@
       <stop offset="0" stop-color="#4D6BFE"/>
       <stop offset="1" stop-color="#2A3FD0"/>
     </linearGradient>
-    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
-      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
-      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
-    </radialGradient>
-    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
-      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
-    </pattern>
   </defs>
     <rect width="512" height="512" rx="112" fill="url(#tile)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGrid)"/>
-    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="2"/>
     <g fill="none" stroke="#FFFFFF" stroke-linecap="round">
     <rect x="130" y="196" width="236" height="236" rx="52" stroke-width="15" opacity="0.32"/>
     <rect x="158" y="166" width="236" height="236" rx="52" stroke-width="15" opacity="0.62"/>
@@ -407,5 +287,38 @@
       <text x="134" y="180" text-anchor="middle" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12" fill="#5F739E">架构 / 模块 / 复用</text>
       
     </g>
-  <text x="48" y="914" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5F739E">dsh-plugin-tailor · style=evidence · concept=needle · 明暗两套 lockup + banner + social</text>
+  <rect x="48" y="878" width="1184" height="1" fill="#22305C"/>
+  <text x="48" y="898" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" font-weight="700" fill="#DCE6FA">调色板 · 对比度 QA PASS</text>
+  <g transform="translate(48 904)">
+        <rect width="184" height="40" rx="10" fill="#4D6BFE" stroke="#22305C"/>
+        <text x="10" y="17" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11" fill="#FFFFFF">brand</text>
+        <text x="10" y="32" font-family="Consolas, monospace" font-size="10" fill="#A9BBDA">#4D6BFE</text>
+      </g>
+<g transform="translate(248 904)">
+        <rect width="184" height="40" rx="10" fill="#2A3FD0" stroke="#22305C"/>
+        <text x="10" y="17" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11" fill="#FFFFFF">deep</text>
+        <text x="10" y="32" font-family="Consolas, monospace" font-size="10" fill="#A9BBDA">#2A3FD0</text>
+      </g>
+<g transform="translate(448 904)">
+        <rect width="184" height="40" rx="10" fill="#0B1020" stroke="#22305C"/>
+        <text x="10" y="17" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11" fill="#DCE6FA">ink</text>
+        <text x="10" y="32" font-family="Consolas, monospace" font-size="10" fill="#A9BBDA">#0B1020</text>
+      </g>
+<g transform="translate(648 904)">
+        <rect width="184" height="40" rx="10" fill="#2FBF71" stroke="#22305C"/>
+        <text x="10" y="17" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11" fill="#FFFFFF">green</text>
+        <text x="10" y="32" font-family="Consolas, monospace" font-size="10" fill="#A9BBDA">#2FBF71</text>
+      </g>
+<g transform="translate(848 904)">
+        <rect width="184" height="40" rx="10" fill="#0D1220" stroke="#22305C"/>
+        <text x="10" y="17" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11" fill="#DCE6FA">bg</text>
+        <text x="10" y="32" font-family="Consolas, monospace" font-size="10" fill="#A9BBDA">#0D1220</text>
+      </g>
+<g transform="translate(1048 904)">
+        <rect width="184" height="40" rx="10" fill="#22305C" stroke="#22305C"/>
+        <text x="10" y="17" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="11" fill="#DCE6FA">border</text>
+        <text x="10" y="32" font-family="Consolas, monospace" font-size="10" fill="#A9BBDA">#22305C</text>
+      </g>
+  <text x="48" y="974" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12" fill="#7FE0B0">正文 onDark / bg 17.43:1 AAA ✓   ·   标题 onDark / ink 17.67:1 AAA ✓   ·   图标 onBrand / brand 4.37:1 AA-large ✓   ·   品牌色 / bg（图形） 4.31:1 AA-large ✓   ·   强调色 / ink（图形） 7.94:1 AAA ✓   ·   浅底正文 onLight / #F7F9FF 17.99:1 AAA ✓</text>
+  <text x="48" y="1000" font-family="Inter, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" fill="#5F739E">dsh-plugin-tailor · style=evidence · concept=needle · 明暗两套 lockup + banner + social + tokens</text>
 </svg>

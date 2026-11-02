@@ -29,8 +29,14 @@ export const DEMOS = new Set(['gif', 'screenshot', 'none'])
 const ALLOWED_KEYS = new Set([
   '$schema', 'extends', 'id', 'label', 'essence', 'language', 'tone', 'hero', 'demo',
   'mark', 'palette', 'badgeSet', 'sections', 'labels', 'notes', 'requiredFacts',
-  'description', 'author', 'version',
+  'description', 'author', 'version', 'visual',
 ])
+
+const VISUAL_ENUMS = {
+  engine: new Set(['editorial', 'centered', 'showcase']),
+  badgeStyle: new Set(['flat-square', 'for-the-badge']),
+  navStyle: new Set(['chips', 'inline']),
+}
 
 const PALETTE_KEYS = ['brand', 'deep', 'ink', 'green', 'bg', 'border']
 const HEX = /^#[0-9a-fA-F]{6}$/
@@ -123,6 +129,26 @@ export function validateStyle(style, options = {}) {
   }
 
   if (!Array.isArray(style.requiredFacts)) errors.push('requiredFacts must be an array')
+
+  if (style.visual !== undefined) {
+    if (!style.visual || typeof style.visual !== 'object' || Array.isArray(style.visual)) {
+      errors.push('visual must be an object')
+    } else {
+      const visual = style.visual
+      for (const [key, allowed] of Object.entries(VISUAL_ENUMS)) {
+        if (visual[key] !== undefined && !allowed.has(visual[key])) errors.push(`visual.${key} must be one of ${[...allowed].join(', ')}`)
+      }
+      if (visual.demoWidth !== undefined && (!Number.isInteger(visual.demoWidth) || visual.demoWidth < 480 || visual.demoWidth > 960)) {
+        errors.push('visual.demoWidth must be an integer between 480 and 960')
+      }
+      for (const key of ['featureCards', 'footer']) {
+        if (visual[key] !== undefined && typeof visual[key] !== 'boolean') errors.push(`visual.${key} must be a boolean`)
+      }
+      for (const key of Object.keys(visual)) {
+        if (![...Object.keys(VISUAL_ENUMS), 'demoWidth', 'featureCards', 'footer'].includes(key)) warnings.push(`visual has unknown key "${key}"`)
+      }
+    }
+  }
   return { errors, warnings }
 }
 
@@ -138,7 +164,7 @@ export function mergeStyle(base, override) {
   const merged = JSON.parse(JSON.stringify(base))
   for (const [key, value] of Object.entries(override)) {
     if (key === 'extends' || key === '$schema') continue
-    if (key === 'palette' || key === 'label' || key === 'essence' || key === 'tone' || key === 'notes') {
+    if (key === 'palette' || key === 'label' || key === 'essence' || key === 'tone' || key === 'notes' || key === 'visual') {
       merged[key] = { ...(merged[key] ?? {}), ...(value ?? {}) }
     } else if (key === 'labels') {
       merged.labels = { ...(merged.labels ?? {}), ...(value ?? {}) }

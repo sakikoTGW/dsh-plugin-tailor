@@ -6,7 +6,7 @@
  */
 
 import { spawnSync } from 'node:child_process'
-import { statSync } from 'node:fs'
+import { readFileSync, statSync } from 'node:fs'
 import { basename, join, resolve } from 'node:path'
 
 import {
@@ -38,6 +38,7 @@ const KNOWN_FILES = {
   ablation: ['ABLATION.md', 'docs/ABLATION.md'],
   architecture: ['ARCHITECTURE.md', 'docs/ARCHITECTURE.md'],
   publishing: ['PUBLISHING.md', 'docs/PUBLISHING.md', 'RELEASE.md'],
+  brandTokens: ['assets/brand-tokens.json', 'brand-tokens.json'],
 }
 
 /** Directories that never make it into the structure listing or the scan. */
@@ -67,7 +68,7 @@ const IGNORED_DIRS = new Set(['.git', '.tailor', 'node_modules', '.turbo', '.nex
  *   tests: { dir: string | null, files: string[] },
  *   workflows: string[],
  *   templates: { issue: string[], pr: string | null },
- *   assets: Array<{ path: string, bytes: number, ext: string }>,
+ *   assets: Array<{ path: string, bytes: number, ext: string, width: number | null, height: number | null }>,
  *   topLevel: string[],
  *   git: { present: boolean, clean: boolean | null, remote: string | null, branch: string | null, tags: string[], lastCommit: string | null },
  *   numbers: Array<{ raw: string, from: string, to: string, line: string }>,
@@ -101,6 +102,15 @@ export function collectFacts(rootInput) {
   const readmeEnText = files.readmeEn ? readText(join(root, files.readmeEn)) : ''
   const headings = (readmeText.match(/^#{1,3}\s+.+$/gm) ?? []).map((line) => line.replace(/^#+\s+/, '').trim())
   const badges = (readmeText.match(/img\.shields\.io|badge\.fury\.io|badgen\.net/g) ?? []).length
+  const htmlImages = [...readmeText.matchAll(/<img\b[^>]*>/gi)].map((match) => match[0])
+  const markdownImages = [...readmeText.matchAll(/!\[([^\]]*)\]\([^)]+\)/g)]
+  const hasAlt = (tag) => /\balt="[^"]+"/i.test(tag)
+  const imagesWithAlt = htmlImages.filter(hasAlt).length + markdownImages.filter((match) => match[1].trim() !== '').length
+  const imagesWithoutAlt = htmlImages.length - htmlImages.filter(hasAlt).length + markdownImages.filter((match) => match[1].trim() === '').length
+  const firstImageLine = readmeText.split(/\r?\n/).findIndex((line) => /<img\b|!\[[^\]]*\]\([^)]+\)/.test(line))
+  const widthAttrs = htmlImages.filter((tag) => /\bwidth=/.test(tag)).length
+  const h1Count = (readmeText.match(/^#\s+.+$/gm) ?? []).length
+  const h2Count = (readmeText.match(/^##\s+.+$/gm) ?? []).length
 
   const docsDir = ['docs', 'doc', 'documentation'].find((candidate) => isDir(join(root, candidate))) ?? null
   const testsDir = ['test', 'tests', '__tests__', 'spec'].find((candidate) => isDir(join(root, candidate))) ?? null
@@ -181,6 +191,16 @@ export function collectFacts(rootInput) {
       images: countImages(readmeText),
       badges,
       firstParagraph: firstParagraph(readmeText),
+      media: {
+        htmlImages: htmlImages.length,
+        markdownImages: markdownImages.length,
+        withAlt: imagesWithAlt,
+        withoutAlt: imagesWithoutAlt,
+        firstImageLine,
+        widthAttrs,
+        h1: h1Count,
+        h2: h2Count,
+      },
     },
     readmeEn: { path: files.readmeEn, text: readmeEnText, generated: /^<!-- generated-by: dsh-plugin-tailor/.test(readmeEnText) },
     docs: { dir: docsDir, files: docsFiles },
@@ -233,7 +253,7 @@ function collectGit(root) {
  * @returns {Array<{path: string, bytes: number, ext: string}>}
  */
 function collectAssets(root) {
-  /** @type {Array<{path: string, bytes: number, ext: string}>} */
+  /** @type {Array<{path: string, bytes: number, ext: string, width: number | null, height: number | null}>} */
   const assets = []
   for (const dir of ['assets', 'docs/assets', 'images', 'docs/images', 'static', 'demo']) {
     const full = join(root, dir)
@@ -244,13 +264,41 @@ function collectAssets(root) {
       if (!['.svg', '.png', '.gif', '.webp', '.jpg', '.jpeg'].includes(ext)) continue
       const rel = toPosix(join(dir, entry.name))
       try {
-        assets.push({ path: rel, bytes: statSync(join(root, rel)).size, ext })
+        const size = imageSize(join(root, rel), ext)
+        assets.push({ path: rel, bytes: statSync(join(root, rel)).size, ext, width: size?.width ?? null, height: size?.height ?? null })
       } catch {
         // ignore unreadable files
       }
     }
   }
   return assets
+}
+
+/**
+ * Read intrinsic image dimensions without dependencies.
+ *
+ * @param {string} file
+ * @param {string} ext
+ * @returns {{ width: number, height: number } | null}
+ */
+function imageSize(file, ext) {
+  if (ext === '.svg') {
+    const text = readFileSync(file, 'utf8').slice(0, 4000)
+    const width = Number(text.match(/\bwidth="(\d+(?:\.\d+)?)"/)?.[1])
+    const height = Number(text.match(/\bheight="(\d+(?:\.\d+)?)"/)?.[1])
+    if (Number.isFinite(width) && Number.isFinite(height) && width > 0 && height > 0) return { width: Math.round(width), height: Math.round(height) }
+    const viewBox = text.match(/viewBox="([-\d.]+)\s+([-\d.]+)\s+([\d.]+)\s+([\d.]+)"/)
+    if (viewBox) return { width: Math.round(Number(viewBox[3])), height: Math.round(Number(viewBox[4])) }
+    return null
+  }
+  const buffer = readFileSync(file)
+  if (ext === '.png' && buffer.length >= 24 && buffer.toString('ascii', 1, 4) === 'PNG') {
+    return { width: buffer.readUInt32BE(16), height: buffer.readUInt32BE(20) }
+  }
+  if (ext === '.gif' && buffer.length >= 10 && buffer.toString('ascii', 0, 3) === 'GIF') {
+    return { width: buffer.readUInt16LE(6), height: buffer.readUInt16LE(8) }
+  }
+  return null
 }
 
 /** @param {any} bin */

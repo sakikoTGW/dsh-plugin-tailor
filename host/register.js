@@ -10,7 +10,7 @@ import { statSync } from 'node:fs'
 
 const LOGIC_DIR = new URL('../logic/', import.meta.url)
 
-const LOGIC_FILES = ['api.js', 'facts.mjs', 'rubric.mjs', 'plan.mjs', 'styles.mjs', 'style-schema.mjs', 'readme.mjs', 'brand.mjs', 'verify.mjs', 'util.mjs']
+const LOGIC_FILES = ['api.js', 'facts.mjs', 'rubric.mjs', 'plan.mjs', 'styles.mjs', 'style-schema.mjs', 'palette.mjs', 'readme.mjs', 'brand.mjs', 'verify.mjs', 'util.mjs']
 
 const TOOL_TIMEOUT_MS = 60_000
 
@@ -93,7 +93,7 @@ export function registerTools(ctx, options) {
   add({
     name: 'repo_audit',
     description:
-      'Audit a repository across 8 maturity dimensions (identity, first screen, install, docs, evidence, release, community, brand). Returns a 0-100 score, per-dimension breakdown and a prioritized gap list. Read-only.',
+      'Audit a repository across 8 maturity dimensions / 44 checks (identity, first screen, install, docs, evidence, release, community, brand & visual). Returns a 0-100 score, per-dimension breakdown and a prioritized gap list. Read-only.',
     parameters: {
       type: 'object',
       additionalProperties: false,
@@ -148,7 +148,7 @@ export function registerTools(ctx, options) {
   add({
     name: 'repo_brand',
     description:
-      'Generate a real brand kit from 12 hand-built vector concepts: icon, light/dark logo lockups, light/dark 1280×400 banners, a 1280×640 social card, a concept contact sheet and assets/README.md. Deterministic SVG, no image model. Dry-run lists the 12 concepts; apply writes files and skips existing ones unless force=true.',
+      'Generate a real brand kit from 12 hand-built vector concepts: icon, maskable icon, light/dark logo lockups, light/dark wordmarks, light/dark 1280×400 banners, a 1280×640 social card, a concept contact sheet, brand-tokens.json (palette + WCAG contrast + type/spacing/motion tokens) and assets/README.md. Deterministic SVG, no image model. Dry-run lists files, concepts and contrast checks; apply writes files and skips existing ones unless force=true.',
     parameters: {
       type: 'object',
       additionalProperties: false,

@@ -3,7 +3,7 @@
  * host shell only needs to render a string.
  */
 
-import { buildBrand, applyBrand, CONCEPTS } from './brand.mjs'
+import { buildBrand, applyBrand, brandQA, CONCEPTS } from './brand.mjs'
 import { collectFacts } from './facts.mjs'
 import { formatPlan, planWork } from './plan.mjs'
 import { applyReadme, previewReadme, renderBoth } from './readme.mjs'
@@ -223,23 +223,29 @@ export async function repoBrand(ctx, manager, options, args) {
   const concept = CONCEPTS.find((item) => item.id === conceptId)
   if (!concept) throw new Error(`unknown concept "${conceptId}" (available: ${CONCEPTS.map((item) => item.id).join(', ')})`)
   const lines = []
+  const qa = brandQA(style)
   if (args?.apply === true) {
     const result = applyBrand(facts.root, style.id, { force: args?.force === true, concept: concept.id, tagline: args?.tagline })
     lines.push(`repo_brand · ${facts.name} · style=${style.id} · concept=${concept.id} · apply=true`)
     lines.push(`written: ${result.written.length > 0 ? result.written.join(', ') : '(none)'}`)
     lines.push(`skipped: ${result.skipped.length > 0 ? result.skipped.join(', ') : '(none)'}`)
+    lines.push(`contrast QA: ${result.qa.pass ? 'PASS' : 'FAIL'} (${result.qa.checks.filter((check) => check.pass).length}/${result.qa.checks.length})`)
     return { text: lines.join('\n') }
   }
   const files = buildBrand(facts, style, concept.id, { tagline: args?.tagline })
   lines.push(`repo_brand · ${facts.name} · style=${style.id} · dry-run (nothing written)`)
   lines.push(`palette: ${style.palette.brand} / ${style.palette.deep} / ${style.palette.ink}`)
-  lines.push(`concept: ${concept.id} (${concept.en} · ${concept.zh})${args?.concept ? ' — explicit' : ` — default for ${style.id}`}`)
+  lines.push(`concept: ${concept.id} (${concept.label.en} · ${concept.label.zh})${args?.concept ? ' — explicit' : ` — default for ${style.id}`}`)
+  lines.push(`contrast QA: ${qa.pass ? 'PASS' : 'FAIL'}`)
+  for (const check of qa.checks) {
+    lines.push(`  - ${check.label}: ${check.ratio}:1 ${check.grade} ${check.pass ? 'ok' : 'x'}`)
+  }
   lines.push('')
   lines.push(`files (${Object.keys(files).length}):`)
   for (const [file, content] of Object.entries(files)) lines.push(`- ${file} (${content.length} chars)`)
   lines.push('')
   lines.push('concepts:')
-  for (const item of CONCEPTS) lines.push(`- ${item.id.padEnd(9)} ${item.zh} · ${item.en} · ${item.fit}`)
+  for (const item of CONCEPTS) lines.push(`- ${item.id.padEnd(9)} ${item.label.zh} · ${item.label.en} · ${item.fit}`)
   lines.push('')
   lines.push('apply: node bin/tailor.mjs brand . --style=' + style.id + ' --concept=<id> --apply')
   return { text: lines.join('\n') }

@@ -1,7 +1,7 @@
 {
   "name": "dsh-plugin-tailor",
-  "version": "0.4.1",
-  "description": "Tailor a repository to fit: audit it across 8 maturity dimensions, pick or author a structured README style, draft a bilingual README, generate deterministic brand assets, and verify links before publishing.",
+  "version": "0.5.0",
+  "description": "Tailor a repository to fit: audit it across 8 dimensions / 44 checks, pick or author a structured README style with three layout engines, draft a bilingual README, generate a deterministic 12-file brand kit with WCAG contrast QA, and verify links before publishing.",
   "type": "module",
   "main": "index.js",
   "exports": {

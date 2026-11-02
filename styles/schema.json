@@ -43,6 +43,19 @@
       "type": "object",
       "additionalProperties": { "$ref": "#/definitions/i18n" }
     },
+    "visual": {
+      "type": "object",
+      "description": "Layout engine and visual switches for the README renderer (v0.5+).",
+      "properties": {
+        "engine": { "enum": ["editorial", "centered", "showcase"] },
+        "badgeStyle": { "enum": ["flat-square", "for-the-badge"] },
+        "demoWidth": { "type": "integer", "minimum": 480, "maximum": 960 },
+        "navStyle": { "enum": ["chips", "inline"] },
+        "featureCards": { "type": "boolean" },
+        "footer": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
     "requiredFacts": { "type": "array", "items": { "type": "string" } }
   },
   "definitions": {

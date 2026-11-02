@@ -1,4 +1,4 @@
-# ACCEPTANCE — dsh-plugin-tailor v0.4.1
+# ACCEPTANCE — dsh-plugin-tailor v0.5.0
 
 > 依据 `vibe-playbook/templates/ACCEPTANCE.md`。结案时逐项附证据。
 
@@ -16,13 +16,14 @@
 | 2 | 审计对同一 fixture 可复现打分，good > bare | `npm test` 的 `audit: good fixture scores higher than a bare one` |
 | 3 | 草稿只使用仓库真实事实；缺失项变成 TODO | `readme: renders ... without invented numbers` 用例；人工看 `TODO(tailor)` |
 | 4 | dry-run 不写盘；apply 需显式；手写 README 未 force 拒绝 | `readme apply: refuses hand-written files...` 用例 |
-| 5 | 品牌素材：12 概念可选、每次生成 8 个文件、确定性、默认不覆盖 | `brand: 12 concepts...` 用例；`node bin/tailor.mjs brand . --concept=needle` |
+| 5 | 品牌素材：12 概念可选、每次生成 12 个文件、WCAG 对比度 QA、确定性、默认不覆盖 | `brand: 12 concepts...` 用例；`node bin/tailor.mjs brand . --concept=needle` |
 | 6 | verify 能抓坏链、坏图、坏锚点 | `verify: catches broken links, images and anchors` 用例 |
 | 7 | 宿主注册 6 个工具并可执行 | `host: registers six tools and runs repo_audit` 用例 |
 | 8 | CLI 可用 | `cli: styles command prints all presets` 用例 |
-| 9 | 离线全绿 | `npm test` 输出 pass 16 / fail 0 |
+| 9 | 离线全绿 | `npm test` 输出 pass 18 / fail 0 |
 | 10 | 自举：用插件审计并改造自身仓库 | `docs/EVIDENCE.md` 的 before/after 审计输出 |
 | 11 | 风格是结构化数据，可自定义、可继承、坏文件被跳过 | `styles/*.json` + `styles/schema.json`；测试 `styles: built-in JSON files...`、`styles: custom style extends...`、`styles: invalid custom files...`、`styles: scaffold and CLI style:init...` |
+| 12 | 视觉：3 套版式引擎、12 文件品牌包、WCAG QA、14 项视觉检查 | `visual: engines change...`、`palette: contrast math...` 用例；`repo_brand` dry-run 的 contrast QA；`repo_audit` 品牌维度 14/14 |
 
 ## 非目标
 
@@ -43,8 +44,8 @@
 
 ## 证据清单（结案时附上）
 
-- [ ] `npm test` 全绿输出（16/16）
-- [ ] `node bin/tailor.mjs audit ../dsh-plugin-resolver` 输出（84/100, B）
+- [ ] `npm test` 全绿输出（18/18）
+- [ ] `node bin/tailor.mjs audit ../dsh-plugin-resolver` 输出（81/100, B）
 - [ ] 自举前后分数对比（[EVIDENCE.md](EVIDENCE.md)）
 - [ ] BENCHMARK.md 的实测耗时（中位数、环境）
 - [ ] `npm pack --dry-run` 包清单

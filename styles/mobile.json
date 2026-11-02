@@ -37,6 +37,7 @@
     "badges",
     "title",
     "tagline",
+    "nav",
     "screenshots",
     "why",
     "features",
@@ -88,5 +89,13 @@
   "requiredFacts": [
     "readme",
     "screenshots"
-  ]
+  ],
+  "visual": {
+    "engine": "showcase",
+    "badgeStyle": "for-the-badge",
+    "demoWidth": 860,
+    "navStyle": "chips",
+    "featureCards": true,
+    "footer": true
+  }
 }

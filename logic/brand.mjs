@@ -1,18 +1,21 @@
 /**
- * Brand engine v2.
+ * Brand engine v3.
  *
- * Twelve hand-built vector concepts (not clip-art), two themes, and a contact
- * sheet. Everything is deterministic SVG: no image model, no binary deps.
+ * Twelve hand-built vector concepts (not clip-art), two themes, a contact
+ * sheet, design tokens and contrast QA. Everything is deterministic SVG/JSON:
+ * no image model, no binary deps.
  *
  * File set:
- *   icon.svg, logo.svg (light), logo-dark.svg, banner.svg (dark),
- *   banner-light.svg, social-preview.svg, brand-sheet.svg, README.md
+ *   icon.svg, icon-maskable.svg, logo.svg (light), logo-dark.svg,
+ *   wordmark.svg, wordmark-dark.svg, banner.svg (dark), banner-light.svg,
+ *   social-preview.svg, brand-sheet.svg, brand-tokens.json, README.md
  */
 
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
 import { dirname } from 'node:path'
 
 import { collectFacts } from './facts.mjs'
+import { buildPaletteTokens, contrastChecks, wcagGrade } from './palette.mjs'
 import { loadStyles, resolveStyle } from './styles.mjs'
 import { resolveInside } from './util.mjs'
 
@@ -186,9 +189,22 @@ function layersGlyph(palette, name) {
 /* ------------------------------------------------------------------ */
 
 /**
+ * Design tokens and WCAG contrast checks for a style palette.
+ *
+ * @param {import('./styles.mjs').StylePreset} style
+ * @returns {{ tokens: ReturnType<typeof buildPaletteTokens>, checks: Array<any>, pass: boolean }}
+ */
+export function brandQA(style) {
+  const tokens = buildPaletteTokens(style.palette)
+  const { checks, pass } = contrastChecks(tokens)
+  return { tokens, checks, pass }
+}
+
+/**
  * @param {import('./facts.mjs').RepoFacts} facts
  * @param {import('./styles.mjs').StylePreset} style
  * @param {string} [conceptId]
+ * @param {{ tagline?: string }} [options]
  * @returns {Record<string, string>}
  */
 export function buildBrand(facts, style, conceptId, options = {}) {
@@ -196,15 +212,59 @@ export function buildBrand(facts, style, conceptId, options = {}) {
   const name = facts.name || facts.dirName
   const tagline = options.tagline || facts.description || (facts.readme.generated ? '' : facts.readme.firstParagraph) || ''
   const palette = style.palette
+  const qa = brandQA(style)
+  const tokensJson = {
+    generatedBy: 'dsh-plugin-tailor',
+    style: style.id,
+    concept: concept.id,
+    palette: qa.tokens,
+    design: {
+      spacing: [4, 8, 12, 16, 24, 32, 48, 64, 80],
+      radii: [8, 12, 16, 24, 112],
+      type: {
+        families: { display: 'Inter, Segoe UI, PingFang SC, Microsoft YaHei, sans-serif', body: 'Inter, Segoe UI, PingFang SC, Microsoft YaHei, sans-serif', mono: 'Consolas, SFMono-Regular, Menlo, monospace' },
+        sizes: [12, 14, 16, 19, 24, 30, 44, 64],
+        tracking: { display: '-0.03em', body: '0' },
+      },
+      motion: {
+        press: 90,
+        hover: 160,
+        page: 320,
+        exitRatio: 0.625,
+        easing: { enter: 'cubic-bezier(0.22, 1, 0.36, 1)', exit: 'cubic-bezier(0.4, 0, 1, 1)' },
+        rules: ['no looping decorative motion', 'exit faster than enter', 'start from 0.96 scale + opacity 0'],
+      },
+    },
+    contrast: {
+      pass: qa.pass,
+      checks: qa.checks.map((check) => ({ id: check.id, label: check.label, fg: check.fg, bg: check.bg, ratio: check.ratio, min: check.min, grade: check.grade, pass: check.pass })),
+    },
+    assets: {
+      'assets/icon.svg': { width: 512, height: 512, usage: 'app icon / avatar' },
+      'assets/icon-maskable.svg': { width: 512, height: 512, usage: 'maskable icon (safe area 80%)' },
+      'assets/logo.svg': { width: 760, height: 176, usage: 'light theme lockup' },
+      'assets/logo-dark.svg': { width: 760, height: 176, usage: 'dark theme lockup' },
+      'assets/wordmark.svg': { width: 760, height: 120, usage: 'text-only lockup (light)' },
+      'assets/wordmark-dark.svg': { width: 760, height: 120, usage: 'text-only lockup (dark)' },
+      'assets/banner.svg': { width: 1280, height: 400, usage: 'README hero / release post' },
+      'assets/banner-light.svg': { width: 1280, height: 400, usage: 'light docs / slides' },
+      'assets/social-preview.svg': { width: 1280, height: 640, usage: 'GitHub social preview' },
+      'assets/brand-sheet.svg': { width: 1280, height: 0, usage: 'concept + contrast reference' },
+    },
+  }
   return {
     'assets/icon.svg': iconSvg(concept, palette, name),
+    'assets/icon-maskable.svg': iconMaskableSvg(concept, palette, name),
     'assets/logo.svg': logoSvg(facts, concept, palette, name, tagline, 'light'),
     'assets/logo-dark.svg': logoSvg(facts, concept, palette, name, tagline, 'dark'),
+    'assets/wordmark.svg': wordmarkSvg(facts, concept, palette, name, tagline, 'light'),
+    'assets/wordmark-dark.svg': wordmarkSvg(facts, concept, palette, name, tagline, 'dark'),
     'assets/banner.svg': bannerSvg(facts, concept, palette, name, tagline, 'dark', options.tagline),
     'assets/banner-light.svg': bannerSvg(facts, concept, palette, name, tagline, 'light', options.tagline),
     'assets/social-preview.svg': socialSvg(facts, concept, palette, name, tagline, options.tagline),
     'assets/brand-sheet.svg': sheetSvg(concept, palette, name, style),
-    'assets/README.md': assetsReadme(facts, style, concept, name),
+    'assets/brand-tokens.json': `${JSON.stringify(tokensJson, null, 2)}\n`,
+    'assets/README.md': assetsReadme(facts, style, concept, name, qa),
   }
 }
 
@@ -218,14 +278,6 @@ function tileDefs(palette) {
       <stop offset="0" stop-color="${palette.brand}"/>
       <stop offset="1" stop-color="${palette.deep}"/>
     </linearGradient>
-    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
-      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.06"/>
-      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
-    </radialGradient>
-    <pattern id="tileGrid" width="32" height="32" patternUnits="userSpaceOnUse">
-      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/>
-    </pattern>
   </defs>`
 }
 
@@ -240,9 +292,7 @@ function tileSvg(concept, palette, name, radius = 112) {
   return `<g>
     ${tileDefs(palette)}
     <rect width="512" height="512" rx="${radius}" fill="url(#tile)"/>
-    <rect width="512" height="512" rx="${radius}" fill="url(#tileGlow)"/>
-    <rect width="512" height="512" rx="${radius}" fill="url(#tileGrid)"/>
-    <rect x="5" y="5" width="502" height="502" rx="${radius - 4}" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <rect x="5" y="5" width="502" height="502" rx="${radius - 4}" fill="none" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="2"/>
     ${concept.glyph(palette, name)}
   </g>`
 }
@@ -275,8 +325,56 @@ function logoSvg(facts, concept, palette, name, tagline, mode) {
   const fontSize = fitSize(name, 64, 532, 0.56)
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 176" width="760" height="176" role="img" aria-label="${escapeXml(name)} logo">
   <g transform="translate(8 8) scale(0.3125)">${tileSvg(concept, palette, name)}</g>
-  <text x="204" y="92" font-family="${FONT}" font-size="${fontSize}" font-weight="800" letter-spacing="-1" fill="${text}">${escapeXml(name)}</text>
-  <text x="206" y="130" font-family="${FONT}" font-size="19" fill="${sub}">${escapeXml(truncate(tagline, 50))}</text>
+  <text x="204" y="92" font-family="${FONT}" font-size="${fontSize}" font-weight="800" letter-spacing="-1.5" fill="${text}">${escapeXml(name)}</text>
+  <text x="206" y="130" font-family="${FONT}" font-size="18" letter-spacing="0.2" fill="${sub}">${escapeXml(truncate(tagline, 50))}</text>
+</svg>
+`
+}
+
+/**
+ * Maskable icon: full-bleed background, glyph inside the 80% safe area.
+ *
+ * @param {Concept} concept
+ * @param {any} palette
+ * @param {string} name
+ * @returns {string}
+ */
+function iconMaskableSvg(concept, palette, name) {
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="${escapeXml(name)} maskable icon">
+  <defs>
+    <linearGradient id="mTile" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="${palette.brand}"/>
+      <stop offset="1" stop-color="${palette.deep}"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="${palette.ink}"/>
+  <g transform="translate(77 77) scale(0.7)">
+    <rect width="512" height="512" rx="96" fill="url(#mTile)"/>
+    ${concept.glyph(palette, name)}
+  </g>
+</svg>
+`
+}
+
+/**
+ * Text-only lockup, 760×120.
+ *
+ * @param {import('./facts.mjs').RepoFacts} facts
+ * @param {Concept} concept
+ * @param {any} palette
+ * @param {string} name
+ * @param {string} tagline
+ * @param {'light'|'dark'} mode
+ * @returns {string}
+ */
+function wordmarkSvg(facts, concept, palette, name, tagline, mode) {
+  const text = mode === 'light' ? '#0B1020' : '#F4F7FF'
+  const sub = mode === 'light' ? '#5B6B8C' : '#9FB2D4'
+  const fontSize = fitSize(name, 68, 720, 0.56)
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 120" width="760" height="120" role="img" aria-label="${escapeXml(name)} wordmark">
+  <rect x="8" y="26" width="8" height="68" rx="4" fill="${palette.brand}"/>
+  <text x="40" y="78" font-family="${FONT}" font-size="${fontSize}" font-weight="800" letter-spacing="-1.6" fill="${text}">${escapeXml(name)}</text>
+  <text x="42" y="106" font-family="${FONT}" font-size="15" letter-spacing="0.2" fill="${sub}">${escapeXml(truncate(tagline, 64))}</text>
 </svg>
 `
 }
@@ -322,33 +420,23 @@ function bannerSvg(facts, concept, palette, name, tagline, mode, headline) {
       <stop offset="0" stop-color="${palette.brand}"/>
       <stop offset="1" stop-color="${palette.deep}"/>
     </linearGradient>
-    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
-      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
-    </radialGradient>
     <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-      <path d="M40 0H0V40" fill="none" stroke="${dark ? '#FFFFFF' : '#0B1020'}" stroke-opacity="0.05" stroke-width="1"/>
+      <path d="M40 0H0V40" fill="none" stroke="${dark ? '#FFFFFF' : '#0B1020'}" stroke-opacity="0.045" stroke-width="1"/>
     </pattern>
   </defs>
   <rect width="1280" height="400" fill="url(#bg)"/>
   <rect width="1280" height="400" fill="url(#grid)"/>
-  <text x="1216" y="60" text-anchor="end" font-family="${FONT}" font-size="14" fill="${dark ? '#6F86B8' : '#7B8CAE'}">${escapeXml(truncate(facts.repo ?? facts.homepage ?? '', 52))}</text>
-  <g fill="none" stroke="${dark ? '#FFFFFF' : '#0B1020'}" stroke-opacity="${dark ? 0.06 : 0.05}">
-    <circle cx="1112" cy="206" r="86" stroke-width="1.5"/>
-    <circle cx="1112" cy="206" r="148" stroke-width="1.5"/>
-    <circle cx="1112" cy="206" r="216" stroke-width="1.5"/>
-  </g>
-  <circle cx="1198" cy="154" r="5" fill="${palette.brand}" opacity="0.75"/>
+  <text x="1216" y="60" text-anchor="end" font-family="${FONT}" font-size="13" letter-spacing="0.2" fill="${dark ? '#6F86B8' : '#7B8CAE'}">${escapeXml(truncate(facts.repo ?? facts.homepage ?? '', 52))}</text>
   <g transform="translate(64 58) scale(0.234375)">
     <rect width="512" height="512" rx="112" fill="url(#tile)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
-    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="2"/>
     ${concept.glyph(palette, name)}
   </g>
-  <text x="204" y="118" font-family="${FONT}" font-size="${fitSize(name, 52, 560, 0.56)}" font-weight="800" letter-spacing="-1" fill="${ink}">${escapeXml(name)}</text>
-  <text x="206" y="150" font-family="${FONT}" font-size="17" fill="${dark ? '#8FA3C8' : '#6B7DA3'}">${escapeXml(styleLabel(facts))}</text>
-  ${lines.map((line, index) => `<text x="72" y="${214 + index * 36}" font-family="${FONT}" font-size="26" fill="${dark ? '#DCE6FA' : '#1B2742'}">${escapeXml(line)}</text>`).join('\n  ')}
+  <text x="204" y="118" font-family="${FONT}" font-size="${fitSize(name, 52, 560, 0.56)}" font-weight="800" letter-spacing="-1.5" fill="${ink}">${escapeXml(name)}</text>
+  <text x="206" y="150" font-family="${FONT}" font-size="16" letter-spacing="0.4" fill="${dark ? '#8FA3C8' : '#6B7DA3'}">${escapeXml(styleLabel(facts))}</text>
+  ${lines.map((line, index) => `<text x="72" y="${214 + index * 36}" font-family="${FONT}" font-size="25" letter-spacing="-0.2" fill="${dark ? '#DCE6FA' : '#1B2742'}">${escapeXml(line)}</text>`).join('\n  ')}
   ${chipSvg}
+  <rect x="0" y="396" width="1280" height="4" fill="${palette.brand}" opacity="0.9"/>
 </svg>
 `
 }
@@ -375,32 +463,21 @@ function socialSvg(facts, concept, palette, name, tagline, headline) {
       <stop offset="0" stop-color="${palette.brand}"/>
       <stop offset="1" stop-color="${palette.deep}"/>
     </linearGradient>
-    <radialGradient id="tileGlow" cx="0.22" cy="0.12" r="0.9">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
-      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
-    </radialGradient>
     <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
-      <path d="M48 0H0V48" fill="none" stroke="#FFFFFF" stroke-opacity="0.04" stroke-width="1"/>
+      <path d="M48 0H0V48" fill="none" stroke="#FFFFFF" stroke-opacity="0.035" stroke-width="1"/>
     </pattern>
   </defs>
   <rect width="1280" height="640" fill="url(#bg)"/>
   <rect width="1280" height="640" fill="url(#grid)"/>
-  <g fill="none" stroke="#FFFFFF" stroke-opacity="0.07">
-    <circle cx="1116" cy="300" r="96" stroke-width="1.5"/>
-    <circle cx="1116" cy="300" r="176" stroke-width="1.5"/>
-    <circle cx="1116" cy="300" r="264" stroke-width="1.5"/>
-  </g>
-  <circle cx="1194" cy="214" r="5" fill="${palette.brand}" opacity="0.8"/>
   <g transform="translate(88 92) scale(0.3125)">
     <rect width="512" height="512" rx="112" fill="url(#tile)"/>
-    <rect width="512" height="512" rx="112" fill="url(#tileGlow)"/>
-    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="2"/>
+    <rect x="5" y="5" width="502" height="502" rx="108" fill="none" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="2"/>
     ${concept.glyph(palette, name)}
   </g>
-  <text x="272" y="200" font-family="${FONT}" font-size="${fitSize(name, 58, 880, 0.55)}" font-weight="800" letter-spacing="-1.2" fill="#FFFFFF">${escapeXml(name)}</text>
-  ${lines.map((line, index) => `<text x="274" y="${268 + index * 42}" font-family="${FONT}" font-size="27" fill="${index === 0 ? '#DCE6FA' : '#9FB2D4'}">${escapeXml(line)}</text>`).join('\n  ')}
-  <text x="90" y="566" font-family="${FONT}" font-size="21" fill="${palette.brand === '#FF75B7' ? '#FF9BC9' : '#7FA2FF'}">${escapeXml(truncate(facts.repo ?? facts.homepage ?? name, 52))}</text>
-  <rect x="0" y="636" width="1280" height="4" fill="${palette.brand}" opacity="0.85"/>
+  <text x="272" y="200" font-family="${FONT}" font-size="${fitSize(name, 58, 880, 0.55)}" font-weight="800" letter-spacing="-1.6" fill="#FFFFFF">${escapeXml(name)}</text>
+  ${lines.map((line, index) => `<text x="274" y="${268 + index * 42}" font-family="${FONT}" font-size="26" letter-spacing="-0.2" fill="${index === 0 ? '#DCE6FA' : '#9FB2D4'}">${escapeXml(line)}</text>`).join('\n  ')}
+  <text x="90" y="566" font-family="${FONT}" font-size="20" letter-spacing="0.2" fill="${palette.brand === '#FF75B7' ? '#FF9BC9' : '#8FA8FF'}">${escapeXml(truncate(facts.repo ?? facts.homepage ?? name, 52))}</text>
+  <rect x="0" y="636" width="1280" height="4" fill="${palette.brand}" opacity="0.9"/>
 </svg>
 `
 }
@@ -435,8 +512,24 @@ function sheetSvg(selected, palette, name, style) {
     </g>`
   }).join('\n')
   const rows = Math.ceil(CONCEPTS.length / cols)
-  const height = startY + rows * (tileH + gap) + 70
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 ${height}" width="1280" height="${height}" role="img" aria-label="Brand concept sheet">
+  const qa = brandQA(style)
+  const stripY = startY + rows * (tileH + gap) + 6
+  const height = stripY + 150
+  const swatchKeys = ['brand', 'deep', 'ink', 'green', 'bg', 'border']
+  const swatches = swatchKeys
+    .map((key, index) => {
+      const x = startX + index * 200
+      return `<g transform="translate(${x} ${stripY + 26})">
+        <rect width="184" height="40" rx="10" fill="${palette[key]}" stroke="#22305C"/>
+        <text x="10" y="17" font-family="${FONT}" font-size="11" fill="${key === 'bg' || key === 'ink' ? '#DCE6FA' : (key === 'brand' || key === 'deep' || key === 'green') ? '#FFFFFF' : '#DCE6FA'}">${key}</text>
+        <text x="10" y="32" font-family="Consolas, monospace" font-size="10" fill="#A9BBDA">${palette[key]}</text>
+      </g>`
+    })
+    .join('\n')
+  const contrastText = qa.checks
+    .map((check) => `${check.label} ${check.ratio}:1 ${check.grade}${check.pass ? ' ✓' : ' ✗'}`)
+    .join('   ·   ')
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 ${height}" width="1280" height="${height}" role="img" aria-label="Brand concept sheet with palette contrast">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#0B1020"/>
@@ -448,11 +541,15 @@ function sheetSvg(selected, palette, name, style) {
   </defs>
   <rect width="1280" height="${height}" fill="url(#bg)"/>
   <rect width="1280" height="${height}" fill="url(#grid)"/>
-  <text x="48" y="64" font-family="${FONT}" font-size="30" font-weight="800" fill="#FFFFFF">12 个原创图形概念</text>
+  <text x="48" y="64" font-family="${FONT}" font-size="30" font-weight="800" letter-spacing="-0.6" fill="#FFFFFF">12 个原创图形概念</text>
   <text x="48" y="96" font-family="${FONT}" font-size="15" fill="#8FA3C8">为 ${escapeXml(name)} 的 ${escapeXml(style.label.zh)} 风格生成。默认：${selected.id}。切换：<tspan font-family="Consolas, monospace" fill="#A9BBDA">repo_brand { concept }</tspan></text>
   <text x="48" y="124" font-family="${FONT}" font-size="13" fill="#5F739E">同一仓库、同一概念重复生成字节一致；全部为手写 SVG 几何，无图片模型。</text>
   ${cards}
-  <text x="48" y="${height - 28}" font-family="${FONT}" font-size="13" fill="#5F739E">dsh-plugin-tailor · style=${style.id} · concept=${selected.id} · 明暗两套 lockup + banner + social</text>
+  <rect x="48" y="${stripY}" width="1184" height="1" fill="#22305C"/>
+  <text x="48" y="${stripY + 20}" font-family="${FONT}" font-size="13" font-weight="700" fill="#DCE6FA">调色板 · 对比度 QA ${qa.pass ? 'PASS' : 'FAIL'}</text>
+  ${swatches}
+  <text x="48" y="${stripY + 96}" font-family="${FONT}" font-size="12" fill="${qa.pass ? '#7FE0B0' : '#FF9B9B'}">${escapeXml(contrastText)}</text>
+  <text x="48" y="${height - 28}" font-family="${FONT}" font-size="13" fill="#5F739E">dsh-plugin-tailor · style=${style.id} · concept=${selected.id} · 明暗两套 lockup + banner + social + tokens</text>
 </svg>
 `
 }
@@ -462,27 +559,45 @@ function sheetSvg(selected, palette, name, style) {
  * @param {import('./styles.mjs').StylePreset} style
  * @param {Concept} concept
  * @param {string} name
+ * @param {{ pass: boolean, checks: Array<any> }} qa
  * @returns {string}
  */
-function assetsReadme(facts, style, concept, name) {
+function assetsReadme(facts, style, concept, name, qa) {
+  const contrastRows = qa.checks
+    .map((check) => `| ${check.label} | \`${check.fg}\` / \`${check.bg}\` | ${check.ratio}:1 | ${check.grade} | ${check.pass ? '✅' : '❌'} |`)
+    .join('\n')
   return `# Brand assets
 
 Generated by [dsh-plugin-tailor](https://github.com/sakikoTGW/dsh-plugin-tailor) for \`${name}\`
 in the \`${style.id}\` style, concept \`${concept.id}\` (${concept.label.zh}).
-Re-running with the same inputs is byte-identical.
+Re-running with the same inputs is byte-identical. Contrast QA: **${qa.pass ? 'PASS' : 'FAIL'}**.
 
-| File | What it is | Where it is used |
-|---|---|---|
-| \`icon.svg\` | 512×512 rounded app icon | plugin icon / avatar |
-| \`logo.svg\` | icon + wordmark, light theme | README (light) / docs |
-| \`logo-dark.svg\` | icon + wordmark, dark theme | dark README / releases |
-| \`banner.svg\` | 1280×400 dark banner with facts chips | README hero / release post |
-| \`banner-light.svg\` | 1280×400 light banner | light docs / slides |
-| \`social-preview.svg\` | 1280×640 social card | GitHub Settings → Social preview |
-| \`brand-sheet.svg\` | all ${CONCEPTS.length} concepts side by side | choose a concept |
+| File | Size | What it is | Where it is used |
+|---|---|---|---|
+| \`icon.svg\` | 512×512 | rounded app icon | plugin icon / avatar |
+| \`icon-maskable.svg\` | 512×512 | full-bleed maskable icon, 80% safe area | PWA / Android |
+| \`logo.svg\` | 760×176 | icon + wordmark, light theme | README (light) / docs |
+| \`logo-dark.svg\` | 760×176 | icon + wordmark, dark theme | dark README / releases |
+| \`wordmark.svg\` | 760×120 | text-only lockup, light theme | slides / light docs |
+| \`wordmark-dark.svg\` | 760×120 | text-only lockup, dark theme | dark docs / video |
+| \`banner.svg\` | 1280×400 | dark banner with facts chips | README hero / release post |
+| \`banner-light.svg\` | 1280×400 | light banner | light docs / slides |
+| \`social-preview.svg\` | 1280×640 | social card | GitHub Settings → Social preview |
+| \`brand-sheet.svg\` | 1280×auto | 12 concepts + palette contrast | choose a concept |
+| \`brand-tokens.json\` | — | palette tokens, contrast checks, usage map | design tooling / CI |
+
+## Palette tokens
+
+brand \`${qa.tokens.brand}\` · deep \`${qa.tokens.deep}\` · ink \`${qa.tokens.ink}\` · green \`${qa.tokens.green}\` · bg \`${qa.tokens.bg}\`
+· onBrand \`${qa.tokens.onBrand}\` · onDark \`${qa.tokens.onDark}\` · onLight \`${qa.tokens.onLight}\`.
+
+## Contrast checks (WCAG 2.2)
+
+| Pair | Colors | Ratio | Grade | Pass |
+|---|---|---|---|---|
+${contrastRows}
 
 Concept: \`${concept.id}\` — ${concept.label.zh} / ${concept.label.en}. ${concept.fit}.
-Palette: brand \`${style.palette.brand}\` · deep \`${style.palette.deep}\` · ink \`${style.palette.ink}\`.
 
 Switch concept or regenerate:
 
@@ -591,13 +706,14 @@ function escapeXml(value) {
  * @param {string} root
  * @param {string} styleId
  * @param {{ force?: boolean, concept?: string, tagline?: string }} [options]
- * @returns {{ written: string[], skipped: string[], files: Record<string, string>, concept: string }}
+ * @returns {{ written: string[], skipped: string[], files: Record<string, string>, concept: string, qa: ReturnType<typeof brandQA> }}
  */
 export function applyBrand(root, styleId = 'evidence', options = {}) {
   const facts = collectFacts(root)
   const style = resolveStyle(styleId, loadStyles(facts.root))
   const concept = options.concept ? getConcept(options.concept).id : style.mark
   const files = buildBrand(facts, style, concept, { tagline: options.tagline })
+  const qa = brandQA(style)
   const force = options.force === true
   const written = []
   const skipped = []
@@ -611,5 +727,5 @@ export function applyBrand(root, styleId = 'evidence', options = {}) {
     writeFileSync(target, content, 'utf8')
     written.push(relPath)
   }
-  return { written, skipped, files, concept }
+  return { written, skipped, files, concept, qa }
 }

@@ -10,9 +10,10 @@ Thanks for taking a look. This repository is small on purpose: one plugin, six t
 
 ## What is easy to contribute
 
-- **A new style preset**: add an object to `logic/styles.mjs`, reuse existing section ids, add one fixture case in `test/tailor.test.mjs`.
-- **A new section renderer**: add the id to `logic/readme.mjs` (`renderBodySection`) and to `DEFAULT_H2`.
-- **More rubric checks**: add a check to a dimension in `logic/rubric.mjs`; every check needs a concrete `fix` string.
+- **A new style preset**: add a JSON file under `styles/` (or `.tailor/styles/`), reuse existing section ids, optionally set a `visual` block, add one fixture case in `test/tailor.test.mjs`.
+- **A new section renderer**: add the id to `logic/readme.mjs` (`renderBodySection`) and to `DEFAULT_H2`; register it in `SECTION_IDS` in `logic/style-schema.mjs`.
+- **More rubric checks**: add a check to a dimension in `logic/rubric.mjs`; every check needs a concrete `fix` string and, for visual checks, a fact in `logic/facts.mjs`.
+- **Brand / design**: palettes and contrast live in `logic/palette.mjs`; design rationale lives in `docs/DESIGN.md`.
 - **Docs**: `docs/STYLES.md` and `docs/SPEC.md` are the two places that explain intent.
 
 ## Rules

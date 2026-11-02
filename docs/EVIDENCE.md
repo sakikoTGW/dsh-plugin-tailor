@@ -1,19 +1,19 @@
-# EVIDENCE — dsh-plugin-tailor v0.4.1
+# EVIDENCE — dsh-plugin-tailor v0.5.0
 
 > 结案证据。命令、输出、环境都在这里；结论只引用本文件里出现过的数字。
 
-环境：Windows 11 x64 · Node v24.12.0 · 2026-10-29。
+环境：Windows 11 x64 · Node v24.12.0 · 2026-11-02。
 
 ## 1. 测试
 
 ```text
 $ npm test
-ℹ tests 16
-ℹ pass 16
+ℹ tests 18
+ℹ pass 18
 ℹ fail 0
 ```
 
-覆盖：风格注册与 JSON schema、自定义风格加载/extends/错误跳过/脚手架、facts、audit 排序、plan、README 渲染/落盘安全、品牌确定性、坏链/坏图/坏锚点、宿主注册、CLI。
+覆盖：风格注册与 JSON schema、自定义风格加载/extends/错误跳过/脚手架、facts、audit 排序、plan、README 渲染/落盘安全与版式引擎、品牌确定性/对比度、坏链/坏图/坏锚点、宿主注册、CLI。
 
 结构化风格：`styles/` 下 7 个内置 JSON + `schema.json` + `README.md`；自定义风格从 `.tailor/styles/` 或 `~/.tailor/styles/` 加载，`extends` 合并后校验，无效文件跳过并在 `repo_styles` 中报告。
 
@@ -37,10 +37,10 @@ score=100/100 · grade=A · gaps=0
 
 ```text
 $ node bin/tailor.mjs audit ../dsh-plugin-resolver --style=evidence
-score=84/100 · grade=B · gaps=6
+score=81/100 · grade=B · gaps=10
 ```
 
-缺口：文档目录、CONTRIBUTING/SECURITY/Issue 模板、README 的「用法」小节。这是真实缺口，不是为演示造出来的。
+缺口：文档目录、CONTRIBUTING/SECURITY/Issue 模板、README 的「用法」小节，以及 v0.5 新增的视觉口径（maskable/wordmark/tokens/浅色 banner）——真实缺口，不是为演示造出来的。
 
 `repo_verify`：
 
@@ -72,27 +72,29 @@ CLI（5 次中位数）：`audit` 248 ms、`plan` 254 ms、`readme` 228 ms、`br
 
 ## 5. 生成物与包
 
-- `assets/`：品牌引擎生成 8 个文件（icon、明暗 logo、明暗 banner、social、brand-sheet、README），另加手写的 pipeline / styles / stats / features / before-after 图；`demo.gif`、`concepts.gif`、`actions.png`、`tools-*.png`、`audit-resolver.png` 由真实运行/截图渲染。
+- `assets/`：品牌引擎生成 12 个文件（icon、maskable、明暗 logo、明暗 wordmark、明暗 banner、social、brand-sheet、brand-tokens.json、README），另加手写的 pipeline / styles / stats / features / before-after 图；`demo.gif`、`concepts.gif`、`mark-motion.gif`、`actions.png`、`tools-*.png`、`audit-resolver.png` 由真实运行/截图/品牌 SVG 渲染。
 - 品牌概念 12 个：`needle`、`stitch`、`quill`、`arcs`、`orbit`、`prompt`、`bubble`、`radar`、`hexstack`、`monogram`、`spark`、`layers`；本仓库默认 `needle`，`assets/brand-sheet.svg` 是 12 概念对照，`concepts.gif` 是逐个展示。
 - `styles/`：7 个内置风格 JSON + `schema.json` + 字段说明；自定义风格从 `.tailor/styles/`（仓库）或 `~/.tailor/styles/`（本机）加载，`extends` 合并后校验。
 - `npm pack` 包内容：`index.js`、`host/`、`logic/`、`bin/`、`styles/`、`cordis.patch.yml`、双语 README、docs、assets；`test/`、`bench/`、`.tailor/`、`demo/` 不进包（见 `npm pack --dry-run`）。
-- 包体积：**790.8 kB**（tarball）/ **1.1 MB**（unpacked），**57 个文件**；GitHub Release 附带同一份 `.tgz`。
+- 包体积：**958.3 kB**（tarball）/ **1.3 MB**（unpacked），**64 个文件**；GitHub Release 附带同一份 `.tgz`。
+- 视觉：44 项检查中品牌维度 14 项、权重 20%；调色板 WCAG 对比度 QA PASS 6/6；`brand-tokens.json` 含 spacing / type / motion token。
+- 动效：`mark-motion.gif` 6 帧，时长按 120/120/160/220/320/2000ms；只解释构造过程，不做装饰循环。
+- 设计依据：[DESIGN.md](DESIGN.md)（emotion-design / apple-design / hallmark 的规则落成本仓库 token 与检查项）。
 
 ## 6. npm 发布
-
 ```text
 $ npm publish --access public
-+ dsh-plugin-tailor@0.4.1
++ dsh-plugin-tailor@0.5.0
 
 $ npm view dsh-plugin-tailor version
-0.4.1
+0.5.0
 $ npm view dsh-plugin-tailor dist-tags --json
-{ "latest": "0.4.1" }
+{ "latest": "0.5.0" }
 ```
 
-- 安装冒烟：`npm install --prefix <tmp> dsh-plugin-tailor@0.4.1` → `.bin/dsh-repo-tailor styles --json` 返回 7 个内置风格与 `dirs`。
-- registry tarball 与本地 `npm pack` 同为 57 files / 790.8 kB。
-- registry 里另有一个无 bin 的 `0.0.0-stage` 占位版本，已 deprecate；`latest` 指向 0.4.1。
+- 安装冒烟：`npm install --prefix <tmp> dsh-plugin-tailor@0.5.0` → `.bin/dsh-repo-tailor styles --json` 返回 7 个内置风格与 `dirs`。
+- registry tarball 与本地 `npm pack` 同为 64 files / 958.3 kB（v0.5.0 发布后以 `npm view` 为准）。
+- registry 里另有一个无 bin 的 `0.0.0-stage` 占位版本，已 deprecate；`latest` 指向 0.5.0。
 
 ## 7. 已知限制（不掩饰）
 
