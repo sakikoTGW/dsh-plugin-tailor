@@ -92,8 +92,8 @@ $ npm view dsh-plugin-tailor dist-tags --json
 { "latest": "0.5.0" }
 ```
 
-- 安装冒烟：`npm install --prefix <tmp> dsh-plugin-tailor@0.5.0` → `.bin/dsh-repo-tailor styles --json` 返回 7 个内置风格与 `dirs`。
-- registry tarball 与本地 `npm pack` 同为 64 files / 958.3 kB（v0.5.0 发布后以 `npm view` 为准）。
+- 安装冒烟：`npm install --prefix <tmp> dsh-plugin-tailor@0.5.0` → `.bin/dsh-repo-tailor brand .` 输出 `contrast QA: PASS`（6 项）；`styles --json` 返回 7 个内置风格与 `dirs`。
+- registry tarball 与本地 `npm pack` 同为 64 files / 958.3 kB；`latest` 指向 0.5.0（2026-11-02）。
 - registry 里另有一个无 bin 的 `0.0.0-stage` 占位版本，已 deprecate；`latest` 指向 0.5.0。
 
 ## 7. 已知限制（不掩饰）
