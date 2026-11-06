@@ -1,7 +1,5 @@
-<!-- generated-by: dsh-plugin-tailor style=evidence lang=zh (draft scaffold, hand-polished) -->
-
 <p align="center">
-  <img src="assets/banner.svg" alt="dsh-plugin-tailor：把仓库从能跑改到敢发布" width="100%">
+  <img src="assets/hero-promo.png" alt="dsh-plugin-tailor — make your repository worth showing" width="100%">
 </p>
 
 <p align="center">
@@ -9,70 +7,46 @@
 </p>
 
 <p align="center">
-  <img alt="version" src="https://img.shields.io/badge/version-0.5.0-4D6BFE?style=flat-square">
-  <a href="https://www.npmjs.com/package/dsh-plugin-tailor"><img alt="npm" src="https://img.shields.io/npm/v/dsh-plugin-tailor?style=flat-square&color=CB3837&logo=npm&logoColor=white"></a>
-  <a href="https://github.com/sakikoTGW/dsh-plugin-tailor/releases"><img alt="release" src="https://img.shields.io/github/v/release/sakikoTGW/dsh-plugin-tailor?style=flat-square&color=2FBF71"></a>
-  <img alt="license" src="https://img.shields.io/badge/license-MIT-263146?style=flat-square">
-  <img alt="DSH" src="https://img.shields.io/badge/DSH-%3E%3D0.2.0--rc.2%20%3C0.3.0-4D6BFE?style=flat-square">
+  <a href="https://www.npmjs.com/package/dsh-plugin-tailor"><img alt="npm" src="https://img.shields.io/npm/v/dsh-plugin-tailor?style=flat-square&color=7C5CFF&logo=npm&logoColor=white"></a>
+  <img alt="version" src="https://img.shields.io/badge/version-0.5.0-7C5CFF?style=flat-square">
+  <img alt="tests" src="https://img.shields.io/badge/tests-18%2F18-2FBF71?style=flat-square">
+  <img alt="rubric" src="https://img.shields.io/badge/rubric-44%20checks-2FBF71?style=flat-square">
+  <a href="LICENSE"><img alt="MIT" src="https://img.shields.io/badge/license-MIT-263146?style=flat-square"></a>
+  <img alt="DSH" src="https://img.shields.io/badge/DSH-0.2.0--rc.2%2B-7C5CFF?style=flat-square">
   <img alt="Node" src="https://img.shields.io/badge/node-%3E%3D20-339933?style=flat-square&logo=node.js&logoColor=white">
-  <a href="https://github.com/sakikoTGW/dsh-plugin-tailor/actions/workflows/test.yml"><img alt="test" src="https://img.shields.io/badge/test-18%2F18-2FBF71?style=flat-square"></a>
-  <img alt="checks" src="https://img.shields.io/badge/rubric-44%20checks-2FBF71?style=flat-square">
 </p>
 
-# dsh-plugin-tailor
+<p align="center"><sub><b>44 项检查</b> · <b>18/18 测试</b> · <b>7 种风格</b> · <b>3 套版式</b> · <b>12 个品牌文件</b> · MIT</sub></p>
 
-> 把仓库从「能跑」改到「敢发布」：审计 → 选风格 → 品牌素材 → 双语 README → 发布前校验。
-
-<p align="center"><sub>MIT · Node &gt;=20 · DSH &gt;=0.2.0-rc.2 &lt;0.3.0 · v0.5.0</sub></p>
-
-<p align="center">
-  <a href="#快速开始"><b>安装</b></a> · <a href="#七种风格">七种风格</a> · <a href="#六个工具">六个工具</a> · <a href="#路线图">路线图</a>
-</p>
-
-<p align="center">
-  <img src="assets/stats.svg" alt="8 维审计、44 项检查、7 种风格、12 个原创图形概念" width="100%">
-</p>
-
-<p align="center">
-  <img src="assets/demo.gif" alt="真实终端：repo_audit 给 dsh-plugin-resolver 打 81 分，repo_verify 返回 PASS" width="760">
-</p>
-<p align="center"><sub>真实输出：<code>tailor audit ../dsh-plugin-resolver</code> 与 <code>tailor verify …</code>（<a href="demo/demo.tape">VHS tape</a> 可重录）</sub></p>
-
-## 目录
-
-- [为什么需要它](#为什么需要它)
-- [怎么工作](#怎么工作)
-- [功能](#功能)
-- [快速开始](#快速开始)
-- [六个工具](#六个工具)
-- [七种风格](#七种风格)
-- [自定义风格](#自定义风格)
-- [品牌素材](#品牌素材)
-- [视觉系统](#视觉系统)
-- [工具输出](#工具输出)
-- [效果与证据](#效果与证据)
-- [结构](#结构)
-- [测试与 CI](#测试与-ci)
-- [已知限制](#已知限制)
-- [权限与安全边界](#权限与安全边界)
-- [FAQ](#faq)
-- [路线图](#路线图)
-- [生态与收录](#生态与收录)
-- [反馈与安全](#反馈与安全)
-- [License](#license)
-
-## 为什么需要它
-
-- **README 停在“能跑”**：安装命令藏在 docs、demo 是随手截图、限制一条不写；项目越好，越吃亏在表达。
-- **每换一个仓库就重做一遍**：首屏、徽章、目录、素材、发布检查，全是重复劳动，风格还无法复用。
-- **发布前没人检查**：相对链接、锚点、图片、TODO、测试数量过期，通常等读者发现。
-- **“好看”没有标准**：与其模仿某一个模板，不如把优秀仓库的共性拆成可选的风格预设 + 可执行的检查项。
-
-本插件做的事：把仓库成熟度拆成 **8 维 44 项检查**，把 README 风格拆成 **7 个预设**，把品牌素材变成**确定性 SVG**，把发布前检查变成一条 `repo_verify`。
+## 效果
 
 <p align="center">
   <img src="assets/before-after.svg" alt="手工 README 对比 tailor 生成：demo、证据、品牌、链接检查" width="100%">
 </p>
+
+<p align="center"><sub>同一仓库：手工 README → tailor 生成。首屏、demo、证据、品牌、链接检查一次成型。</sub></p>
+
+本仓库就是用自己重写的：审计分 **37 → 100**（D → A），`dsh-plugin-resolver` 用同一套工具做到 **81/100 · verify PASS**。
+
+## 安装
+
+```sh
+# 1) DSH 插件（推荐）
+dsh plugin --profile <profile> add dsh-plugin-tailor
+
+# 2) CLI（不需要 DSH）
+npm install -g dsh-plugin-tailor
+dsh-repo-tailor styles
+
+# 3) 离线：源码或 Release tarball
+git clone https://github.com/sakikoTGW/dsh-plugin-tailor
+```
+
+把这句话交给你的 agent：
+
+```text
+用 dsh-plugin-tailor 审计这个仓库，按 product 风格重写 README 和品牌素材，最后跑 verify。
+```
 
 ## 怎么工作
 
@@ -80,364 +54,67 @@
   <img src="assets/pipeline.svg" alt="repo_audit → repo_plan → repo_brand → repo_readme → repo_verify" width="100%">
 </p>
 
-1. **`repo_audit`**：读 `package.json`、README、assets、CI、git 状态，按 8 维 44 项检查打分，输出按影响排序的缺口。
-2. **`repo_plan`**：把缺口变成 P0/P1/P2 任务；每条带验收标准与 `repo_verify` 命令，风格缺口（缺 GIF、缺截图、缺英文页）也进任务。
-3. **`repo_brand`**：按所选风格的调色板与图标字形，生成 `icon.svg` / `logo.svg` / `banner.svg` / `social-preview.svg`；确定性、无图片模型、不覆盖已有文件。
-4. **`repo_readme`**：按风格组装 zh/en 草稿；只使用仓库真实事实，缺失项变成 `TODO(tailor)`；默认 dry-run 给 diff，`apply` 才落盘。
-5. **`repo_verify`**：复跑审计 + 相对链接、图片、锚点、徽章、必需章节、剩余 TODO 检查，报告 PASS/FAIL 与 baseline 分数差。
+| 阶段 | 工具 | 结果 |
+|---|---|---|
+| 审计 | `repo_audit` | 8 维 44 项、0–100 分、按影响排序的缺口 |
+| 规划 | `repo_plan` | P0/P1/P2 任务，每条带验收与 verify 命令 |
+| 品牌 | `repo_brand` | 12 个确定性 SVG + 对比度 QA |
+| README | `repo_readme` | 双语草稿、版式引擎、diff、写保护 |
+| 校验 | `repo_verify` | 链接、图片、锚点、章节、TODO、PASS/FAIL |
 
-## 功能
+写操作默认 dry-run；手写 README 与已有素材默认保留，`force` 才覆盖。
 
-<p align="center">
-  <img src="assets/features.svg" alt="六个能力：repo_audit、repo_readme、repo_brand、双语对等、写保护、repo_verify" width="100%">
-</p>
+## 生态
 
-- **8 维 44 项审计**：身份、首屏、安装、文档、证据、发布、社区、品牌；每条缺口都带具体修法，不只是打分。
-- **7 种风格 + 双语草稿**：从证据优先到极简排版，先看 diff 再落盘。
-- **风格可自创**：内置风格是 7 份 JSON；自定义放在 `.tailor/styles/` 或 `~/.tailor/styles/`，支持 `extends` 继承与 schema 校验。
-- **12 个原创图形概念 × 12 个品牌文件**：`icon` / maskable / 明暗 logo / 明暗 wordmark / 明暗 banner / `social` / `brand-sheet` / `brand-tokens.json` / 索引；同一仓库重复生成字节一致。
-- **视觉 QA**：调色板自动算 WCAG 对比度，`repo_brand` 输出 PASS/FAIL；审计含 14 项品牌与视觉检查（尺寸、比例、明暗配对、alt、首屏图、宽度控制）。
-- **3 套 README 版式引擎**：`editorial` / `centered` / `showcase`，风格 JSON 里用 `visual` 字段配置，不是同一模板换色。
-- **写保护**：手写 README、已有素材、脏 worktree 默认拒绝，必须显式 `force`。
-- **发布前校验**：相对链接、图片、锚点、徽章、必需章节、剩余 TODO，一条命令给出 PASS/FAIL。
-- **CLI 与 DSH 工具同源**：`bin/tailor.mjs` 和六个工具调用同一套 logic，终端里能复现。
+- [dsh-plugins](https://github.com/sakikoTGW/dsh-plugins) — 插件集与 catalog
+- [dsh-plugin-resolver](https://github.com/sakikoTGW/dsh-plugin-resolver) — 用一条工具调用装对插件
+- npm：[dsh-plugin-tailor](https://www.npmjs.com/package/dsh-plugin-tailor)
+- 风格目录与 schema：[styles/README.md](styles/README.md)
 
-## 快速开始
+## 能力矩阵
 
-> **已发布到 npm 与 GitHub Release（v0.5.0）。三种装法：**
-
-```sh
-# 1) DSH 插件（推荐，直接从 npm 装）
-dsh plugin --profile <profile> add dsh-plugin-tailor
-
-# 2) CLI 全局安装（不需要 DSH 也能用）
-npm install -g dsh-plugin-tailor
-dsh-repo-tailor styles
-
-# 3) 离线：源码或 Release tarball
-git clone https://github.com/sakikoTGW/dsh-plugin-tailor
-dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor
-dsh plugin --profile <profile> add /path/to/dsh-plugin-tailor-0.5.0.tgz
-```
-
-装完重启一次引擎，六个 `repo_*` 工具上线。之后改 `logic/` 下一次调用即生效，改 `host/register.js` 或 `index.js` 需要重启引擎。
-
-不装插件也能用 CLI，和工具走同一套逻辑：
-
-```sh
-node bin/tailor.mjs styles                    # 列出 7 种风格
-node bin/tailor.mjs audit . --style=terminal   # 打分 + 缺口
-node bin/tailor.mjs plan . --style=terminal    # 任务清单
-node bin/tailor.mjs brand . --style=playful --apply
-node bin/tailor.mjs readme . --style=evidence --lang=both
-node bin/tailor.mjs verify . --style=evidence
-node bin/tailor.mjs style:init . --id=my-style --extends=evidence   # 自创风格
-```
-
-<p align="center">
-  <img src="assets/tools-help.png" alt="CLI help：六个命令与示例" width="100%">
-</p>
-<p align="center"><sub><code>tailor --help</code>：六个命令和示例，和 DSH 工具共用同一套逻辑。</sub></p>
-
-在 DSH 里直接调用：
-
-```text
-repo_audit  { path: ".", style: "terminal" }
-repo_plan   { path: ".", style: "terminal" }
-repo_readme { path: ".", style: "terminal", lang: "both" }
-repo_brand  { path: ".", style: "terminal", apply: true }
-repo_verify { path: ".", style: "terminal" }
-```
-
-## 六个工具
-
-| 工具 | 读写 | 主要参数 | 返回 |
+| 工具 | 读写 | 输入 | 输出 |
 |---|---|---|---|
-| `repo_styles` | 读 | `path?`, `json?` | 内置 + 自定义风格的 id、来源（builtin/global/repo）、校验错误；`json: true` 返回机器可读结构 |
-| `repo_audit` | 读 | `path`, `style?` | 0-100 分、8 维明细、按影响排序的 gaps、风格缺口 |
-| `repo_plan` | 读 | `path`, `style?`, `limit?` | P0/P1/P2 任务，每条带 acceptance 与 verify |
-| `repo_readme` | dry-run / 写 | `path`, `style?`, `lang?`, `apply?`, `force?` | diff、TODO 清单、风格缺口 |
-| `repo_brand` | dry-run / 写 | `path`, `style?`, `concept?`, `tagline?`, `apply?`, `force?` | 12 个文件（12 概念可选） |
-| `repo_verify` | 读 | `path`, `style?` | PASS/FAIL、逐项检查、剩余 TODO、分数差 |
+| `repo_styles` | 读 | `path?`, `json?` | 内置 + 自定义风格、来源、校验错误 |
+| `repo_audit` | 读 | `path`, `style?` | 分数、维度明细、gaps |
+| `repo_plan` | 读 | `path`, `style?`, `limit?` | P0/P1/P2 + acceptance + verify |
+| `repo_readme` | dry-run / 写 | `path`, `style?`, `lang?`, `apply?`, `force?` | diff、TODO、风格缺口 |
+| `repo_brand` | dry-run / 写 | `path`, `style?`, `concept?`, `apply?`, `force?` | 12 个品牌文件 |
+| `repo_verify` | 读 | `path`, `style?` | PASS/FAIL、逐项检查、剩余 TODO |
 
-写操作默认 dry-run；手写 README 或已有素材默认拒绝/跳过，必须显式 `force` 才覆盖；worktree 脏且未 `force` 时直接拒绝。
+## 能力（Features）
 
-## 七种风格
+- **7 种风格 + 3 套版式** — 内置风格是 JSON；`editorial` / `centered` / `showcase` 由 `visual` 字段配置。
+- **自定义风格** — 放在 `.tailor/styles/` 或 `~/.tailor/styles/`，支持 `extends` 与 schema 校验。
+- **12 文件品牌套件** — icon / maskable / 明暗 logo / 明暗 wordmark / 明暗 banner / social / brand-sheet / tokens / 索引。
+- **视觉 QA** — 调色板 WCAG 对比度、14 项品牌与视觉检查。
+- **双语** — zh / en 结构对等，同一套事实源。
+- **发布前校验** — 坏链、坏图、坏锚点、缺失章节、剩余 TODO，一条命令 PASS/FAIL。
 
-<p align="center">
-  <img src="assets/styles.svg" alt="7 种 README 风格预设：证据优先、终端工具、移动端社群、GIF 教程、品牌产品页、面板平台、极简排版" width="100%">
-</p>
-
-| id | 风格 | 语言 | 首屏 | demo | 默认图形 | 适合 |
-|---|---|---|---|---|---|---|
-| `evidence` | 证据优先 | 双语 | banner | GIF | `arcs` | 有基准/测试的工程仓库 |
-| `terminal` | 终端工具 | 双语 | 居中 logo | GIF | `prompt` | 有品牌 logo 的命令行工具 |
-| `mobile` | 移动端 · 社群 | 中文优先 | banner | 截图 | `orbit` | App / 移动端 / 社群产品 |
-| `playful` | GIF 开场 · 教程 | 英文优先 | logo | GIF | `bubble` | TUI / 开发者工具 |
-| `product` | 品牌产品页 | 英文优先 | 品牌 banner | 截图 | `radar` | 面向普通用户的产品 |
-| `platform` | 面板平台 | 双语 | 居中 logo | GIF | `hexstack` | 面板 / 平台 |
-| `minimal` | 极简排版 | 英文优先 | 无图 | 无 | `monogram` | 成熟工具 / 框架 |
-
-选择建议、每个预设的章节顺序、以及“优秀仓库的 12 个共性”写在 [docs/STYLES.md](docs/STYLES.md)。
-
-## 自定义风格
-
-7 个内置风格不是代码，是 7 份 **JSON 数据**（`styles/*.json`）。你自己的风格也是 JSON：放在仓库的 `.tailor/styles/` 或本机的 `~/.tailor/styles/`，加载时自动合并、校验，无需改逻辑。
+## 验证
 
 ```sh
-cp styles/evidence.json .tailor/styles/acme.json
-# 改成自己的 id / 文案 / 调色板，然后
-node bin/tailor.mjs styles .              # 看到 acme（repo 来源）
-node bin/tailor.mjs readme . --style=acme --lang=both
+npm test                                         # 18/18
+node bin/tailor.mjs verify . --style=evidence    # PASS
+node bin/tailor.mjs audit . --style=evidence     # 100/100
 ```
 
-也可以从现有风格继承，只覆盖要改的字段：
-
-```sh
-node bin/tailor.mjs style:init . --id=acme --extends=evidence
-```
+## Agent contract
 
 ```json
 {
-  "extends": "evidence",
-  "id": "acme",
-  "label": { "zh": "Acme 证据风", "en": "Acme evidence" },
-  "palette": { "brand": "#E4572E", "deep": "#B23A1C" },
-  "labels": { "install": { "zh": "开始使用", "en": "Get started" } }
+  "tools": ["repo_styles", "repo_audit", "repo_plan", "repo_readme", "repo_brand", "repo_verify"],
+  "styles": "JSON presets with extends + schema validation",
+  "writes": ["README.md", "README.en.md", "assets/*.svg", "assets/README.md", ".tailor/baseline.json"],
+  "safety": "dry-run default; hand-written README and existing assets preserved unless force",
+  "verify": "links, images, anchors, required sections, remaining TODO"
 }
 ```
 
-- 加载顺序：内置 → `~/.tailor/styles` → `<repo>/.tailor/styles`；同 id 后者覆盖前者。
-- `extends` 逐键合并：`label` / `palette` / `labels` 等对象合并，`sections` / `badgeSet` 数组替换。
-- 每个字段的含义、允许值、完整 schema 见 [styles/README.md](styles/README.md) 与 [styles/schema.json](styles/schema.json)。
-- 写坏的风格文件会被**跳过**并在 `repo_styles` 里列出文件与原因，其他风格照常可用。
-- 机器可读：`tailor styles . --json`（DSH 工具 `repo_styles { json: true }`）输出 `styles` / `dirs` / `errors`，给 GUI 或其他 agent 用。
-- 所有工具（`repo_audit` / `repo_plan` / `repo_readme` / `repo_brand` / `repo_verify`）都接受自定义 `style` id。
+## 结语
 
-## 品牌素材
+把仓库从能跑，改到敢发布。
 
-<p align="center">
-  <img src="assets/brand-sheet.svg" alt="12 个原创图形概念：needle、stitch、quill、arcs、orbit、prompt、bubble、radar、hexstack、monogram、spark、layers" width="100%">
-</p>
+[npm](https://www.npmjs.com/package/dsh-plugin-tailor) · [GitHub](https://github.com/sakikoTGW/dsh-plugin-tailor) · [Issues](https://github.com/sakikoTGW/dsh-plugin-tailor/issues) · [dsh-plugins](https://github.com/sakikoTGW/dsh-plugins)
 
-`repo_brand` 不是换一张模板图，而是从 12 个手写几何概念里选，配上风格调色板和明暗两套版式：
-
-<p align="center">
-  <img src="assets/concepts.gif" alt="12 个图形概念逐个展示：needle、stitch、quill、arcs、orbit、prompt、bubble、radar、hexstack、monogram、spark、layers" width="560">
-</p>
-<p align="center"><sub>12 个概念，每帧一个；完整对照见上面的 brand-sheet。</sub></p>
-
-<table align="center">
-  <tr>
-    <td align="center" valign="middle"><img src="assets/logo-dark.svg" alt="深色版 logo" width="330"><br><sub>logo-dark</sub></td>
-    <td align="center" valign="middle"><img src="assets/icon.svg" alt="512 图标" width="120"><br><sub>icon</sub></td>
-  </tr>
-</table>
-
-<p align="center">
-  <img src="assets/banner-light.svg" alt="浅色版 banner：1280×400" width="100%">
-</p>
-<p align="center"><sub>明暗两套 banner / logo：深色给 README，浅色给文档与幻灯片。</sub></p>
-
-| 概念 | 适合 | 概念 | 适合 |
-|---|---|---|---|
-| `needle` 针线 | 裁缝 / 定制 / 精修 | `stitch` 缝线勾 | 完成 / 校验 / 交付 |
-| `quill` 羽毛笔 | 写作 / 文档 / 叙事 | `arcs` 上升弧 | 增长 / 指标 / 证据 |
-| `orbit` 轨道 | 网络 / 远端 / 连接 | `prompt` 提示符 | CLI / 终端 / 工具 |
-| `bubble` 对话泡 | 产品 / 交互 / 轻松 | `radar` 雷达 | 监控 / 扫描 / 安全 |
-| `hexstack` 面板栈 | 平台 / 面板 / 分层 | `monogram` 字母环 | 成熟工具 / 极简 |
-| `spark` 四角星 | 通用 / 品牌 / 高光 | `layers` 叠层 | 架构 / 模块 / 复用 |
-
-一次生成 12 个文件：
-
-| 文件 | 尺寸 | 用途 |
-|---|---|---|
-| `icon.svg` | 512×512 | 图标 / 头像 |
-| `icon-maskable.svg` | 512×512 | PWA / Android，80% 安全区 |
-| `logo.svg` / `logo-dark.svg` | 760×176 | 浅色 / 深色 lockup |
-| `wordmark.svg` / `wordmark-dark.svg` | 760×120 | 纯文字 lockup，给 slides / 视频 |
-| `banner.svg` / `banner-light.svg` | 1280×400 | 深 / 浅横幅 |
-| `social-preview.svg` | 1280×640 | GitHub social preview |
-| `brand-sheet.svg` | 1280×auto | 12 概念对照 + 调色板对比度 |
-| `brand-tokens.json` | — | 调色板 / 对比度 / 字体 / 间距 / 动效 token |
-| `assets/README.md` | — | 素材索引、用法与切换命令 |
-
-调色板会先做 WCAG 检查，再写进 `brand-tokens.json`：正文对比 ≥7:1、图形 ≥3:1，`repo_brand` dry-run 直接列出每一项。
-
-```sh
-node bin/tailor.mjs brand . --style=evidence --concept=needle \
-  --tagline="From it runs to ship it." --apply --force
-```
-
-默认 dry-run 只列文件、概念和对比度；`apply` 才写盘，已有文件默认跳过。
-
-## 视觉系统
-
-视觉不是“加一张 banner”，而是一套可解释的规则。设计与动效原则写在 [docs/DESIGN.md](docs/DESIGN.md)（来自 emotion-design / apple-design / hallmark：先定情绪、动效必须有信息量、不画假终端 chrome、间距与字号进 token）。
-
-<p align="center">
-  <img src="assets/mark-motion.gif" alt="Logo 构造动效：网格 → mark → tile → lockup → identity，每拍都有说明" width="640">
-</p>
-<p align="center"><sub>标记构造：6 拍、约 3 秒；最后一拍停 2 秒，不做装饰性循环。</sub></p>
-
-3 套版式引擎，写进风格 JSON 的 `visual` 字段，自定义风格也能选：
-
-| engine | 用它的风格 | 首屏 | 导航 | demo | 特点 |
-|---|---|---|---|---|---|
-| `editorial` | `evidence` / `minimal` | 左对齐 banner 或纯文字 | inline 链接 | 720–760px | 像长文，信息密度高 |
-| `centered` | `terminal` / `platform` | 居中 logo + 居中 H1 | `<kbd>` chips | 760px | 像产品主页，锚点明确 |
-| `showcase` | `mobile` / `playful` / `product` | 全宽 banner + 居中 H1 | `<kbd>` chips | 860px | 像发布页，视觉先行 |
-
-可配置项：`engine`、`badgeStyle`（flat-square / for-the-badge）、`demoWidth`、`navStyle`、`featureCards`、`footer`；schema 见 [styles/README.md](styles/README.md)。
-
-视觉检查现在是 14 项（品牌维度权重 20%）：logo 尺寸/比例、明暗配对、banner 比例、social 2:1、maskable、wordmark、tokens、demo 资产、README 图片数、alt 覆盖率、首屏图位置、图片宽度控制等。`repo_audit` 会把这些缺口按影响排序。
-
-## 工具输出
-
-真实 CLI 输出，不是示意图；截图由实际 stdout 渲染，命令写在图里。
-
-<p align="center">
-  <img src="assets/tools-styles.png" alt="repo_styles 输出：7 个风格的 id、语言、首屏和说明" width="100%">
-</p>
-<p align="center"><sub><code>tailor styles</code>：只描述风格本身，不带仓库名。</sub></p>
-
-<p align="center">
-  <img src="assets/tools-brand.png" alt="repo_brand dry-run：12 个文件、12 个概念与对比度 QA" width="100%">
-</p>
-<p align="center"><sub><code>tailor brand . --style=evidence --concept=needle</code>：dry-run 列出 12 个文件、12 个概念和 6 项对比度检查。</sub></p>
-
-<p align="center">
-  <img src="assets/tools-verify.png" alt="repo_verify PASS 输出：链接、图片、锚点、章节、TODO 逐项通过" width="100%">
-</p>
-<p align="center"><sub><code>tailor verify</code>：PASS 时逐项列出链接、图片、锚点、章节与 TODO。</sub></p>
-
-## 效果与证据
-
-<p align="center">
-  <img src="assets/audit-resolver.png" alt="repo_audit 对 dsh-plugin-resolver 的真实输出：81/100，B 级，10 个缺口" width="100%">
-</p>
-
-- **自举**：本仓库用自己补文档/品牌/README，审计分 **37 → 100**（D → A）；`dsh-plugin-resolver` 审计 **81/100（B）**，`repo_verify` 返回 `PASS`。
-- **测试**：18 项离线测试（`npm test`，pass 18 / fail 0），CI 在 Node 20/22/24 上跑。
-- **纯逻辑耗时**：`auditFacts` **0.01 ms**、`renderReadme` **0.03 ms**、`verifyFacts` **0.03 ms**；`collectFacts` 因为要起 4 个 `git` 子进程约 **109–794 ms**（视仓库大小）。
-- **CLI 端到端**：`tailor audit .` 中位数 **248 ms**，其中约 200 ms 是 Node 启动。
-- **口径**：环境、方法、输出体积都写在 [BENCHMARK.md](BENCHMARK.md)；自举前后与测试输出在 [docs/EVIDENCE.md](docs/EVIDENCE.md)。
-
-## 结构
-
-```text
-index.js            host half：注册工具、热加载 logic
-host/register.js    tool schema（稳定，改动需重启）
-logic/
-  api.js            6 个工具入口
-  facts.mjs         只读仓库事实
-  rubric.mjs        8 维 44 项检查
-  plan.mjs          gaps → P0/P1/P2 任务
-  styles.mjs        风格加载器（JSON + 自定义 + extends + 校验）
-  style-schema.mjs  风格 schema 与合并规则
-  readme.mjs        双语草稿、版式引擎、diff、apply 安全
-  brand.mjs         12 概念品牌引擎（12 文件 + 对比度 QA）
-  palette.mjs       色彩、对比度、设计 tokens
-  verify.mjs        链接/锚点/图片/章节/TODO
-  util.mjs          diff、slug、路径边界
-styles/             7 个内置风格 JSON + schema.json + 说明
-bin/tailor.mjs      CLI（和工具共用逻辑）
-bench/micro.mjs     纯逻辑基准
-docs/               SPEC / STYLES / DESIGN / ACCEPTANCE / EVIDENCE
-test/tailor.test.mjs 18 项离线测试
-```
-
-## 测试与 CI
-
-```sh
-npm test                # 18 项离线测试
-node bench/micro.mjs .  # 纯逻辑微基准
-node bin/tailor.mjs verify . --style=evidence
-```
-
-- 测试覆盖：风格注册与 JSON schema、自定义风格加载/extends/错误跳过、facts、audit 排序、plan、README 渲染/落盘安全、品牌确定性、坏链/坏图/坏锚点、宿主注册、CLI。
-- CI：`.github/workflows/test.yml`，Node 20/22/24 矩阵，跑 `npm test`、CLI smoke、`npm pack --dry-run`。
-
-<p align="center">
-  <img src="assets/actions.png" alt="GitHub Actions：Node 20/22/24 矩阵全部通过，19 秒" width="100%">
-</p>
-<p align="center"><sub>真实 CI：Node 20 / 22 / 24 三个 job 全绿，19 秒。</sub></p>
-
-## 已知限制
-
-- **分数衡量结构与证据是否存在，不衡量文笔**：100 分不代表 README 好读，最终判断仍要人做。
-- **草稿必须人工校对**：`TODO(tailor)` 是给你填的；`repo_verify` 会把剩余 TODO 作为 warn 报出来。
-- **只做 zh / en**，不做其他语言；不自动选风格；不自动 commit / push / 发布。
-- **不生成真实截图或图片**：`repo_brand` 只生成 SVG 几何和 tokens，demo GIF/截图需要用真实运行另外录。
-- **动效是 GIF 演示，不是可交互动画**：`mark-motion.gif` 只解释构造过程；README 无法响应 `prefers-reduced-motion`。
-- **品牌素材是几何 SVG，不是插画/摄影**：需要插画级视觉时仍要人或模型来画；`repo_brand` 保证的是概念选择、12 文件、明暗两套、对比度 QA、一致性和可重复生成。
-- **自定义风格写坏会被跳过**：`repo_styles` 会列出文件和原因；加载器不猜测、不自动修复。
-- **`collectFacts` 是主要耗时项**（git 子进程 + 文件遍历），纯判断逻辑可以忽略不计。
-- **SVG 字宽依赖系统字体**：Inter / Segoe UI / 微软雅黑，不同机器上文字宽度略有差异。
-- npm 包与插件包同名：插件用 `dsh-plugin-tailor`，CLI 命令是 `dsh-repo-tailor`（也可 `npx dsh-plugin-tailor`）；发布流程见 [PUBLISHING.md](PUBLISHING.md)。
-
-## 权限与安全边界
-
-| 动作 | 边界 |
-|---|---|
-| 读取 | 只读仓库内文件 + `git status/log/tag`；插件自身不联网 |
-| 写入（仅 `apply: true`） | `README.md` / `README.en.md` / `assets/*.svg` / `assets/README.md` / `.tailor/baseline.json` |
-| 拒绝 | 路径逃逸（`../`）、手写 README 未 `force`、已有素材未 `force`、worktree 脏且未 `force` |
-| 不做 | 不执行仓库脚本、不 `npm install`、不 commit / push / 发布、不调用图片模型 |
-| 依赖 | 只用 Node 标准库；无运行时依赖 |
-
-## FAQ
-
-**和“README 模板”有什么区别？**
-模板给结构；这里给 8 维审计、按风格生成、写保护、发布前校验。事实来自仓库，缺失就写 TODO，不编数字。
-
-**会覆盖我手写的 README 吗？**
-默认拒绝。只有带 `generated-by` 标记的文件才允许再生成；否则必须显式 `force`。
-
-**需要联网吗？**
-不需要。徽章图片是 GitHub 渲染时去 shields.io 加载的；插件本身不发请求。
-
-**支持哪些语言和风格？**
-`zh` / `en` 两种页面；7 种风格：`evidence`、`terminal`、`mobile`、`playful`、`product`、`platform`、`minimal`。旧命令里的 id 仍可用。
-
-**为什么 100 分还要人工看？**
-分数只衡量结构、证据、品牌是否存在，不衡量文笔和事实正确性；发布前仍要人读一遍。
-
-**npm 什么时候发？**
-已经发布：`dsh-plugin-tailor@0.5.0`（`latest` 指向当前版本）。
-
-## 路线图
-
-- [x] **v0.1** 8 维审计、P0–P2 规划、双语草稿、发布前校验
-- [x] **v0.2** 12 个原创图形概念、明暗两套品牌套件、brand-sheet
-- [x] **v0.3** 风格去仓库名、真实 CLI 截图、demo 重录
-- [x] **v0.4** 风格结构化（JSON + schema）、自定义风格、`extends`、`style:init`
-- [x] **v0.5** 视觉：12 文件品牌套件、对比度 QA、3 套版式引擎、44 项检查、构造动效
-- [ ] **v0.5** npm 0.5.0 发布 + `dsh-plugins` hub 收录
-- [ ] **v0.4** `--palette` 配色（暖色 / 高对比 / 单色 / 跟随品牌主色）
-- [ ] **v0.5** 同一仓库多风格并排预览（截图，不靠自引用）
-- [ ] **v0.5** 可选图像模型插画模式（PNG，不替代 SVG 几何）
-
-## 生态与收录
-
-- 装插件：[`dsh-plugin-resolver`](https://github.com/sakikoTGW/dsh-plugin-resolver)（用一条工具调用装对版本）
-- 索引：[`dsh-plugins`](https://github.com/sakikoTGW/dsh-plugins)（`catalog.json` 是唯一事实源）
-- 移动端适配：[`dsh-plugin-resolver-dshgo`](https://github.com/sakikoTGW/dsh-plugin-resolver-dshgo)
-- 收录状态：GitHub Release ✅ · npm ⏳ · hub catalog ⏳
-
-## 反馈与安全
-
-- 问题与建议：<https://github.com/sakikoTGW/dsh-plugin-tailor/issues>
-- 安全问题：请走 **Security → Advisories → Report a vulnerability**（私密报告，见 [SECURITY.md](SECURITY.md)）
-- 贡献指南：[CONTRIBUTING.md](CONTRIBUTING.md) · 发布流程：[PUBLISHING.md](PUBLISHING.md)
-
-## License
-
-[MIT](LICENSE)
-
-<p align="center">
-  <sub>Built for <a href="https://github.com/deepseek-ai/deepseek-harness">DeepSeek Harness</a> · 属于 <a href="https://github.com/sakikoTGW/dsh-plugins">dsh-plugins</a> 插件集 · <a href="#dsh-plugin-tailor">回到顶部 ↑</a></sub>
-</p>
-<p align="center">
-  <sub>如果它帮你省了时间，点个 ⭐ 让更多人看到。</sub>
-</p>
+<p align="center"><sub>Built for <a href="https://github.com/deepseek-ai/deepseek-harness">DeepSeek Harness</a> · MIT · <a href="#">回到顶部 ↑</a></sub></p>
