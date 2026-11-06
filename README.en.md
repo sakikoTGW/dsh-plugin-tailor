@@ -1,4 +1,4 @@
-<p align="center">
+﻿<p align="center">
   <img src="assets/hero-promo.png" alt="dsh-plugin-tailor — make your repository worth showing" width="100%">
 </p>
 
@@ -8,7 +8,7 @@
 
 <p align="center">
   <a href="https://www.npmjs.com/package/dsh-plugin-tailor"><img alt="npm" src="https://img.shields.io/npm/v/dsh-plugin-tailor?style=flat-square&color=7C5CFF&logo=npm&logoColor=white"></a>
-  <img alt="version" src="https://img.shields.io/badge/version-0.5.0-7C5CFF?style=flat-square">
+  <img alt="version" src="https://img.shields.io/badge/version-0.5.1-7C5CFF?style=flat-square">
   <img alt="tests" src="https://img.shields.io/badge/tests-18%2F18-2FBF71?style=flat-square">
   <img alt="rubric" src="https://img.shields.io/badge/rubric-44%20checks-2FBF71?style=flat-square">
   <a href="LICENSE"><img alt="MIT" src="https://img.shields.io/badge/license-MIT-263146?style=flat-square"></a>
@@ -118,3 +118,4 @@ From "it runs" to "ship it".
 [npm](https://www.npmjs.com/package/dsh-plugin-tailor) · [GitHub](https://github.com/sakikoTGW/dsh-plugin-tailor) · [Issues](https://github.com/sakikoTGW/dsh-plugin-tailor/issues) · [dsh-plugins](https://github.com/sakikoTGW/dsh-plugins)
 
 <p align="center"><sub>Built for <a href="https://github.com/deepseek-ai/deepseek-harness">DeepSeek Harness</a> · MIT · <a href="#">Back to top ↑</a></sub></p>
+

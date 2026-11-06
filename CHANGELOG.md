@@ -4,6 +4,10 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); version
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-11-07
+
+README rebuilt as an agent-first visual product page: centered hero promo, before/after visual, fixed sections, machine-readable contract. Self-bootstrapped with the same formula used on dsh-plugin-resolver.
+
 ## [0.5.0] - 2026-11-02
 
 Visual depth: brand engine v3, design tokens and contrast QA, three README layout engines, visual audit checks.
