@@ -20,7 +20,7 @@ How `dsh-plugin-tailor` is versioned, packed, released and listed.
 9. **GitHub Release**: create from the tag, paste the report body, attach the same assets used in the report. Do not use `--generate-notes` as the final body; edit it.
 10. **Market catalog**: bump `sakikoTGW/dsh-plugins` `catalog.json` entry to the new version, run `npm run render && npm run verify`, commit/push.
 11. **Verify install**: `dsh plugin --profile <profile> add dsh-plugin-tailor@<version>` in a throwaway profile, then `node bin/tailor.mjs audit .` from the installed package.
-12. **Smoke from npm**: `npx dsh-plugin-tailor@<version> styles` (or `npm i -g` then `dsh-repo-tailor styles`).
+12. **Smoke from npm**: `npm exec --yes --package=dsh-plugin-tailor@<version> -- dsh-repo-tailor styles` (or `npm i -g` then `dsh-repo-tailor styles`).
 
 ## Versioning rules
 
