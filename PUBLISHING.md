@@ -9,16 +9,18 @@ How `dsh-plugin-tailor` is versioned, packed, released and listed.
 
 ## Release checklist
 
-1. **Tests**: `npm test` → pass 18 / fail 0.
+1. **Tests**: `npm test` → pass 21 / fail 0.
 2. **Self-audit**: `node bin/tailor.mjs audit . --style=evidence` → score must not drop below `docs/EVIDENCE.md`.
 3. **Package contents**: `npm pack --dry-run` — check that `test/`, `.tmp/`, `.tailor/` are **not** in the tarball and that `docs/`, `assets/`, CLI are.
-4. **Version**: `npm version patch|minor|major` (updates `package.json`, commits and tags).
+4. **Version**: `npm version minor|major` (updates `package.json`, commits and tags).
 5. **CHANGELOG**: move `[Unreleased]` to the new version with a date.
-6. **Publish**: `npm publish --access public` (public, `publishConfig.registry = https://registry.npmjs.org/`).
-7. **GitHub Release**: create from the tag, paste the CHANGELOG section, attach nothing (source tarball is enough).
-8. **Market catalog**: bump `sakikoTGW/dsh-plugins` `catalog.json` entry to the new version, run `npm run render && npm run verify`, commit/push.
-9. **Verify install**: `dsh plugin --profile <profile> add dsh-plugin-tailor@<version>` in a throwaway profile, then `node bin/tailor.mjs audit .` from the installed package.
-10. **Smoke from npm**: `npx dsh-plugin-tailor@<version> styles` (or `npm i -g` then `dsh-repo-tailor styles`).
+6. **Release report**: copy `RELEASE_TEMPLATE.md` to `docs/releases/vX.Y.Z.md`. Capture **before** images from a `git worktree` at the previous tag before changing anything; capture after images from the release worktree. Fill the change→effect and version-diff tables.
+7. **Release assets**: commit `docs/releases/vX.Y.Z/*.png`, `agent-before.json`, `agent-after.json`, `evidence.txt`; do not reference uncommitted local files.
+8. **Publish**: `npm publish --access public` (public, `publishConfig.registry = https://registry.npmjs.org/`).
+9. **GitHub Release**: create from the tag, paste the report body, attach the same assets used in the report. Do not use `--generate-notes` as the final body; edit it.
+10. **Market catalog**: bump `sakikoTGW/dsh-plugins` `catalog.json` entry to the new version, run `npm run render && npm run verify`, commit/push.
+11. **Verify install**: `dsh plugin --profile <profile> add dsh-plugin-tailor@<version>` in a throwaway profile, then `node bin/tailor.mjs audit .` from the installed package.
+12. **Smoke from npm**: `npx dsh-plugin-tailor@<version> styles` (or `npm i -g` then `dsh-repo-tailor styles`).
 
 ## Versioning rules
 
@@ -35,5 +37,6 @@ How `dsh-plugin-tailor` is versioned, packed, released and listed.
 
 - [ ] `npm view dsh-plugin-tailor version` matches the tag.
 - [ ] GitHub Release exists and is not a draft.
+- [ ] Release report has change→effect, version diff, before/after images and assets.
 - [ ] hub catalog version matches.
 - [ ] `docs/EVIDENCE.md` updated with the new test count / score.
