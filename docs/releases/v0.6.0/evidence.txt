@@ -34,3 +34,7 @@ files (12):
 - llms.txt (1930 chars)
 - docs/architecture.html (1913 chars)
 - docs/evidence.html (2782 chars)
+
+$ npm view dsh-plugin-tailor version
+0.6.0
+latest: 0.6.0
