@@ -10,7 +10,7 @@ import { statSync } from 'node:fs'
 
 const LOGIC_DIR = new URL('../logic/', import.meta.url)
 
-const LOGIC_FILES = ['api.js', 'facts.mjs', 'rubric.mjs', 'plan.mjs', 'styles.mjs', 'style-schema.mjs', 'palette.mjs', 'readme.mjs', 'brand.mjs', 'verify.mjs', 'util.mjs']
+const LOGIC_FILES = ['api.js', 'facts.mjs', 'rubric.mjs', 'plan.mjs', 'styles.mjs', 'style-schema.mjs', 'palette.mjs', 'readme.mjs', 'brand.mjs', 'agent.mjs', 'docs.mjs', 'verify.mjs', 'util.mjs']
 
 const TOOL_TIMEOUT_MS = 60_000
 
@@ -164,6 +164,26 @@ export function registerTools(ctx, options) {
     },
     timeoutMs: TOOL_TIMEOUT_MS,
     execute: (args) => run('repoBrand', args),
+  })
+
+  add({
+    name: 'repo_agent',
+    description:
+      'Generate the agent layer for a repository: agent.json (contract scaffold inferred from package.json and host/register.js), llms.txt (agent index) and a styled docs site from docs/*.md. Semantic gaps stay as explicit open items. Dry-run by default; apply writes files and keeps hand-written ones unless force=true. Pass docs:false to skip the site.',
+    parameters: {
+      type: 'object',
+      additionalProperties: false,
+      properties: {
+        path: { type: 'string', description: 'Repository path.' },
+        style: { type: 'string', description: 'Style preset used for the docs palette.' },
+        apply: { type: 'boolean', description: 'Write agent.json, llms.txt and the docs site. Defaults to false (dry-run).' },
+        force: { type: 'boolean', description: 'Overwrite existing hand-written files.' },
+        docs: { type: 'boolean', description: 'Generate the docs site. Defaults to true.' },
+      },
+      required: ['path'],
+    },
+    timeoutMs: TOOL_TIMEOUT_MS,
+    execute: (args) => run('repoAgent', args),
   })
 
   add({

@@ -4,6 +4,7 @@
  */
 
 import { buildBrand, applyBrand, brandQA, CONCEPTS } from './brand.mjs'
+import { applyAgentBundle, buildAgentBundle } from './agent.mjs'
 import { collectFacts } from './facts.mjs'
 import { formatPlan, planWork } from './plan.mjs'
 import { applyReadme, previewReadme, renderBoth } from './readme.mjs'
@@ -249,6 +250,49 @@ export async function repoBrand(ctx, manager, options, args) {
   lines.push('')
   lines.push('apply: node bin/tailor.mjs brand . --style=' + style.id + ' --concept=<id> --apply')
   return { text: lines.join('\n') }
+}
+
+/**
+ * @param {any} ctx
+ * @param {any} manager
+ * @param {{ defaultStyle?: string }} options
+ * @param {{ path?: string, style?: string, apply?: boolean, force?: boolean, docs?: boolean }} args
+ */
+export async function repoAgent(ctx, manager, options, args) {
+  const path = args?.path ?? '.'
+  const styleId = args?.style ?? options.defaultStyle ?? DEFAULT_STYLE
+  const facts = collectFacts(path)
+  const registry = loadStyles(facts.root)
+  const style = resolveStyle(styleId, registry)
+  const docs = args?.docs !== false
+  const bundle = buildAgentBundle(facts, style, { docs })
+  const lines = []
+  if (args?.apply === true) {
+    const result = applyAgentBundle(facts.root, bundle, { force: args?.force === true })
+    lines.push(`repo_agent · ${facts.name} · style=${style.id} · apply=true`)
+    lines.push(`written: ${result.written.length > 0 ? result.written.join(', ') : '(none)'}`)
+    lines.push(`skipped: ${result.skipped.length > 0 ? result.skipped.join(', ') : '(none)'}`)
+    lines.push(`todos: ${result.todos.length}`)
+    for (const todo of result.todos) lines.push(`- ${todo}`)
+    return { text: lines.join('\n').trimEnd() }
+  }
+  lines.push(`repo_agent · ${facts.name} · style=${style.id} · dry-run (nothing written)`)
+  lines.push(`tools inferred: ${bundle.tools} · docs pages: ${bundle.pages}`)
+  lines.push('')
+  lines.push(`files (${bundle.files.length}):`)
+  for (const file of bundle.files) lines.push(`- ${file.path} (${file.content.length} chars)`)
+  if (bundle.warnings.length > 0) {
+    lines.push('')
+    for (const warning of bundle.warnings) lines.push(`warning: ${warning}`)
+  }
+  if (bundle.todos.length > 0) {
+    lines.push('')
+    lines.push(`todos (${bundle.todos.length}):`)
+    for (const todo of bundle.todos) lines.push(`- ${todo}`)
+  }
+  lines.push('')
+  lines.push('apply: node bin/tailor.mjs agent . --style=' + style.id + ' --apply')
+  return { text: lines.join('\n').trimEnd() }
 }
 
 /**

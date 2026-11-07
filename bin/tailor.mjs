@@ -11,14 +11,15 @@
  *   node bin/tailor.mjs plan   [path] [--style=id] [--limit=20]
  *   node bin/tailor.mjs readme [path] [--style=id] [--lang=zh|en|both] [--apply] [--force]
  *   node bin/tailor.mjs brand  [path] [--style=id] [--concept=id] [--apply] [--force]
+ *   node bin/tailor.mjs agent  [path] [--style=id] [--apply] [--force] [--docs=false]
  *   node bin/tailor.mjs verify [path] [--style=id]
  *   node bin/tailor.mjs style:init [path] --id=my-style [--extends=evidence] [--force]
  */
 
-import { repoAudit, repoBrand, repoPlan, repoReadme, repoStyles, repoVerify } from '../logic/api.js'
+import { repoAgent, repoAudit, repoBrand, repoPlan, repoReadme, repoStyles, repoVerify } from '../logic/api.js'
 import { scaffoldStyle } from '../logic/styles.mjs'
 
-const COMMANDS = new Set(['styles', 'audit', 'plan', 'readme', 'brand', 'verify', 'style:init'])
+const COMMANDS = new Set(['styles', 'audit', 'plan', 'readme', 'brand', 'agent', 'verify', 'style:init'])
 
 /**
  * @param {string[]} argv
@@ -32,7 +33,7 @@ function parseArgs(argv) {
   for (const token of rest) {
     if (token.startsWith('--')) {
       const [key, rawValue] = token.slice(2).split('=')
-      if (key === 'apply' || key === 'force' || key === 'json') options[key] = rawValue === undefined ? true : rawValue !== 'false'
+      if (key === 'apply' || key === 'force' || key === 'json' || key === 'docs') options[key] = rawValue === undefined ? true : rawValue !== 'false'
       else if (key === 'limit') options.limit = Number(rawValue)
       else options[key] = rawValue ?? true
     } else if (path === '.') {
@@ -67,6 +68,7 @@ async function main() {
     force: options.force === true,
     json: options.json === true,
     limit: Number.isFinite(options.limit) ? options.limit : undefined,
+    docs: options.docs !== false,
   }
   const ctx = null
   const manager = null
@@ -92,6 +94,7 @@ async function main() {
   else if (command === 'plan') result = await repoPlan(ctx, manager, pluginOptions, args)
   else if (command === 'readme') result = await repoReadme(ctx, manager, pluginOptions, args)
   else if (command === 'brand') result = await repoBrand(ctx, manager, pluginOptions, args)
+  else if (command === 'agent') result = await repoAgent(ctx, manager, pluginOptions, args)
   else result = await repoVerify(ctx, manager, pluginOptions, args)
 
   process.stdout.write(`${result.text}\n`)
@@ -105,6 +108,8 @@ function printHelp() {
   plan   [path] [--style=]  ordered tasks with acceptance criteria
   readme [path] [--style=] [--lang=zh|en|both] [--apply] [--force]
   brand  [path] [--style=] [--concept=needle|stitch|quill|arcs|orbit|prompt|bubble|radar|hexstack|monogram|spark|layers] [--apply] [--force]
+  agent  [path] [--style=] [--apply] [--force] [--docs=false]
+                              write agent.json, llms.txt and a docs site from docs/*.md
   verify [path] [--style=]  audit + link/anchor/image checks
   style:init [path] --id=my-style [--extends=evidence] [--force]
                               scaffold a custom style in <path>/.tailor/styles

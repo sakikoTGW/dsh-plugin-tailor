@@ -1,4 +1,4 @@
-﻿<p align="center">
+<p align="center">
   <img src="assets/hero-promo.png" alt="dsh-plugin-tailor — make your repository worth showing" width="100%">
 </p>
 
@@ -60,6 +60,7 @@ Audit this repository with dsh-plugin-tailor, rewrite the README and brand asset
 | Plan | `repo_plan` | P0/P1/P2 tasks with acceptance and verify command |
 | Brand | `repo_brand` | 12 deterministic SVGs + contrast QA |
 | README | `repo_readme` | bilingual draft, layout engine, diff, write protection |
+| Agent layer | `repo_agent` | `agent.json`, `llms.txt`, and a navigable static site from `docs/*.md` |
 | Verify | `repo_verify` | links, images, anchors, sections, TODO, PASS/FAIL |
 
 Writes default to dry-run; hand-written READMEs and existing assets stay untouched unless `force` is set.
@@ -80,6 +81,7 @@ Writes default to dry-run; hand-written READMEs and existing assets stay untouch
 | `repo_plan` | read | `path`, `style?`, `limit?` | P0/P1/P2 + acceptance + verify |
 | `repo_readme` | dry-run / write | `path`, `style?`, `lang?`, `apply?`, `force?` | diff, TODO, style gaps |
 | `repo_brand` | dry-run / write | `path`, `style?`, `concept?`, `apply?`, `force?` | 12 brand files |
+| `repo_agent` | dry-run / write | `path`, `style?`, `apply?`, `force?`, `docs?` | `agent.json`, `llms.txt`, docs site |
 | `repo_verify` | read | `path`, `style?` | PASS/FAIL, checks, remaining TODO |
 
 ## Features
@@ -89,24 +91,26 @@ Writes default to dry-run; hand-written READMEs and existing assets stay untouch
 - **12-file brand kit** — icon / maskable / light+dark logo / light+dark wordmark / light+dark banner / social / brand-sheet / tokens / index.
 - **Visual QA** — WCAG contrast on the palette, plus 14 brand and visual checks.
 - **Bilingual** — zh / en pages share one fact source.
+- **Agent layer** — `repo_agent` generates the contract scaffold, `llms.txt` and a docs site from `package.json` and `host/register.js`; semantic gaps stay explicit TODOs.
 - **Pre-publish verification** — broken links, images, anchors, missing sections and remaining TODO in one PASS/FAIL command.
 
 ## Validation
 
 ```sh
-npm test                                         # 18/18
+npm test                                         # 20/20
 node bin/tailor.mjs verify . --style=evidence    # PASS
 node bin/tailor.mjs audit . --style=evidence     # 100/100
+node bin/tailor.mjs agent . --style=product      # dry-run: agent.json, llms.txt, docs site
 ```
 
 ## Agent contract
 
 ```json
 {
-  "tools": ["repo_styles", "repo_audit", "repo_plan", "repo_readme", "repo_brand", "repo_verify"],
+  "tools": ["repo_styles", "repo_audit", "repo_plan", "repo_readme", "repo_brand", "repo_agent", "repo_verify"],
   "styles": "JSON presets with extends + schema validation",
-  "writes": ["README.md", "README.en.md", "assets/*.svg", "assets/README.md", ".tailor/baseline.json"],
-  "safety": "dry-run default; hand-written README and existing assets preserved unless force",
+  "writes": ["README.md", "README.en.md", "assets/*.svg", "assets/README.md", "agent.json", "llms.txt", "docs/*.html", ".tailor/baseline.json"],
+  "safety": "dry-run default; hand-written README, assets and agent files preserved unless force",
   "verify": "links, images, anchors, required sections, remaining TODO"
 }
 ```

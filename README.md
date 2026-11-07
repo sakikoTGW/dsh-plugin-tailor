@@ -1,4 +1,4 @@
-﻿<p align="center">
+<p align="center">
   <img src="assets/hero-promo.png" alt="dsh-plugin-tailor — make your repository worth showing" width="100%">
 </p>
 
@@ -60,6 +60,7 @@ git clone https://github.com/sakikoTGW/dsh-plugin-tailor
 | 规划 | `repo_plan` | P0/P1/P2 任务，每条带验收与 verify 命令 |
 | 品牌 | `repo_brand` | 12 个确定性 SVG + 对比度 QA |
 | README | `repo_readme` | 双语草稿、版式引擎、diff、写保护 |
+| Agent 层 | `repo_agent` | `agent.json`、`llms.txt`、`docs/*.md` 渲染成带导航的静态站点 |
 | 校验 | `repo_verify` | 链接、图片、锚点、章节、TODO、PASS/FAIL |
 
 写操作默认 dry-run；手写 README 与已有素材默认保留，`force` 才覆盖。
@@ -80,6 +81,7 @@ git clone https://github.com/sakikoTGW/dsh-plugin-tailor
 | `repo_plan` | 读 | `path`, `style?`, `limit?` | P0/P1/P2 + acceptance + verify |
 | `repo_readme` | dry-run / 写 | `path`, `style?`, `lang?`, `apply?`, `force?` | diff、TODO、风格缺口 |
 | `repo_brand` | dry-run / 写 | `path`, `style?`, `concept?`, `apply?`, `force?` | 12 个品牌文件 |
+| `repo_agent` | dry-run / 写 | `path`, `style?`, `apply?`, `force?`, `docs?` | `agent.json`、`llms.txt`、docs 站点 |
 | `repo_verify` | 读 | `path`, `style?` | PASS/FAIL、逐项检查、剩余 TODO |
 
 ## 能力（Features）
@@ -89,24 +91,26 @@ git clone https://github.com/sakikoTGW/dsh-plugin-tailor
 - **12 文件品牌套件** — icon / maskable / 明暗 logo / 明暗 wordmark / 明暗 banner / social / brand-sheet / tokens / 索引。
 - **视觉 QA** — 调色板 WCAG 对比度、14 项品牌与视觉检查。
 - **双语** — zh / en 结构对等，同一套事实源。
+- **Agent 层** — `repo_agent` 从 `package.json` 和 `host/register.js` 生成契约骨架、`llms.txt` 和 docs 站点；语义缺口留成显式 TODO，不编造。
 - **发布前校验** — 坏链、坏图、坏锚点、缺失章节、剩余 TODO，一条命令 PASS/FAIL。
 
 ## 验证
 
 ```sh
-npm test                                         # 18/18
+npm test                                         # 20/20
 node bin/tailor.mjs verify . --style=evidence    # PASS
 node bin/tailor.mjs audit . --style=evidence     # 100/100
+node bin/tailor.mjs agent . --style=product      # dry-run: agent.json, llms.txt, docs site
 ```
 
 ## Agent contract
 
 ```json
 {
-  "tools": ["repo_styles", "repo_audit", "repo_plan", "repo_readme", "repo_brand", "repo_verify"],
+  "tools": ["repo_styles", "repo_audit", "repo_plan", "repo_readme", "repo_brand", "repo_agent", "repo_verify"],
   "styles": "JSON presets with extends + schema validation",
-  "writes": ["README.md", "README.en.md", "assets/*.svg", "assets/README.md", ".tailor/baseline.json"],
-  "safety": "dry-run default; hand-written README and existing assets preserved unless force",
+  "writes": ["README.md", "README.en.md", "assets/*.svg", "assets/README.md", "agent.json", "llms.txt", "docs/*.html", ".tailor/baseline.json"],
+  "safety": "dry-run default; hand-written README, assets and agent files preserved unless force",
   "verify": "links, images, anchors, required sections, remaining TODO"
 }
 ```

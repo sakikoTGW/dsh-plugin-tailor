@@ -12,6 +12,8 @@ import { join } from 'node:path'
 import test from 'node:test'
 
 import { applyBrand, buildBrand, brandQA, CONCEPTS } from '../logic/brand.mjs'
+import { applyAgentBundle, buildAgentBundle } from '../logic/agent.mjs'
+import { renderMarkdown } from '../logic/docs.mjs'
 import { contrastChecks, contrastRatio, buildPaletteTokens } from '../logic/palette.mjs'
 import { collectFacts } from '../logic/facts.mjs'
 import { planWork } from '../logic/plan.mjs'
@@ -413,7 +415,7 @@ test('verify: generated draft leaves TODO warnings and a baseline delta', () => 
   }
 })
 
-test('host: registers six tools and runs repo_audit', async () => {
+test('host: registers seven tools and runs repo_audit', async () => {
   const dir = makeRepo('good')
   try {
     /** @type {any[]} */
@@ -424,13 +426,16 @@ test('host: registers six tools and runs repo_audit', async () => {
       effect: (fn) => fn(),
     }
     const disposers = registerTools(ctx, { defaultStyle: 'evidence' })
-    assert.equal(disposers.length, 6)
-    assert.deepEqual(defs.map((definition) => definition.name).sort(), ['repo_audit', 'repo_brand', 'repo_plan', 'repo_readme', 'repo_styles', 'repo_verify'])
+    assert.equal(disposers.length, 7)
+    assert.deepEqual(defs.map((definition) => definition.name).sort(), ['repo_agent', 'repo_audit', 'repo_brand', 'repo_plan', 'repo_readme', 'repo_styles', 'repo_verify'])
     const styles = await defs.find((definition) => definition.name === 'repo_styles').execute({})
     assert.match(styles.text, /7 presets/)
     const audit = await defs.find((definition) => definition.name === 'repo_audit').execute({ path: dir })
     assert.match(audit.text, /repo_audit · fixture-good/)
     assert.doesNotMatch(audit.text, /failed/)
+    const agentLayer = await defs.find((definition) => definition.name === 'repo_agent').execute({ path: dir })
+    assert.match(agentLayer.text, /repo_agent · fixture-good/)
+    assert.doesNotMatch(agentLayer.text, /failed/)
   } finally {
     rmSync(dir, { recursive: true, force: true })
   }
@@ -561,4 +566,81 @@ test('styles: --json output is machine readable', async () => {
   } finally {
     rmSync(dir, { recursive: true, force: true })
   }
+})
+
+test('agent: contract, llms and docs site are generated deterministically', () => {
+  const dir = makeRepo('good')
+  try {
+    mkdirSync(join(dir, 'docs'), { recursive: true })
+    writeFileSync(join(dir, 'docs', 'TOOLS.md'), `# Tools
+
+| Tool | What it does |
+|---|---|
+| \`fixture_search\` | Search |
+| \`fixture_install\` | Install |
+
+\`\`\`sh
+npm test
+\`\`\`
+`)
+    mkdirSync(join(dir, 'host'), { recursive: true })
+    writeFileSync(join(dir, 'host', 'register.js'), `export function registerTools(ctx) {
+  ctx.tools.register({
+    name: 'fixture_search',
+    description:
+      'Search the fixture catalog. Read-only.',
+    parameters: { type: 'object', properties: {} },
+    execute: () => ({}),
+  })
+  ctx.tools.register({
+    name: 'fixture_install',
+    description:
+      'Install a fixture package. Writes the profile.',
+    parameters: { type: 'object', properties: {} },
+    execute: () => ({}),
+  })
+}
+`)
+
+    const style = getStyle('product')
+    const bundle = buildAgentBundle(collectFacts(dir), style)
+    const contract = JSON.parse(bundle.files.find((file) => file.path === 'agent.json').content)
+    assert.equal(contract.name, 'fixture-good')
+    assert.deepEqual(contract.tools.map((tool) => tool.name), ['fixture_search', 'fixture_install'])
+    assert.match(contract.install.command, /dsh plugin --profile <profile> add fixture-good/)
+    assert.ok(bundle.files.some((file) => file.path === 'docs/index.html'))
+    assert.ok(bundle.files.some((file) => file.path === 'llms.txt'))
+
+    const toolsHtml = bundle.files.find((file) => file.path === 'docs/tools.html').content
+    assert.match(toolsHtml, /<table>/)
+    assert.match(toolsHtml, /fixture_search/)
+    assert.match(toolsHtml, /<pre><code>npm test<\/code><\/pre>/)
+
+    const applied = applyAgentBundle(dir, bundle)
+    assert.ok(applied.written.includes('agent.json'))
+    assert.ok(existsSync(join(dir, 'agent.json')))
+    assert.ok(existsSync(join(dir, 'docs', 'index.html')))
+    assert.ok(existsSync(join(dir, 'docs', 'tools.html')))
+
+    const again = applyAgentBundle(dir, buildAgentBundle(collectFacts(dir), style))
+    assert.equal(again.written.length, 0)
+    assert.ok(again.skipped.includes('agent.json'))
+    assert.ok(again.skipped.includes('docs/index.html'))
+
+    writeFileSync(join(dir, 'agent.json'), '{"hand":"written"}')
+    const protectedRun = applyAgentBundle(dir, buildAgentBundle(collectFacts(dir), style))
+    assert.ok(protectedRun.skipped.includes('agent.json'))
+    assert.equal(JSON.parse(readFileSync(join(dir, 'agent.json'), 'utf8')).hand, 'written')
+  } finally {
+    rmSync(dir, { recursive: true, force: true })
+  }
+})
+
+test('docs markdown: tables, code and inline styles', () => {
+  const html = renderMarkdown('# Title\n\n| A | B |\n|---|---|\n| 1 | `two` |\n\n```sh\nnpm test\n```\n\n[link](https://example.com)')
+  assert.match(html, /<h1 id="title">Title<\/h1>/)
+  assert.match(html, /<table><thead><tr><th>A<\/th><th>B<\/th><\/tr><\/thead>/)
+  assert.match(html, /<td>1<\/td><td><code>two<\/code><\/td>/)
+  assert.match(html, /<pre><code>npm test<\/code><\/pre>/)
+  assert.match(html, /<a href="https:\/\/example.com">link<\/a>/)
 })
