@@ -21,7 +21,7 @@ import { applyReadme, previewReadme, renderReadme, renderBoth } from '../logic/r
 import { auditFacts } from '../logic/rubric.mjs'
 import { loadStyles, getStyle, STYLES, styleIds, scaffoldStyle } from '../logic/styles.mjs'
 import { MARK_IDS } from '../logic/style-schema.mjs'
-import { repoStyles } from '../logic/api.js'
+import { repoBrief, repoStyles } from '../logic/api.js'
 import { verifyRepo } from '../logic/verify.mjs'
 import { registerTools } from '../host/register.js'
 
@@ -415,7 +415,7 @@ test('verify: generated draft leaves TODO warnings and a baseline delta', () => 
   }
 })
 
-test('host: registers seven tools and runs repo_audit', async () => {
+test('host: registers eight tools and runs repo_audit', async () => {
   const dir = makeRepo('good')
   try {
     /** @type {any[]} */
@@ -426,8 +426,8 @@ test('host: registers seven tools and runs repo_audit', async () => {
       effect: (fn) => fn(),
     }
     const disposers = registerTools(ctx, { defaultStyle: 'evidence' })
-    assert.equal(disposers.length, 7)
-    assert.deepEqual(defs.map((definition) => definition.name).sort(), ['repo_agent', 'repo_audit', 'repo_brand', 'repo_plan', 'repo_readme', 'repo_styles', 'repo_verify'])
+    assert.equal(disposers.length, 8)
+    assert.deepEqual(defs.map((definition) => definition.name).sort(), ['repo_agent', 'repo_audit', 'repo_brand', 'repo_brief', 'repo_plan', 'repo_readme', 'repo_styles', 'repo_verify'])
     const styles = await defs.find((definition) => definition.name === 'repo_styles').execute({})
     assert.match(styles.text, /7 presets/)
     const audit = await defs.find((definition) => definition.name === 'repo_audit').execute({ path: dir })
@@ -643,4 +643,41 @@ test('docs markdown: tables, code and inline styles', () => {
   assert.match(html, /<td>1<\/td><td><code>two<\/code><\/td>/)
   assert.match(html, /<pre><code>npm test<\/code><\/pre>/)
   assert.match(html, /<a href="https:\/\/example.com">link<\/a>/)
+})
+
+test('brief: drafts open questions, records answers and feeds the agent layer', async () => {
+  const dir = makeRepo('good')
+  try {
+    const draft = await repoBrief(null, null, {}, { path: dir, style: 'product', apply: true })
+    assert.match(draft.text, /open questions/)
+    const brief = JSON.parse(readFileSync(join(dir, '.tailor', 'brief.json'), 'utf8'))
+    assert.equal(brief.audience, '')
+    assert.ok(brief.openQuestions.length >= 3)
+    assert.ok(existsSync(join(dir, '.tailor', 'BRIEF.md')))
+
+    const answered = await repoBrief(null, null, {}, {
+      path: dir,
+      style: 'product',
+      apply: true,
+      audience: 'developers who ship DSH plugins',
+      voice: 'direct, dry',
+      nonGoals: ['not a marketplace', 'not a design system'],
+      acceptance: 'npm test passes',
+    })
+    assert.match(answered.text, /brief is ready/)
+    const updated = JSON.parse(readFileSync(join(dir, '.tailor', 'brief.json'), 'utf8'))
+    assert.equal(updated.audience, 'developers who ship DSH plugins')
+    assert.deepEqual(updated.nonGoals, ['not a marketplace', 'not a design system'])
+    assert.equal(updated.openQuestions.length, 0)
+
+    const bundle = buildAgentBundle(collectFacts(dir), getStyle('product'))
+    const contract = JSON.parse(bundle.files.find((file) => file.path === 'agent.json').content)
+    assert.equal(contract.brief, '.tailor/brief.json')
+    assert.equal(contract.humanDecisions.audience, 'developers who ship DSH plugins')
+    const llms = bundle.files.find((file) => file.path === 'llms.txt').content
+    assert.match(llms, /Human decisions/)
+    assert.match(llms, /direct, dry/)
+  } finally {
+    rmSync(dir, { recursive: true, force: true })
+  }
 })

@@ -58,6 +58,7 @@ Audit this repository with dsh-plugin-tailor, rewrite the README and brand asset
 |---|---|---|
 | Audit | `repo_audit` | 8 dimensions, 44 checks, 0–100 score, impact-ordered gaps |
 | Plan | `repo_plan` | P0/P1/P2 tasks with acceptance and verify command |
+| Brief | `repo_brief` | `.tailor/brief.json` + `BRIEF.md`: promise, audience, voice, non-goals, acceptance |
 | Brand | `repo_brand` | 12 deterministic SVGs + contrast QA |
 | README | `repo_readme` | bilingual draft, layout engine, diff, write protection |
 | Agent layer | `repo_agent` | `agent.json`, `llms.txt`, and a navigable static site from `docs/*.md` |
@@ -79,6 +80,7 @@ Writes default to dry-run; hand-written READMEs and existing assets stay untouch
 | `repo_styles` | read | `path?`, `json?` | builtin + custom styles, origins, validation errors |
 | `repo_audit` | read | `path`, `style?` | score, dimension detail, gaps |
 | `repo_plan` | read | `path`, `style?`, `limit?` | P0/P1/P2 + acceptance + verify |
+| `repo_brief` | dry-run / write | `path`, `style?`, `audience?`, `promise?`, `voice?`, `nonGoals?`, `acceptance?`, `apply?`, `force?` | brief.json, BRIEF.md, open questions |
 | `repo_readme` | dry-run / write | `path`, `style?`, `lang?`, `apply?`, `force?` | diff, TODO, style gaps |
 | `repo_brand` | dry-run / write | `path`, `style?`, `concept?`, `apply?`, `force?` | 12 brand files |
 | `repo_agent` | dry-run / write | `path`, `style?`, `apply?`, `force?`, `docs?` | `agent.json`, `llms.txt`, docs site |
@@ -91,15 +93,17 @@ Writes default to dry-run; hand-written READMEs and existing assets stay untouch
 - **12-file brand kit** — icon / maskable / light+dark logo / light+dark wordmark / light+dark banner / social / brand-sheet / tokens / index.
 - **Visual QA** — WCAG contrast on the palette, plus 14 brand and visual checks.
 - **Bilingual** — zh / en pages share one fact source.
+- **Human decisions kept separate** — `repo_brief` records promise, audience, voice, non-goals and acceptance in `.tailor/brief.json`; unanswered questions are not guessed by the agent.
 - **Agent layer** — `repo_agent` generates the contract scaffold, `llms.txt` and a docs site from `package.json` and `host/register.js`; semantic gaps stay explicit TODOs.
 - **Pre-publish verification** — broken links, images, anchors, missing sections and remaining TODO in one PASS/FAIL command.
 
 ## Validation
 
 ```sh
-npm test                                         # 20/20
+npm test                                         # 21/21
 node bin/tailor.mjs verify . --style=evidence    # PASS
 node bin/tailor.mjs audit . --style=evidence     # 100/100
+node bin/tailor.mjs brief . --style=product      # draft: open questions
 node bin/tailor.mjs agent . --style=product      # dry-run: agent.json, llms.txt, docs site
 ```
 
@@ -107,9 +111,9 @@ node bin/tailor.mjs agent . --style=product      # dry-run: agent.json, llms.txt
 
 ```json
 {
-  "tools": ["repo_styles", "repo_audit", "repo_plan", "repo_readme", "repo_brand", "repo_agent", "repo_verify"],
+  "tools": ["repo_styles", "repo_audit", "repo_plan", "repo_brief", "repo_readme", "repo_brand", "repo_agent", "repo_verify"],
   "styles": "JSON presets with extends + schema validation",
-  "writes": ["README.md", "README.en.md", "assets/*.svg", "assets/README.md", "agent.json", "llms.txt", "docs/*.html", ".tailor/baseline.json"],
+  "writes": ["README.md", "README.en.md", "assets/*.svg", "assets/README.md", ".tailor/brief.json", ".tailor/BRIEF.md", "agent.json", "llms.txt", "docs/*.html", ".tailor/baseline.json"],
   "safety": "dry-run default; hand-written README, assets and agent files preserved unless force",
   "verify": "links, images, anchors, required sections, remaining TODO"
 }

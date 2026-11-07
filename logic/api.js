@@ -5,6 +5,7 @@
 
 import { buildBrand, applyBrand, brandQA, CONCEPTS } from './brand.mjs'
 import { applyAgentBundle, buildAgentBundle } from './agent.mjs'
+import { applyBrief, draftBrief, mergeBrief, readBrief } from './brief.mjs'
 import { collectFacts } from './facts.mjs'
 import { formatPlan, planWork } from './plan.mjs'
 import { applyReadme, previewReadme, renderBoth } from './readme.mjs'
@@ -250,6 +251,55 @@ export async function repoBrand(ctx, manager, options, args) {
   lines.push('')
   lines.push('apply: node bin/tailor.mjs brand . --style=' + style.id + ' --concept=<id> --apply')
   return { text: lines.join('\n') }
+}
+
+/**
+ * @param {any} ctx
+ * @param {any} manager
+ * @param {{ defaultStyle?: string }} options
+ * @param {{ path?: string, style?: string, apply?: boolean, force?: boolean, audience?: string, promise?: string, voice?: string, nonGoals?: string[], acceptance?: string }} args
+ */
+export async function repoBrief(ctx, manager, options, args) {
+  const path = args?.path ?? '.'
+  const styleId = args?.style ?? options.defaultStyle ?? DEFAULT_STYLE
+  const facts = collectFacts(path)
+  const registry = loadStyles(facts.root)
+  const style = resolveStyle(styleId, registry)
+  const answers = {}
+  for (const key of ['audience', 'promise', 'voice', 'acceptance']) {
+    if (typeof args?.[key] === 'string' && args[key].trim() !== '') answers[key] = args[key]
+  }
+  if (Array.isArray(args?.nonGoals) && args.nonGoals.length > 0) answers.nonGoals = args.nonGoals
+  const hasAnswers = Object.keys(answers).length > 0
+  const existing = readBrief(facts.root)
+  const brief = existing
+    ? mergeBrief(existing, answers)
+    : draftBrief(facts, style, answers)
+  const lines = []
+  lines.push(`repo_brief · ${facts.name} · style=${style.id} · ${hasAnswers ? 'answers applied' : existing ? 'existing brief' : 'draft'}`)
+  lines.push(`promise: ${brief.promise || '(empty)'}`)
+  lines.push(`audience: ${brief.audience || '(open)'}`)
+  lines.push(`voice: ${brief.voice || '(open)'}`)
+  lines.push(`non-goals: ${brief.nonGoals.length > 0 ? brief.nonGoals.join(' · ') : '(open)'}`)
+  lines.push(`acceptance: ${brief.acceptance.test || '(open)'} · ${brief.acceptance.verify}`)
+  lines.push('')
+  if (brief.openQuestions.length > 0) {
+    lines.push(`open questions (${brief.openQuestions.length}):`)
+    for (const question of brief.openQuestions) lines.push(`- ${question}`)
+  } else {
+    lines.push('brief is ready: no open questions.')
+  }
+  if (args?.apply === true) {
+    const result = applyBrief(facts.root, brief, { force: args?.force === true || hasAnswers })
+    lines.push('')
+    lines.push(`written: ${result.written.length > 0 ? result.written.join(', ') : '(none)'}`)
+    lines.push(`skipped: ${result.skipped.length > 0 ? result.skipped.join(', ') : '(none)'}`)
+    for (const todo of result.todos) lines.push(`- ${todo}`)
+  } else {
+    lines.push('')
+    lines.push('apply: node bin/tailor.mjs brief . --apply')
+  }
+  return { text: lines.join('\n').trimEnd() }
 }
 
 /**

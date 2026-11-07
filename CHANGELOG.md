@@ -6,6 +6,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); version
 
 ### Added
 
+- `repo_brief`: record the human decisions for a repository in `.tailor/brief.json` and `.tailor/BRIEF.md` — promise, audience, voice, non-goals and acceptance. Unanswered fields stay as explicit open questions; `repo_agent` consumes the answers as `humanDecisions`.
 - `repo_agent`: generate the agent layer for a repository — `agent.json` contract scaffold, `llms.txt` index, and a styled static docs site from `docs/*.md`. Tool contracts are inferred from `host/register.js`; semantic gaps stay as explicit open items.
 - `logic/agent.mjs` and `logic/docs.mjs`: fact-driven contract/llms generation and a dependency-free Markdown-to-HTML site builder.
 - CLI: `node bin/tailor.mjs agent [path] --style=<id> [--apply] [--force] [--docs=false]`.

@@ -10,7 +10,7 @@ import { statSync } from 'node:fs'
 
 const LOGIC_DIR = new URL('../logic/', import.meta.url)
 
-const LOGIC_FILES = ['api.js', 'facts.mjs', 'rubric.mjs', 'plan.mjs', 'styles.mjs', 'style-schema.mjs', 'palette.mjs', 'readme.mjs', 'brand.mjs', 'agent.mjs', 'docs.mjs', 'verify.mjs', 'util.mjs']
+const LOGIC_FILES = ['api.js', 'facts.mjs', 'rubric.mjs', 'plan.mjs', 'styles.mjs', 'style-schema.mjs', 'palette.mjs', 'readme.mjs', 'brand.mjs', 'brief.mjs', 'agent.mjs', 'docs.mjs', 'verify.mjs', 'util.mjs']
 
 const TOOL_TIMEOUT_MS = 60_000
 
@@ -164,6 +164,30 @@ export function registerTools(ctx, options) {
     },
     timeoutMs: TOOL_TIMEOUT_MS,
     execute: (args) => run('repoBrand', args),
+  })
+
+  add({
+    name: 'repo_brief',
+    description:
+      'Draft or update the shared repository brief: promise, audience, voice, visual direction, non-goals and acceptance. Facts seed the draft; audience, voice and non-goals are left as open questions until a human answers. Writes .tailor/brief.json and .tailor/BRIEF.md on apply, and keeps human edits unless force=true. Read-only by default.',
+    parameters: {
+      type: 'object',
+      additionalProperties: false,
+      properties: {
+        path: { type: 'string', description: 'Repository path.' },
+        style: { type: 'string', description: 'Style preset for the visual direction.' },
+        apply: { type: 'boolean', description: 'Write the brief files. Defaults to false.' },
+        force: { type: 'boolean', description: 'Overwrite a hand-edited brief.' },
+        audience: { type: 'string', description: 'Answer: who is this repository for?' },
+        promise: { type: 'string', description: 'Answer: one sentence a stranger can repeat.' },
+        voice: { type: 'string', description: 'Answer: how should the README sound?' },
+        nonGoals: { type: 'array', items: { type: 'string' }, description: 'Answer: what should this repository not become?' },
+        acceptance: { type: 'string', description: 'Answer: what command or result proves it works?' },
+      },
+      required: ['path'],
+    },
+    timeoutMs: TOOL_TIMEOUT_MS,
+    execute: (args) => run('repoBrief', args),
   })
 
   add({

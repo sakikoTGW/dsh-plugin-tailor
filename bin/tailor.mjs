@@ -16,10 +16,10 @@
  *   node bin/tailor.mjs style:init [path] --id=my-style [--extends=evidence] [--force]
  */
 
-import { repoAgent, repoAudit, repoBrand, repoPlan, repoReadme, repoStyles, repoVerify } from '../logic/api.js'
+import { repoAgent, repoAudit, repoBrand, repoBrief, repoPlan, repoReadme, repoStyles, repoVerify } from '../logic/api.js'
 import { scaffoldStyle } from '../logic/styles.mjs'
 
-const COMMANDS = new Set(['styles', 'audit', 'plan', 'readme', 'brand', 'agent', 'verify', 'style:init'])
+const COMMANDS = new Set(['styles', 'audit', 'plan', 'readme', 'brand', 'brief', 'agent', 'verify', 'style:init'])
 
 /**
  * @param {string[]} argv
@@ -69,6 +69,11 @@ async function main() {
     json: options.json === true,
     limit: Number.isFinite(options.limit) ? options.limit : undefined,
     docs: options.docs !== false,
+    audience: typeof options.audience === 'string' ? options.audience : undefined,
+    promise: typeof options.promise === 'string' ? options.promise : undefined,
+    voice: typeof options.voice === 'string' ? options.voice : undefined,
+    nonGoals: typeof options['non-goals'] === 'string' ? options['non-goals'].split(',').map((item) => item.trim()).filter(Boolean) : undefined,
+    acceptance: typeof options.acceptance === 'string' ? options.acceptance : undefined,
   }
   const ctx = null
   const manager = null
@@ -94,6 +99,7 @@ async function main() {
   else if (command === 'plan') result = await repoPlan(ctx, manager, pluginOptions, args)
   else if (command === 'readme') result = await repoReadme(ctx, manager, pluginOptions, args)
   else if (command === 'brand') result = await repoBrand(ctx, manager, pluginOptions, args)
+  else if (command === 'brief') result = await repoBrief(ctx, manager, pluginOptions, args)
   else if (command === 'agent') result = await repoAgent(ctx, manager, pluginOptions, args)
   else result = await repoVerify(ctx, manager, pluginOptions, args)
 
@@ -108,6 +114,8 @@ function printHelp() {
   plan   [path] [--style=]  ordered tasks with acceptance criteria
   readme [path] [--style=] [--lang=zh|en|both] [--apply] [--force]
   brand  [path] [--style=] [--concept=needle|stitch|quill|arcs|orbit|prompt|bubble|radar|hexstack|monogram|spark|layers] [--apply] [--force]
+  brief  [path] [--style=] [--audience=] [--promise=] [--voice=] [--non-goals=a,b] [--acceptance=] [--apply] [--force]
+                              draft or update .tailor/brief.json + BRIEF.md
   agent  [path] [--style=] [--apply] [--force] [--docs=false]
                               write agent.json, llms.txt and a docs site from docs/*.md
   verify [path] [--style=]  audit + link/anchor/image checks

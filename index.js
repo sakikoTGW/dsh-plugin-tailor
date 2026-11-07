@@ -1,12 +1,13 @@
 /**
  * dsh-plugin-tailor — host half.
  *
- * Seven read-mostly tools that turn "make this repository look and read like a
+ * Eight read-mostly tools that turn "make this repository look and read like a
  * mature project" into an auditable pipeline:
  *
  * - `repo_styles`  list the README style presets and what each one copies
  * - `repo_audit`   score a repository across 8 maturity dimensions
  * - `repo_plan`    turn the gaps into an ordered task list with acceptance
+ * - `repo_brief`   record the human decisions: audience, voice, non-goals, acceptance
  * - `repo_readme`  draft a bilingual README for the chosen style, preview the diff
  * - `repo_brand`   generate deterministic logo / icon / banner / social SVGs
  * - `repo_agent`   generate agent.json, llms.txt and a docs site

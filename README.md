@@ -58,6 +58,7 @@ git clone https://github.com/sakikoTGW/dsh-plugin-tailor
 |---|---|---|
 | 审计 | `repo_audit` | 8 维 44 项、0–100 分、按影响排序的缺口 |
 | 规划 | `repo_plan` | P0/P1/P2 任务，每条带验收与 verify 命令 |
+| 简报 | `repo_brief` | `.tailor/brief.json` + `BRIEF.md`：承诺、受众、语气、非目标、验收 |
 | 品牌 | `repo_brand` | 12 个确定性 SVG + 对比度 QA |
 | README | `repo_readme` | 双语草稿、版式引擎、diff、写保护 |
 | Agent 层 | `repo_agent` | `agent.json`、`llms.txt`、`docs/*.md` 渲染成带导航的静态站点 |
@@ -79,6 +80,7 @@ git clone https://github.com/sakikoTGW/dsh-plugin-tailor
 | `repo_styles` | 读 | `path?`, `json?` | 内置 + 自定义风格、来源、校验错误 |
 | `repo_audit` | 读 | `path`, `style?` | 分数、维度明细、gaps |
 | `repo_plan` | 读 | `path`, `style?`, `limit?` | P0/P1/P2 + acceptance + verify |
+| `repo_brief` | dry-run / 写 | `path`, `style?`, `audience?`, `promise?`, `voice?`, `nonGoals?`, `acceptance?`, `apply?`, `force?` | brief.json、BRIEF.md、开放问题 |
 | `repo_readme` | dry-run / 写 | `path`, `style?`, `lang?`, `apply?`, `force?` | diff、TODO、风格缺口 |
 | `repo_brand` | dry-run / 写 | `path`, `style?`, `concept?`, `apply?`, `force?` | 12 个品牌文件 |
 | `repo_agent` | dry-run / 写 | `path`, `style?`, `apply?`, `force?`, `docs?` | `agent.json`、`llms.txt`、docs 站点 |
@@ -91,15 +93,17 @@ git clone https://github.com/sakikoTGW/dsh-plugin-tailor
 - **12 文件品牌套件** — icon / maskable / 明暗 logo / 明暗 wordmark / 明暗 banner / social / brand-sheet / tokens / 索引。
 - **视觉 QA** — 调色板 WCAG 对比度、14 项品牌与视觉检查。
 - **双语** — zh / en 结构对等，同一套事实源。
+- **人的决定单独存放** — `repo_brief` 把承诺、受众、语气、非目标和验收写进 `.tailor/brief.json`；没回答的问题不会被 agent 猜。
 - **Agent 层** — `repo_agent` 从 `package.json` 和 `host/register.js` 生成契约骨架、`llms.txt` 和 docs 站点；语义缺口留成显式 TODO，不编造。
 - **发布前校验** — 坏链、坏图、坏锚点、缺失章节、剩余 TODO，一条命令 PASS/FAIL。
 
 ## 验证
 
 ```sh
-npm test                                         # 20/20
+npm test                                         # 21/21
 node bin/tailor.mjs verify . --style=evidence    # PASS
 node bin/tailor.mjs audit . --style=evidence     # 100/100
+node bin/tailor.mjs brief . --style=product      # draft: open questions
 node bin/tailor.mjs agent . --style=product      # dry-run: agent.json, llms.txt, docs site
 ```
 
@@ -107,9 +111,9 @@ node bin/tailor.mjs agent . --style=product      # dry-run: agent.json, llms.txt
 
 ```json
 {
-  "tools": ["repo_styles", "repo_audit", "repo_plan", "repo_readme", "repo_brand", "repo_agent", "repo_verify"],
+  "tools": ["repo_styles", "repo_audit", "repo_plan", "repo_brief", "repo_readme", "repo_brand", "repo_agent", "repo_verify"],
   "styles": "JSON presets with extends + schema validation",
-  "writes": ["README.md", "README.en.md", "assets/*.svg", "assets/README.md", "agent.json", "llms.txt", "docs/*.html", ".tailor/baseline.json"],
+  "writes": ["README.md", "README.en.md", "assets/*.svg", "assets/README.md", ".tailor/brief.json", ".tailor/BRIEF.md", "agent.json", "llms.txt", "docs/*.html", ".tailor/baseline.json"],
   "safety": "dry-run default; hand-written README, assets and agent files preserved unless force",
   "verify": "links, images, anchors, required sections, remaining TODO"
 }
