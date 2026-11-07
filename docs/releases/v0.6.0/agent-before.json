@@ -1,0 +1,5 @@
+{
+  "version": "0.5.1",
+  "agentLayer": false,
+  "note": "v0.5.1 had no agent.json, llms.txt or docs site"
+}
